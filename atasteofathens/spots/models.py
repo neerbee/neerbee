@@ -1,5 +1,3 @@
-from django.db import models
-
 from mongoengine import *
 from mongoengine_extras.fields import AutoSlugField
 
@@ -73,6 +71,8 @@ class Spot(Document):
 
     ## alcohol?
     ## hours?
+    def __unicode__(self):
+        return self.name
 
 """
 class Rating(models.Model):
