@@ -107,13 +107,13 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
+    #'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
+    #'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'atasteofathens.spots',
@@ -156,4 +156,4 @@ LOGGING = {
 }
 
 LOGIN_REDIRECT_URL = '/spots/'
-
+#TEST_RUNNER = 'mongotesting.MongoTestRunner'
