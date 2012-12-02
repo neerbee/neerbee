@@ -13,6 +13,17 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+DATABASES = {
+            'default': {
+                        'ENGINE': 'django.db.backends.sqlite3', 
+                        'NAME': 'dev',                      
+                        'USER': '',                      
+                        'PASSWORD': '',                  
+                        'HOST': '',                      
+                        'PORT': '',                     
+            }
+}
+
 MONGO_DATABASE_NAME = 'neerbee'
 MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
@@ -118,6 +129,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'atasteofathens.spots',
     'atasteofathens.admin',
+    'mongonaut',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -156,4 +168,4 @@ LOGGING = {
 }
 
 LOGIN_REDIRECT_URL = '/spots/'
-#TEST_RUNNER = 'mongotesting.MongoTestRunner'
+TEST_RUNNER = 'mongotesting.MongoTestRunner'
