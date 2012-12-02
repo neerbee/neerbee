@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+<h1>User registration page</h1>
+
+{% block content %}
+
+{% if form.errors %}
+<p>{{ form.errors }}</p>
+{% endif %}
+
+{% comment %}
+<form method="post" action="{% url 'registration_register' %}">
+{% csrf_token %}
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.email.label_tag }}</td>
+    <td>{{ form.email }}</td>
+</tr>
+<tr>
+    <td>{{ form.password1.label_tag }}</td>
+    <td>{{ form.password1 }}</td>
+</tr>
+<tr>
+    <td>{{ form.password2.label_tag }}</td>
+    <td>{{ form.password2 }}</td>
+</tr>
+</table>
+
+<input type="submit" value="register" />
+<input type="hidden" name="next" value="{{ next }}" />
+{% endcomment %}
+
+<form method="post" action="{% url 'registration_register' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <input type="submit" value="{% trans 'Register' %}" />
+</form>
+
+{% endblock %}
+
