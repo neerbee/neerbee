@@ -1,5 +1,4 @@
 # Django settings for atasteofathens project.
-from mongoengine import *
 import os
 
 DEBUG = True
@@ -15,7 +14,10 @@ ADMINS = (
 MANAGERS = ADMINS
 
 MONGO_DATABASE_NAME = 'neerbee'
-connect(MONGO_DATABASE_NAME)
+MONGO_HOST = 'localhost'
+MONGO_PORT = 27017
+import mongoengine
+mongoengine.connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT)
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -154,3 +156,4 @@ LOGGING = {
 }
 
 LOGIN_REDIRECT_URL = '/spots/'
+
