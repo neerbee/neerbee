@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth import views as auth_views
+from atasteofathens.registration.forms import PasswordResetForm
 
 urlpatterns = patterns('',
     url(r'^login/$', 
@@ -18,14 +19,15 @@ urlpatterns = patterns('',
 	    name='auth_password_change_done'),
 	url(r'^password/reset/$',
 	    auth_views.password_reset,
+	    {'password_reset_form': PasswordResetForm},
 	    name='auth_password_reset'),
 	url(r'^password/reset/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$',
 	    auth_views.password_reset_confirm,
 	    name='auth_password_reset_confirm'),
 	url(r'^password/reset/complete/$',
-            auth_views.password_reset_complete,
-            name='auth_password_reset_complete'),
-       	url(r'^password/reset/done/$',
-            auth_views.password_reset_done,
-            name='auth_password_reset_done'),
+        auth_views.password_reset_complete,
+        name='auth_password_reset_complete'),
+    url(r'^password/reset/done/$',
+        auth_views.password_reset_done,
+        name='auth_password_reset_done'),
 )

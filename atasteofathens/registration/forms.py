@@ -5,12 +5,18 @@ Forms and validation code for user registration.
 
 
 from django import forms
+from django.template import loader
+from django.utils.http import int_to_base36
 from django.contrib.auth.forms import PasswordResetForm as AuthPRF
 from django.contrib.auth.hashers import UNUSABLE_PASSWORD
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.models import get_current_site
 from django.utils.translation import ugettext_lazy as _
 from mongoengine.django.auth import User
 
 from atasteofathens.registration.documents import RegistrationProfile
+
+import sha
 
 
 # I put this on all required fields, because it's easier to pick up
@@ -166,6 +172,7 @@ class PasswordResetForm(AuthPRF):
         """
         email = self.cleaned_data["email"]
         self.users_cache = User.objects(email__iexact=email, is_active=True)
+        print self.users_cache.count()
 
         if not len(self.users_cache):
             raise forms.ValidationError(self.error_messages['unknown'])
@@ -174,3 +181,46 @@ class PasswordResetForm(AuthPRF):
             raise forms.ValidationError(self.error_messages['unusable'])
 
         return email
+        
+    def save(self, domain_override=None,
+             subject_template_name='registration/password_reset_subject.txt',
+             email_template_name='registration/password_reset_email.html',
+             use_https=False, token_generator=default_token_generator,
+             from_email=None, request=None):
+        """
+        Generates a one-use only link for resetting password and sends to the
+        user.
+        """
+        # spaghetti code
+        email = self.cleaned_data["email"]
+        self.users_cache = User.objects(email__iexact=email, is_active=True)
+        # end spaghetti
+        from django.core.mail import send_mail
+        for user in self.users_cache:
+            # self.users_cache is empty here without the spaghetti
+            if not domain_override:
+                current_site = get_current_site(request)
+                site_name = current_site.name
+                domain = current_site.domain
+            else:
+                site_name = domain = domain_override
+            # spaghetti code
+            import random
+            salt = sha.new(str(random.random())).hexdigest()[:5]
+            reset_key = sha.new(salt + user.username).hexdigest()
+            # end spaghetti
+            c = {
+                'email': user.email,
+                'domain': domain,
+                'site_name': site_name,
+                #'uid': int_to_base36(user.pk),
+                'uid' : reset_key,
+                'user': user,
+                'token': token_generator.make_token(user),
+                'protocol': use_https and 'https' or 'http',
+            }
+            subject = loader.render_to_string(subject_template_name, c)
+            # Email subject *must not* contain newlines
+            subject = ''.join(subject.splitlines())
+            email = loader.render_to_string(email_template_name, c)
+            send_mail(subject, email, from_email, [user.email])
