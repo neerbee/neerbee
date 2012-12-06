@@ -129,7 +129,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'atasteofathens.spots',
     'atasteofathens.admin',
-    'mongonaut',
 )
 
 AUTHENTICATION_BACKENDS = (
