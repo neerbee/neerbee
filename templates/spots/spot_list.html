@@ -7,6 +7,7 @@
     <ul>
     {% for item in item_list %}
     <li>
+    	<a href="{% url 'atasteofathens.spots.views.spot_profile' item.slug %}">{{ item.name }}</a>
         <a href="/spots/{{ item.slug }}/">{{ item.name }}</a>
     </li>
     {% endfor %}

@@ -1,5 +1,4 @@
 from mongoengine import *
-from mongoengine_extras.fields import AutoSlugField
 
 class ServiceFood(EmbeddedDocument):
     category = StringField(max_length=100)
@@ -66,7 +65,7 @@ class Spot(Document):
     reservations = BooleanField()
     face_control = BooleanField()
 
-    slug = AutoSlugField(populate_from='name')
+    slug = StringField(max_length=255, required=True)
     
 
     ## alcohol?
