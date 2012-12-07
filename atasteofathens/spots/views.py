@@ -8,12 +8,12 @@ def index(request):
         return render(request, 'spots/user_profile.html', {'user': request.user})
     else:
         return render(request, 'spots/index.html')
-"""
+
 @login_required
 def users(request):
     user_list = User.objects.all()
     return render(request, 'spots/user_list.html', {'user_list': user_list})
-
+"""
 @login_required
 def user_profile(request, user_name):
     u = get_object_or_404(User, username=user_name)
