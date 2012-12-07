@@ -1,4 +1,5 @@
-from django.shortcuts import render, render_to_response, get_object_or_404
+#from django.shortcuts import render, render_to_response, get_object_or_404
+from coffin.shortcuts import render, render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from atasteofathens.spots.models import Spot
@@ -13,11 +14,13 @@ def index(request):
 def users(request):
     user_list = User.objects.all()
     return render(request, 'spots/user_list.html', {'user_list': user_list})
+
 """
 @login_required
 def user_profile(request, user_name):
     u = get_object_or_404(User, username=user_name)
     return render(request, 'spots/user_profile.html', {'user': u})
+
 
 @login_required
 def user_rate(request, user_name):
