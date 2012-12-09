@@ -35,6 +35,7 @@
           {% else %}
           <li><a href="spots/user/{{ user }}">{{ user }}</a></li>
           <li class="divider"></li>
+          <li><a href="{% url 'auth_password_change' %}">change password</a></li>
           <li><a href="{% url 'django.contrib.auth.views.logout' %}">logout</a></li>
           {% endif %}
         </ul>

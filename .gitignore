@@ -1,3 +1,7 @@
+*.gitignore~
+*.py~
+*.html~
+*.txt~
 *.pyc
 *.pyo
 *.pot
