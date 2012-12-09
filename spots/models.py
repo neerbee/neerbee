@@ -1,32 +1,48 @@
 from mongoengine import *
-from mongoengine_extras.fields import AutoSlugField
 
 class ServiceFood(EmbeddedDocument):
-    category = StringField(max_length=100)
+    category = StringField(max_length=100, required=True)
     delivery = BooleanField()
     take_out = BooleanField()
+    # hours
+
+    def __unicode__(self):
+        return "Food"
 
 class ServiceBar(EmbeddedDocument):
-    # happyhour?
-    best_nights = ListField(StringField(max_length=50))
-    good_for_dancing = BooleanField()
+    category = StringField(max_length=100, required=True)
+    # hours
 
-#class ServiceCoffee(EmbeddedDocument):
+    def __unicode__(self):
+        return "Bar"
 
-#class ServiceClub(EmbeddedDocument):
+class ServiceCoffee(EmbeddedDocument):
+    board_games = BooleanField()   
+    # hours
+
+    def __unicode__(self):
+        return "Coffee"
+
+class ServiceClub(EmbeddedDocument):
+    coat_check = BooleanField()
+    face_control = BooleanField()
+    # hours
+
+    def __unicode__(self):
+        return "Club"
 
 class Spot(Document):
     name = StringField(max_length=200, required=True)
-    address = StringField(max_length=200)
-    neighbourhood = StringField(max_length=200)
+    address = StringField(max_length=200, required=True)
+    neighbourhood = StringField(max_length=200, required=True)
     phone = StringField(max_length=20)
     website = StringField(max_length=200)
     location = GeoPointField()
     SERVICE_CHOICES = (
             ServiceFood,
             ServiceBar,
-            # ServiceCoffee,
-            # ServiceClub,
+            ServiceCoffee,
+            ServiceClub,
     )
     services = ListField(
                     GenericEmbeddedDocumentField(
@@ -41,36 +57,19 @@ class Spot(Document):
             (5, '$$$$$'),
     )
     price = IntField(choices=PRICE_RANGES)
-    music = ListField(StringField(max_length=50))
     wi_fi = BooleanField()
     credit_card = BooleanField()
     wheelchair = BooleanField()
     tv = BooleanField()
     smoking = BooleanField()
-    NOISE_RANGES = (
-            (1, 'low'),
-            (2, 'average'),
-            (3, 'high'),
-    )
-    noise_level = IntField(choices=NOISE_RANGES)
-    ATTIRE_RANGES = (
-            (1, 'casual'),
-            (2, 'smart'),
-            (3, 'formal'),
-    )
-    attire = IntField(choices=ATTIRE_RANGES)
-    waiter_service = BooleanField()
-    live_music = BooleanField()
-    group_friendly = BooleanField()
-    date_friendly = BooleanField()
+    self_service = BooleanField()
     reservations = BooleanField()
-    face_control = BooleanField()
+    snacks = BooleanField()
+    outdoor_seating = BooleanField()
+    parking = BooleanField()
 
-    slug = AutoSlugField(populate_from='name')
-    
+    slug = StringField(max_length=255, required=True)
 
-    ## alcohol?
-    ## hours?
     def __unicode__(self):
         return self.name
 
