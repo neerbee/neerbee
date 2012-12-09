@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+<h1>User registration page</h1>
+
+{% block content %}
+
+{% if form.errors %}
+<p>{{ form.errors }}</p>
+{% endif %}
+
+<form method="post" action="{% url 'registration_register' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <input type="submit" value="{% trans 'Register' %}" />
+</form>
+
+{% endblock %}
+
