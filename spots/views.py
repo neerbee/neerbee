@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from coffin.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from atasteofathens.spots.models import Spot
+from spots.models import Spot
 
 def index(request):
     if request.user.is_authenticated():
