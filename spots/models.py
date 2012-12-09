@@ -1,4 +1,5 @@
 from mongoengine import *
+from django.template.defaultfilters import slugify
 
 class ServiceFood(EmbeddedDocument):
     category = StringField(max_length=100, required=True)
@@ -72,6 +73,12 @@ class Spot(Document):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        # For automatic slug generation.
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+            return super(Spot, self).save(*args, **kwargs)
 
 """
 class Rating(models.Model):
