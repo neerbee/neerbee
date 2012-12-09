@@ -13,7 +13,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
+"""
 DATABASES = {
             'default': {
                         'ENGINE': 'django.db.backends.sqlite3', 
@@ -24,7 +24,7 @@ DATABASES = {
                         'PORT': '',                     
             }
 }
-
+"""
 MONGO_DATABASE_NAME = 'neerbee'
 #MONGO_HOST = 'localhost'
 #MONGO_PORT = 27017
