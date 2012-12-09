@@ -1,5 +1,5 @@
-from django.shortcuts import get_object_or_404
-from coffin.shortcuts import render
+from django.shortcuts import render
+from mongoengine.django.shortcuts import get_document_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from spots.models import Spot
@@ -17,14 +17,12 @@ def users(request):
 
 @login_required
 def user_profile(request, user_name):
-    u = get_object_or_404(User, username=user_name)
+    u = get_document_or_404(User, username=user_name)
     return render(request, 'spots/user_profile.html', {'user': u})
 
-"""
-@login_required
-def user_rate(request, user_name):
-    u = get_object_or_404(User, username=user_name)
-"""
+#@login_required
+#def user_rate(request, user_name):
+#    u = get_document_or_404(User, username=user_name)
     #all_items = Restaurant.objects.all()
 
    # user_ratings = [(i.restaurant, i.rating_value) for i in u.u_ratings.all()]
@@ -33,15 +31,14 @@ def user_rate(request, user_name):
 
     #user_ratings = user_ratings + no_rating
     #user_ratings.sort(key=lambda item: item[0].name)
-"""
-    return render(request, 'spots/user_rate.html', 
-                             {'user': u,
-                              'user_ratings': user_ratings})
-"""
+#    return render(request, 'spots/user_rate.html', 
+#                             {'user': u,
+#                              'user_ratings': user_ratings})
+
 def spots(request):
     spot_list = Spot.objects.all()
     return render(request, 'spots/spot_list.html', {'item_list': spot_list})
 
 def spot_profile(request, spot_slug):
-    r = get_object_or_404(Spot, slug=spot_slug)
+    s = get_document_or_404(Spot, slug=spot_slug)
     return render(request, 'spots/spot_profile.html', {'spot': s})

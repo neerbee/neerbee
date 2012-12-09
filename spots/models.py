@@ -29,8 +29,8 @@ class Spot(Document):
     SERVICE_CHOICES = (
             ServiceFood,
             ServiceBar,
-            # ServiceCoffee,
-            # ServiceClub,
+            ServiceCoffee,
+            ServiceClub,
     )
     services = ListField(
                     GenericEmbeddedDocumentField(

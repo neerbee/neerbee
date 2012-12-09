@@ -4,16 +4,15 @@
 
 {% block content %}
 <h3>{{ user.username }}</h3>
-{# jinja2 correctly dectects error
-{% if user.u_ratings.all() %}
+{% if user.u_ratings.all %}
   <p>These are your ratings so far:</p>
   <ul>
-  {% for item in user.u_ratings.all() %}
+  {% for item in user.u_ratings.all %}
     <li><b>{{ item.restaurant }}</b> rated <em>{{ item.rating_value }}</em></li>
   {% endfor %}
   </ul>
 {% else %}
-#}
   <p>{{ user.username }} hasn't rated anything yet :(</p>
-  {# {% endif %} #}
+   {% endif %} 
 {% endblock %}
+

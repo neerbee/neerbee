@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+<h3>{{ spot.name }}</h3>
+{{ spot.category }} | {{ spot.address }}, {{ spot.neighbourhood }}<br />
+<b>Phone:</b> {{ spot.phone }}<br />
+<b>Price:</b> {{ spot.get_price_display }}<br />
+<b>Good for Groups:</b> {{ spot.good_for_groups|yesno }}<br />
+<b>Takes Reservations:</b> {{ spot.takes_reservations|yesno }}<br />
+<b>Delivery:</b> {{ spot.delivery|yesno }}<br />
+<b>Take Out:</b> {{ spot.take_out|yesno }}<br />
+<b>Wi-Fi:</b> {{ spot.wi_fi|yesno }}<br />
+<b>Noise:</b> {{ spot.get_noise_level_display }}<br />
+<b>Wheelchair Accessible:</b> {{ spot.wheelchair|yesno }}
+{% endblock %}
