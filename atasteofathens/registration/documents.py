@@ -5,6 +5,7 @@ import sha
 
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.contrib.sites.models import Site
 from mongoengine import StringField
 from mongoengine.django.auth import User
 
@@ -159,7 +160,7 @@ class RegistrationProfile(User):
             message = render_to_string('registration/activation_email.txt',
                 {'activation_key': registration_profile.activation_key,
                     'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
-                    'site': settings.SITE})
+                    'site_name': 'neerbee.com', 'site_domain': 'www.neerbee.com'})
 
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
                 [registration_profile.email])

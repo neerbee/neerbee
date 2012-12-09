@@ -29,6 +29,7 @@ LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 SITE = 'www.neerbee.com'
+SITE_NAME = 'neerbee'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -128,11 +129,11 @@ AUTHENTICATION_BACKENDS = (
 
 SESSION_ENGINE = 'mongoengine.django.sessions'
 
-DEFAULT_FROM_EMAIL = 'hello@neerbee.com'
+DEFAULT_FROM_EMAIL = 'thalis@neerbee.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'hello@neerbee.com'
-EMAIL_HOST_PASSWORD = 'eimastegamatoi'
+EMAIL_HOST_USER = 'thalis@neerbee.com'
+EMAIL_HOST_PASSWORD = 'neerbee123'
 EMAIL_USE_TLS = True
 
 # A sample logging configuration. The only tangible logging

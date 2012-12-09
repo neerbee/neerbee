@@ -172,14 +172,16 @@ class PasswordResetForm(AuthPRF):
         """
         email = self.cleaned_data["email"]
         self.users_cache = User.objects(email__iexact=email, is_active=True)
-        print self.users_cache.count()
 
         if not len(self.users_cache):
+            raise forms.ValidationError(self.error_messages['unknown'])            
+        if not any(user.is_active for user in self.users_cache):
+            # none of the filtered users are active
             raise forms.ValidationError(self.error_messages['unknown'])
-
-        if self.users_cache.filter(password=UNUSABLE_PASSWORD).count():
+        if any((user.password == UNUSABLE_PASSWORD)
+               for user in self.users_cache):
             raise forms.ValidationError(self.error_messages['unusable'])
-
+            
         return email
         
     def save(self, domain_override=None,
@@ -191,30 +193,19 @@ class PasswordResetForm(AuthPRF):
         Generates a one-use only link for resetting password and sends to the
         user.
         """
-        # spaghetti code
-        email = self.cleaned_data["email"]
-        self.users_cache = User.objects(email__iexact=email, is_active=True)
-        # end spaghetti
         from django.core.mail import send_mail
         for user in self.users_cache:
-            # self.users_cache is empty here without the spaghetti
             if not domain_override:
                 current_site = get_current_site(request)
                 site_name = current_site.name
                 domain = current_site.domain
             else:
                 site_name = domain = domain_override
-            # spaghetti code
-            import random
-            salt = sha.new(str(random.random())).hexdigest()[:5]
-            reset_key = sha.new(salt + user.username).hexdigest()
-            # end spaghetti
             c = {
                 'email': user.email,
                 'domain': domain,
                 'site_name': site_name,
-                #'uid': int_to_base36(user.pk),
-                'uid' : reset_key,
+                'uid' : user.pk,
                 'user': user,
                 'token': token_generator.make_token(user),
                 'protocol': use_https and 'https' or 'http',
