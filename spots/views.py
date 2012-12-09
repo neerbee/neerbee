@@ -41,4 +41,5 @@ def spots(request):
 
 def spot_profile(request, spot_slug):
     s = get_document_or_404(Spot, slug=spot_slug)
+    
     return render(request, 'spots/spot_profile.html', {'spot': s})

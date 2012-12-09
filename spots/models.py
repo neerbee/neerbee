@@ -1,28 +1,40 @@
 from mongoengine import *
 
 class ServiceFood(EmbeddedDocument):
-    category = StringField(max_length=100)
+    category = StringField(max_length=100, required=True)
     delivery = BooleanField()
     take_out = BooleanField()
     # hours
 
+    def __unicode__(self):
+        return "Food"
+
 class ServiceBar(EmbeddedDocument):
-    category = StringField(max_length=100)
+    category = StringField(max_length=100, required=True)
     # hours
+
+    def __unicode__(self):
+        return "Bar"
 
 class ServiceCoffee(EmbeddedDocument):
     board_games = BooleanField()   
     # hours
+
+    def __unicode__(self):
+        return "Coffee"
 
 class ServiceClub(EmbeddedDocument):
     coat_check = BooleanField()
     face_control = BooleanField()
     # hours
 
+    def __unicode__(self):
+        return "Club"
+
 class Spot(Document):
     name = StringField(max_length=200, required=True)
-    address = StringField(max_length=200)
-    neighbourhood = StringField(max_length=200)
+    address = StringField(max_length=200, required=True)
+    neighbourhood = StringField(max_length=200, required=True)
     phone = StringField(max_length=20)
     website = StringField(max_length=200)
     location = GeoPointField()
