@@ -165,4 +165,3 @@ LOGGING = {
 }
 
 LOGIN_REDIRECT_URL = '/spots/'
-TEST_RUNNER = 'mongotesting.MongoTestRunner'
