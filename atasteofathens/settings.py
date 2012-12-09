@@ -124,11 +124,9 @@ INSTALLED_APPS = (
     #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
     'spots',
-    #'admin',
+    'tastypie',
+    'tastypie_mongoengine',
 )
 
 AUTHENTICATION_BACKENDS = (
