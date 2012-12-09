@@ -1,5 +1,6 @@
 # Django settings for atasteofathens project.
 import os
+from urlparse import urlparse
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -25,10 +26,13 @@ DATABASES = {
 }
 
 MONGO_DATABASE_NAME = 'neerbee'
-MONGO_HOST = 'localhost'
-MONGO_PORT = 27017
+#MONGO_HOST = 'localhost'
+#MONGO_PORT = 27017
 import mongoengine
-mongoengine.connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT)
+# use the following when deploying on heroku:
+#o = urlparse(os.environ['MONGOHQ_URL'])
+mongoengine.connect(MONGO_DATABASE_NAME, host=os.environ['MONGOHQ_URL'])
+#mongoengine.connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT)
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
