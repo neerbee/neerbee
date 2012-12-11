@@ -160,7 +160,7 @@ class RegistrationProfile(User):
             message = render_to_string('registration/activation_email.txt',
                 {'activation_key': registration_profile.activation_key,
                     'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
-                    'site_name': 'neerbee.com', 'site_domain': 'www.neerbee.com'})
+                    'site_name': settings.SITE_NAME, 'site_domain': settings.SITE})
 
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL,
                 [registration_profile.email])
