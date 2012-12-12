@@ -13,3 +13,4 @@ sqlite3.db
 *.sqlite
 local_settings.py
 *_OLD
+dump
