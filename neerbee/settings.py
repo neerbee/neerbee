@@ -134,6 +134,8 @@ INSTALLED_APPS = (
     'tastypie_mongoengine',
 )
 
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
+
 AUTHENTICATION_BACKENDS = (
     'mongoengine.django.auth.MongoEngineBackend',
 )
