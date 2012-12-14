@@ -45,7 +45,7 @@ LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 #SITE = 'www.neerbee.com'
-SITE = 'http://arcane-beyond-5457.herokuapp.com/'
+SITE = 'arcane-beyond-5457.herokuapp.com/'
 SITE_NAME = 'neerbee'
 
 # If you set this to False, Django will make some optimizations so as not
