@@ -1,1 +1,0 @@
-{ "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "neerbee.spot", "name" : "_id_" }, { "v" : 1, "key" : { "_types" : 1 }, "ns" : "neerbee.spot", "background" : false, "name" : "_types_1" }, { "v" : 1, "key" : { "location" : "2d" }, "ns" : "neerbee.spot", "background" : false, "name" : "location_2d" } ] }
