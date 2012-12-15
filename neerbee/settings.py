@@ -27,13 +27,13 @@ DATABASES = {
 }
 """
 
+MONGO_DATABASE_NAME = os.environ['MONGO_DATABASE_NAME']
 
 import mongoengine
 # use the following when deploying on heroku:
 if os.environ.get('MONGOHQ_URL'):
     mongoengine.connect(MONGO_DATABASE_NAME, host=os.environ['MONGOHQ_URL'])
 else:
-    MONGO_DATABASE_NAME = os.environ['MONGO_DATABASE_NAME']
     MONGO_HOST = os.environ['MONGO_HOST']
     MONGO_PORT = int(os.environ['MONGO_PORT'])
     mongoengine.connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT)
