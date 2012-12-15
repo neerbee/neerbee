@@ -14,7 +14,7 @@ from django.contrib.sites.models import get_current_site
 from django.utils.translation import ugettext_lazy as _
 from mongoengine.django.auth import User
 
-from registration.documents import RegistrationProfile
+from neerbee.registration.documents import RegistrationProfile
 
 import sha
 

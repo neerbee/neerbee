@@ -1,0 +1,20 @@
+# templates/blog/posts/index.html
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>My awesome blog</title>
+    </head>
+
+    <body>
+
+        {% for post in posts %}
+            <h1>{{ post.title }}</h1>
+            {{ post.content|linebreaks }}
+        {% endfor %}
+
+    </body>
+
+</html>

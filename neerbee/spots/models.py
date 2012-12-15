@@ -1,6 +1,12 @@
 from mongoengine import *
 from django.template.defaultfilters import slugify
 
+class Post(Document):
+    title = StringField(max_length=255)
+    content = StringField()
+    is_published = BooleanField()
+
+
 class ServiceFood(EmbeddedDocument):
     category = StringField(max_length=100, required=True)
     delivery = BooleanField()

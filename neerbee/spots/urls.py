@@ -1,11 +1,9 @@
 from django.conf.urls import patterns, include, url
-from spots.api import SpotResource
-
-spot_resource = SpotResource()
+#from spots.api import SpotResource
 
 urlpatterns = patterns(
-        'spots.views',
-        url(r'^api/', include(spot_resource.urls)),
+        'neerbee.spots.views',
+#        url(r'^api/', include(spot_resource.urls)),
         url(r'^$', 'spots', name="spots"),
         url(r'^users/$', 'users'),
         #url(r'^user/(?P<user_name>\S+)/rate/$', 'user_rate'),

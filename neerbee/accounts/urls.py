@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth import views as auth_views
-from accounts import views as accounts_views
-from registration.forms import PasswordResetForm
+from neerbee.accounts import views as accounts_views
+from neerbee.registration.forms import PasswordResetForm
 
 urlpatterns = patterns('',
     url(r'^login/$', 

@@ -23,7 +23,7 @@ various steps of the user-signup process.
 from django.conf.urls.defaults import patterns, url
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth import views as auth_views
-from registration.views import activate, register
+from neerbee.registration.views import activate, register
 
 
 """

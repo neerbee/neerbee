@@ -1,0 +1,17 @@
+# templates/blog/posts/show.html
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>My awesome blog</title>
+    <head>
+
+    <body>
+        <h1>{{ post.title }}</h1>
+        {{ post.content|linebreaks }}
+    </body>
+
+</html>
+

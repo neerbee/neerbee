@@ -10,8 +10,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from registration.documents import RegistrationProfile
-from registration.forms import RegistrationForm
+from neerbee.registration.documents import RegistrationProfile
+from neerbee.registration.forms import RegistrationForm
 
 
 def activate(request, activation_key,
