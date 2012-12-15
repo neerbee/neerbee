@@ -13,6 +13,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+
 """
 DATABASES = {
             'default': {
@@ -25,13 +26,17 @@ DATABASES = {
             }
 }
 """
-MONGO_DATABASE_NAME = 'neerbee'
-#MONGO_HOST = 'localhost'
-#MONGO_PORT = 27017
+
+MONGO_DATABASE_NAME = os.environ['MONGO_DATABASE_NAME']
+MONGO_HOST = os.environ['MONGO_HOST']
+MONGO_PORT = int(os.environ['MONGO_PORT'])
+
 import mongoengine
 # use the following when deploying on heroku:
-mongoengine.connect(MONGO_DATABASE_NAME, host=os.environ['MONGOHQ_URL'])
-#mongoengine.connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT)
+if os.environ.get('MONGOHQ_URL'):
+    mongoengine.connect(MONGO_DATABASE_NAME, host=os.environ['MONGOHQ_URL'])
+else:
+    mongoengine.connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT)
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -45,7 +50,8 @@ LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 #SITE = 'www.neerbee.com'
-SITE = 'arcane-beyond-5457.herokuapp.com/'
+SITE = os.environ['SITE']
+#SITE = 'arcane-beyond-5457.herokuapp.com/'
 SITE_NAME = 'neerbee'
 
 # If you set this to False, Django will make some optimizations so as not
@@ -81,9 +87,6 @@ STATIC_URL = '/static/'
 # Additional locations of static files
 STATICFILES_DIRS = (
     "./media",
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
 )
 
 # List of finder classes that know how to find static files in
@@ -144,11 +147,17 @@ AUTHENTICATION_BACKENDS = (
 SESSION_ENGINE = 'mongoengine.django.sessions'
 
 DEFAULT_FORM_EMAIL = 'hello@neerbee.com'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'hello@neerbee.com'
-EMAIL_HOST_PASSWORD = 'kourada123'
-EMAIL_USE_TLS = True
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'hello@neerbee.com'
+#EMAIL_HOST_PASSWORD = 'kourada123'
+#EMAIL_USE_TLS = True
+
+EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_PORT = os.environ['EMAIL_PORT']
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
