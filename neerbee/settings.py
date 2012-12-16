@@ -30,7 +30,7 @@ DATABASES = {
 MONGO_DATABASE_NAME = os.environ['MONGO_DATABASE_NAME']
 
 import mongoengine
-# use the following when deploying on heroku:
+#use the following when deploying on heroku:
 if os.environ.get('MONGOHQ_URL'):
     mongoengine.connect(MONGO_DATABASE_NAME, host=os.environ['MONGOHQ_URL'])
 else:
@@ -146,7 +146,7 @@ AUTHENTICATION_BACKENDS = (
 
 SESSION_ENGINE = 'mongoengine.django.sessions'
 
-DEFAULT_FORM_EMAIL = 'hello@neerbee.com'
+#DEFAULT_FROM_EMAIL = 'hello@neerbee.com'
 #EMAIL_HOST = 'smtp.gmail.com'
 #EMAIL_PORT = 587
 #EMAIL_HOST_USER = 'hello@neerbee.com'
@@ -158,6 +158,7 @@ EMAIL_PORT = os.environ['EMAIL_PORT']
 EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
+DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -24,7 +24,7 @@ from django.conf.urls.defaults import patterns, url
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth import views as auth_views
 from neerbee.registration.views import activate, register
-
+from neerbee.registration.forms import RegistrationFormUniqueEmail
 
 """
 Activation keys get matched by \w+ instead of the more specific
@@ -35,9 +35,12 @@ confusing 404.
 urlpatterns = patterns('',
     url(r'^activate/(?P<activation_key>\w+)/$',
         activate,
+        {'template': 'registration/activate.html'},
         name='registration_activate'),
     url(r'^register/$',
         register,
+        {'form_class': RegistrationFormUniqueEmail,
+            'template': 'registration/registration_form.html'},
         name='registration_register'),
     url(r'^register/complete/$',
         direct_to_template,
