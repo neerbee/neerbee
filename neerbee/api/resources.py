@@ -2,18 +2,6 @@ from tastypie import authorization
 from tastypie_mongoengine import fields, resources
 from neerbee.spots.models import *
 
-class ServiceResource(resources.MongoEngineResource):
-    class Meta:
-        queryset = Service.objects.all()
-        allowed_methods = ('get')
-        authorization = authorization.Authorization()
-
-        polymorphic = {
-                'serviceFood': ServiceFoodResource,
-                'serviceBar': ServiceBarResource,
-                'serviceCoffee': ServiceCoffeeResource,
-                'serviceClub': ServiceClubResource
-        }
 
 class ServiceFoodResource(resources.MongoEngineResource):
     class Meta:
@@ -35,6 +23,18 @@ class ServiceClubResource(resources.MongoEngineResource):
         object_class = ServiceClub
         resource_name = 'serviceclub'
 
+class ServiceResource(resources.MongoEngineResource):
+    class Meta:
+        object_class = Service
+        allowed_methods = ('get')
+        authorization = authorization.Authorization()
+
+        polymorphic = {
+                'serviceFood': ServiceFoodResource,
+                'serviceBar': ServiceBarResource,
+                'serviceCoffee': ServiceCoffeeResource,
+                'serviceClub': ServiceClubResource
+        }
 
 class SpotResource(resources.MongoEngineResource):
     services = fields.EmbeddedListField(
