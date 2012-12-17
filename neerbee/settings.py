@@ -189,4 +189,4 @@ LOGGING = {
     }
 }
 
-LOGIN_REDIRECT_URL = '/spots/'
+LOGIN_REDIRECT_URL = '/'
