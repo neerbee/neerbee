@@ -11,7 +11,7 @@ v1_api.register(ServiceCoffeeResource())
 v1_api.register(ServiceClubResource())
 
 urlpatterns = patterns('',
-    url(r'^$', 'neerbee.spots.views.index'),
+    url(r'^$', 'neerbee.users.views.user_home'),
     url(r'^accounts/', include('neerbee.accounts.urls')),
     url(r'^accounts/', include('neerbee.registration.urls')),
     url(r'^api/', include(v1_api.urls)),
