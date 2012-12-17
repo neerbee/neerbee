@@ -1,7 +1,13 @@
 from mongoengine import *
 from django.template.defaultfilters import slugify
 
-class ServiceFood(EmbeddedDocument):
+class Service(EmbeddedDocument):
+    service_type = StringField(max_length=50, required=True)
+
+    def __unicode__(self):
+        return self.service_type
+
+class ServiceFood(Service):
     category = StringField(max_length=100, required=True)
     delivery = BooleanField()
     take_out = BooleanField()
@@ -10,27 +16,28 @@ class ServiceFood(EmbeddedDocument):
     def __unicode__(self):
         return "Food"
 
-class ServiceBar(EmbeddedDocument):
+class ServiceBar(Service):
     category = StringField(max_length=100, required=True)
     # hours
 
     def __unicode__(self):
         return "Bar"
 
-class ServiceCoffee(EmbeddedDocument):
+class ServiceCoffee(Service):
     board_games = BooleanField()   
     # hours
 
     def __unicode__(self):
         return "Coffee"
 
-class ServiceClub(EmbeddedDocument):
+class ServiceClub(Service):
     coat_check = BooleanField()
     face_control = BooleanField()
     # hours
 
     def __unicode__(self):
         return "Club"
+
 
 class Spot(Document):
     name = StringField(max_length=200, required=True)
@@ -46,9 +53,10 @@ class Spot(Document):
             ServiceClub,
     )
     services = ListField(
-                    GenericEmbeddedDocumentField(
-                        choices=SERVICE_CHOICES
-                    )
+                    EmbeddedDocumentField(Service)
+                   # GenericEmbeddedDocumentField(
+                   #     choices=SERVICE_CHOICES
+                   # )
                )
     PRICE_RANGES = (
             (1, '$'),

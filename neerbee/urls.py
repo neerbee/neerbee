@@ -4,11 +4,11 @@ from api.resources import *
 
 v1_api = Api(api_name='v1')
 v1_api.register(SpotResource())
-#v1_api.register(ServiceResource())
-#v1_api.register(ServiceFoodResource())
-#v1_api.register(ServiceBarResource())
-#v1_api.register(ServiceCoffeeResource())
-#v1_api.register(ServiceClubResource())
+v1_api.register(ServiceResource())
+v1_api.register(ServiceFoodResource())
+v1_api.register(ServiceBarResource())
+v1_api.register(ServiceCoffeeResource())
+v1_api.register(ServiceClubResource())
 
 urlpatterns = patterns('',
     url(r'^$', 'neerbee.spots.views.index'),
