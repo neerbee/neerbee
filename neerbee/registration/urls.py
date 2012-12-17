@@ -44,6 +44,6 @@ urlpatterns = patterns('',
         name='registration_register'),
     url(r'^register/complete/$',
         direct_to_template,
-        {'template': 'registration/registration_complete.html'},
+        {'template_name': 'registration/registration_complete.html'},
         name='registration_complete'),
 )
