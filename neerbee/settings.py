@@ -147,16 +147,7 @@ AUTHENTICATION_BACKENDS = (
 
 SESSION_ENGINE = 'mongoengine.django.sessions'
 
-<<<<<<< HEAD
-#DEFAULT_FROM_EMAIL = 'hello@neerbee.com'
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'hello@neerbee.com'
-#EMAIL_HOST_PASSWORD = 'kourada123'
-#EMAIL_USE_TLS = True
-=======
 DEFAULT_FORM_EMAIL = 'hello@neerbee.com'
->>>>>>> develop
 
 EMAIL_HOST = os.environ['EMAIL_HOST']
 EMAIL_PORT = os.environ['EMAIL_PORT']
