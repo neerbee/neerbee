@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load url from future %}
+<h1>user settings</h1>
+
+{% block content %}
+<h3>your account settings</h3>
+change your <a href="{% url 'auth_password_change' %}">password</a>
+{% endblock %}
