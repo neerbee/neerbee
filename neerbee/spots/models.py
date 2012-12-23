@@ -1,6 +1,6 @@
 from mongoengine import *
 from django.template.defaultfilters import slugify
-from neerbee.users.models import User
+from neerbee.users.models import Bee
 
 class Service(EmbeddedDocument):
     service_type = StringField(max_length=50, required=True)
@@ -75,7 +75,7 @@ class Spot(Document):
     outdoor_seating = BooleanField()
     parking = BooleanField()
 
-    author = ReferenceField(User)
+    author = ReferenceField(Bee)
 
     slug = StringField(max_length=255, required=True)
 

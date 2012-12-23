@@ -1,8 +1,8 @@
 from django.contrib.auth.models import AnonymousUser
-from neerbee.users.models import User
+from neerbee.users.models import Bee
 
-class MongoEngineBackend(object):
-    """Authenticate using MongoEngine and mongoengine.django.auth.user
+class BeeAuthBackend(object):
+    """Authenticate using MongoEngine and neerbee.user.models.Bee
     """
 
     supports_object_permissions = False
@@ -10,14 +10,14 @@ class MongoEngineBackend(object):
     supports_inactive_user = False
 
     def authenticate(self, username=None, password=None):
-        user = User.objects(username=username.lower()).first()
+        user = Bee.objects(username=username.lower()).first()
         if user:
             if password and user.check_password(password):
                 return user
         return None
 
     def get_user(self, user_id):
-        return User.objects.with_id(user_id)
+        return Bee.objects.with_id(user_id)
 
 
 def get_user(userid):
@@ -27,4 +27,4 @@ def get_user(userid):
     """
     if not userid:
         return AnonymousUser()
-    return MongoEngineBackend().get_user(userid) or AnonymousUser()
+    return BeeAuthBackend().get_user(userid) or AnonymousUser()
