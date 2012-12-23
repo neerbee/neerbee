@@ -12,7 +12,8 @@ from django.contrib.auth.hashers import UNUSABLE_PASSWORD
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import get_current_site
 from django.utils.translation import ugettext_lazy as _
-from mongoengine.django.auth import User
+#from mongoengine.django.auth import User
+from neerbee.users.models import User
 
 from neerbee.registration.documents import RegistrationProfile
 
