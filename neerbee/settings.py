@@ -141,7 +141,6 @@ INSTALLED_APPS = (
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 
 AUTHENTICATION_BACKENDS = (
-    #'mongoengine.django.auth.MongoEngineBackend',
     'neerbee.users.auth_backend.MongoEngineBackend',
 )
 
