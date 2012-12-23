@@ -10,3 +10,7 @@ def user_home(request):
     else:
         return render(request, 'index.html')
 
+@login_required
+def user_settings(request):
+    return render(request, 'users/settings.html', {'user': request.user})
+

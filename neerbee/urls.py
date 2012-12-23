@@ -15,5 +15,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('neerbee.accounts.urls')),
     url(r'^accounts/', include('neerbee.registration.urls')),
     url(r'^api/', include(v1_api.urls)),
+    url(r'^settings/', 'neerbee.users.views.user_settings',
+        name="user_settings"),
     url(r'^spots/', include('neerbee.spots.urls', namespace="spots")),
 )
