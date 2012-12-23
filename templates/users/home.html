@@ -6,15 +6,20 @@
 <h3>Hello {{ user.username }}</h3>
 <p>Well this is your home page. In the future here is where you are going to get your recommendations and stuff. Until then you gotta be patient mate.</p>
 <br />
-{% if user.u_ratings.all %}
-  <p>These are your ratings so far:</p>
-  <ul>
-  {% for item in user.u_ratings.all %}
-    <li><b>{{ item.restaurant }}</b> rated <em>{{ item.rating_value }}</em></li>
+{% if user.likes %}
+  <p>These are the spots you like:
+  {% for spot in user.likes %}
+  <a href="{% url 'spots:spot_profile' spot.slug %}">{{ spot.name }}</a>
   {% endfor %}
-  </ul>
-{% else %}
+  </p>
+{% endif %}
+{% if user.dislikes %}
+  <p>These are the spots you 're not crazy about:
+  {{ user.dislikes|join:", " }}
+  </p>
+{% endif %}
+{% if not user.likes and not user.dislikes %}
   <p>{{ user.username }} hasn't rated anything yet :(</p>
-   {% endif %} 
+{% endif %} 
 {% endblock %}
 

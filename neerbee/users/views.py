@@ -5,10 +5,10 @@ from django.contrib.auth.decorators import login_required
 from neerbee.users.models import User
 
 def user_home(request):
-    if request.user.is_authenticated():
-        return render(request, 'users/home.html', {'user': request.user})
-    else:
+    if not request.user.is_authenticated():
         return render(request, 'index.html')
+    else:
+        return render(request, 'users/home.html', {'user': request.user})
 
 @login_required
 def user_settings(request):
