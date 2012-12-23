@@ -25,8 +25,8 @@
         <a class="brand" href="/">neerbee</a>
         <ul class="nav pull-left">
           {% block navbar %}
-          <li><a href="/">Home</a></li>
-          <li><a href="{% url 'spots:spots'  %}">Spots</a></li>
+          <li><a href="/">home</a></li>
+          <li><a href="{% url 'spots:spots'  %}">spots</a></li>
           {% endblock %}
         </ul>
         <ul class="nav pull-right">
@@ -35,7 +35,7 @@
           {% else %}
           <li><a href="spots/user/{{ user.username }}">{{ user.username }}</a></li>
           <li class="divider"></li>
-          <li><a href="{% url 'auth_password_change' %}">change password</a></li>
+          <li><a href="{% url 'user_settings' %}">settings</a></li>
           <li><a href="{% url 'django.contrib.auth.views.logout' %}">logout</a></li>
           {% endif %}
         </ul>
