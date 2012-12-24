@@ -14,7 +14,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-"""
+
 DATABASES = {
             'default': {
                         'ENGINE': 'django.db.backends.sqlite3', 
@@ -25,7 +25,11 @@ DATABASES = {
                         'PORT': '',                     
             }
 }
-"""
+
+MONGO_DATABASES = {
+    # db_name, db_alias
+    'neerbee': 'default', 
+}
 
 MONGO_DATABASE_NAME = os.environ['MONGO_DATABASE_NAME']
 
@@ -133,11 +137,14 @@ INSTALLED_APPS = (
     #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'neerbee.accounts',
     'neerbee.spots',
     'neerbee.users',
     'neerbee.registration',
     'tastypie',
     'tastypie_mongoengine',
+    'neerbee.registration',
+    'mongotesting',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window

@@ -26,14 +26,14 @@ from django.conf import settings
 from django.core import mail
 from django.core import management
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from mongotesting import MongoTestCase
 from mongoengine.django.auth import User
 
-from registration import forms
-from registration.documents import RegistrationProfile
+from neerbee.registration import forms
+from neerbee.registration.documents import RegistrationProfile
 
 
-class RegistrationTestCase(TestCase):
+class RegistrationTestCase(MongoTestCase):
     """
     Base class for the test cases; this sets up two users -- one
     expired, one not -- which are used to exercise various parts of
@@ -93,8 +93,7 @@ class RegistrationModelTests(RegistrationTestCase):
         
         # The activation key must now be reset to the "already activated" constant.
         self.failUnlessEqual(
-            RegistrationProfile.objects.get(
-                user=self.sample_user).activation_key,
+            RegistrationProfile.objects.get(pk=self.sample_user.pk).activation_key,
             RegistrationProfile.ACTIVATED)
         
         # Activating an expired user returns False.
@@ -122,8 +121,8 @@ class RegistrationModelTests(RegistrationTestCase):
         self.failUnless(self.expired_user.activation_key_expired())
 
         # Activated user returns True.
-        RegistrationProfile.activate_user(self.sample_user.activation_key)
-        self.failUnless(self.sample_user.activation_key_expired())
+        activated_user = RegistrationProfile.activate_user(self.sample_user.activation_key)
+        self.failUnless(activated_user.activation_key_expired())
 
     def test_expired_user_deletion(self):
         """
