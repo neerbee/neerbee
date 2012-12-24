@@ -28,6 +28,7 @@ class MongoTestCase(TestCase):
 
         from mongoengine.connection import connect, disconnect, get_connection
         for db_name, db_alias in settings.MONGO_DATABASES.items():
+            db_name = 'test_%s' % db_name
             connection = get_connection(db_alias)
             connection.drop_database(db_name)
             disconnect(db_alias)
@@ -37,6 +38,7 @@ class MongoTestCase(TestCase):
     def _post_teardown(self):
         from mongoengine.connection import get_connection, disconnect
         for db_name, db_alias in settings.MONGO_DATABASES.items():
+            db_name = 'test_%s' % db_name
             connection = get_connection(db_alias)
             connection.drop_database(db_name)
             disconnect(db_alias)

@@ -143,7 +143,6 @@ INSTALLED_APPS = (
     'neerbee.registration',
     'tastypie',
     'tastypie_mongoengine',
-    'neerbee.registration',
     'mongotesting',
 )
 
