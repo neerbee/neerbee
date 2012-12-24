@@ -139,6 +139,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'neerbee.accounts',
     'neerbee.spots',
+    'neerbee.users',
+    'neerbee.registration',
     'tastypie',
     'tastypie_mongoengine',
     'neerbee.registration',
@@ -148,17 +150,13 @@ INSTALLED_APPS = (
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 
 AUTHENTICATION_BACKENDS = (
-    'mongoengine.django.auth.MongoEngineBackend',
+    #'mongoengine.django.auth.MongoEngineBackend',    
+    'neerbee.users.auth_backend.BeeAuthBackend',
 )
 
 SESSION_ENGINE = 'mongoengine.django.sessions'
 
-#DEFAULT_FROM_EMAIL = 'hello@neerbee.com'
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'hello@neerbee.com'
-#EMAIL_HOST_PASSWORD = 'kourada123'
-#EMAIL_USE_TLS = True
+DEFAULT_FORM_EMAIL = 'hello@neerbee.com'
 
 EMAIL_HOST = os.environ['EMAIL_HOST']
 EMAIL_PORT = os.environ['EMAIL_PORT']

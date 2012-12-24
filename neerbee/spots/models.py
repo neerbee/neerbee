@@ -54,9 +54,6 @@ class Spot(Document):
     )
     services = ListField(
                     EmbeddedDocumentField(Service)
-                   # GenericEmbeddedDocumentField(
-                   #     choices=SERVICE_CHOICES
-                   # )
                )
     PRICE_RANGES = (
             (1, '$'),
@@ -88,18 +85,3 @@ class Spot(Document):
             self.slug = slugify(self.name)[:50]
             return super(Spot, self).save(*args, **kwargs)
 
-"""
-class Rating(models.Model):
-    restaurant = models.ForeignKey(Restaurant, related_name='r_ratings')
-    user = models.ForeignKey(AuthUser, related_name='u_ratings')
-    RATING_RANGES = (
-            (0, 'bad'),
-            (1, 'OK'),
-            (2, 'good'),
-    )
-    rating_value = models.PositiveSmallIntegerField('Rating', choices=RATING_RANGES)
-    #rating_time = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return self.user.username + " has rated '" + self.restaurant.name + "'"
-"""
