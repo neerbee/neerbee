@@ -1,5 +1,5 @@
 from mongotesting import MongoTestCase
-from atasteofathens.spots.models import Spot
+from neerbee.spots.models import Spot
 
 class SpotModelTest(MongoTestCase):
     def test_creating_a_new_spot(self):
@@ -7,6 +7,7 @@ class SpotModelTest(MongoTestCase):
         spot = Spot()
         spot.name = "The Diner"
         spot.address = "25 Curtain Rd."
+        spot.neighbourhood = "Shoreditch"
 
         # check we can save it to the database
         spot.save()
@@ -17,6 +18,7 @@ class SpotModelTest(MongoTestCase):
         only_spot_in_database = all_spots_in_database[0]
         self.assertEquals(only_spot_in_database, spot)
 
-        # and check that it has saved its two attributes: name and address
-        self.assertEquals(only_spot_in_database.name, "The Diner")
+        # and check that it has saved its three attributes: name, address and neighbourhood
+        self.assertEquals(only_spot_in_database.name, spot.name)
         self.assertEquals(only_spot_in_database.address, spot.address)
+        self.assertEquals(only_spot_in_database.neighbourhood, spot.neighbourhood)
