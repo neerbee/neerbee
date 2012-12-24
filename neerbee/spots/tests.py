@@ -23,17 +23,9 @@ class SpotModelTest(SpotTestCase):
         self.assertEquals(only_spot_in_database, self.spot)
         
     # and check that it has saved its three attributes: name, address and neighbourhood
-    def test_name(self):
+    def test_basic_info(self):
         all_spots_in_database = Spot.objects.all()
         only_spot_in_database = all_spots_in_database[0]   
         self.assertEquals(only_spot_in_database.name, self.spot.name)
-        
-    def test_address(self):
-        all_spots_in_database = Spot.objects.all()
-        only_spot_in_database = all_spots_in_database[0]   
         self.assertEquals(only_spot_in_database.address, self.spot.address)
-        
-    def test_neighbourhood(self):
-        all_spots_in_database = Spot.objects.all()
-        only_spot_in_database = all_spots_in_database[0]   
         self.assertEquals(only_spot_in_database.neighbourhood, self.spot.neighbourhood)
