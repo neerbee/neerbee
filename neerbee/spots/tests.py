@@ -1,32 +1,39 @@
 from mongotesting import MongoTestCase
 from neerbee.spots.models import Spot
 
-class SpotModelTestCase(MongoTestCase):
+class SpotTestCase(MongoTestCase):
     def setUp(self):
         # start by creating a new Spot object with its "name" set
         self.spot = Spot()
-        spot.name = "The Diner"
-        spot.address = "25 Curtain Rd."
-        spot.neighbourhood = "Shoreditch"
+        self.spot.name = "The Diner"
+        self.spot.address = "25 Curtain Rd."
+        self.spot.neighbourhood = "Shoreditch"
         # save it to the database
-        spot.save()
+        self.spot.save()
         
-class SpotModelTest(SpotModelTestCase):
+class SpotModelTest(SpotTestCase):
     def test_spot_created(self):
         # now check we can find in in the database again
         all_spots_in_database = Spot.objects.all()
         self.assertEquals(len(all_spots_in_database), 1)
         
     def test_spot_retrieved(self):
+        all_spots_in_database = Spot.objects.all()
         only_spot_in_database = all_spots_in_database[0]
-        self.assertEquals(only_spot_in_database, spot)
+        self.assertEquals(only_spot_in_database, self.spot)
         
     # and check that it has saved its three attributes: name, address and neighbourhood
-    def test_name(self):   
-        self.assertEquals(only_spot_in_database.name, spot.name)
+    def test_name(self):
+        all_spots_in_database = Spot.objects.all()
+        only_spot_in_database = all_spots_in_database[0]   
+        self.assertEquals(only_spot_in_database.name, self.spot.name)
         
     def test_address(self):
-        self.assertEquals(only_spot_in_database.address, spot.address)
+        all_spots_in_database = Spot.objects.all()
+        only_spot_in_database = all_spots_in_database[0]   
+        self.assertEquals(only_spot_in_database.address, self.spot.address)
         
     def test_neighbourhood(self):
-        self.assertEquals(only_spot_in_database.neighbourhood, spot.neighbourhood)
+        all_spots_in_database = Spot.objects.all()
+        only_spot_in_database = all_spots_in_database[0]   
+        self.assertEquals(only_spot_in_database.neighbourhood, self.spot.neighbourhood)
