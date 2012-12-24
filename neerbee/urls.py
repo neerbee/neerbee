@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.views.generic.simple import direct_to_template
 from tastypie.api import Api
 from api.resources import *
 
@@ -17,5 +18,6 @@ urlpatterns = patterns('',
     url(r'^api/', include(v1_api.urls)),
     url(r'^settings/', 'neerbee.users.views.user_settings',
         name="user_settings"),
+    url(r'^search/', direct_to_template, {'template': 'search.html'}),
     url(r'^spots/', include('neerbee.spots.urls', namespace="spots")),
 )
