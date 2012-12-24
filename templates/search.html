@@ -1,0 +1,59 @@
+{% load url from future %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>neerbee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/neerbee.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="span12">
+          <div id="neerbee-search">
+            Search for venues to rate.
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- /container -->
+
+    <script type="text/x-mustache-template" id="index-template">
+      <div class="results">
+      </div>
+      <p>{{ count }} results.</p>
+    </script>
+
+    <script type="text/x-mustache-template" id="index-form-template">
+      <div class="input-prepend">
+        <span class="add-on"><i class="icon-search"></i></span><input id="input-search-query" class="span4" type="text" placeholder="Search venues">
+      </div>
+    </script>
+
+    <script type="text/x-mustache-template" id="index-result-template">
+      {{ name }}
+    </script>
+
+    <script src="{{ STATIC_URL }}js/jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+    <script src="{{ STATIC_URL }}js/underscore.js"></script>
+    <script src="{{ STATIC_URL }}js/backbone.js"></script>
+    <script src="{{ STATIC_URL }}js/mustache.js"></script>
+    <script src="{{ STATIC_URL }}js/neerbee-search.js"></script>
+    <script>
+    $(function() { 
+      NeerbeeSearch.boot($('#neerbee-search')); 
+    });
+    </script>
+  </body>
+</html>
