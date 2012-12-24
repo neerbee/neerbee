@@ -4,8 +4,8 @@ from django.template.defaultfilters import slugify
 class Service(EmbeddedDocument):
     service_type = StringField(max_length=50, required=True)
     
-    def __init__(self, type=''):
-        self.service_type = type
+    '''def __init__(self, type=''):
+        self.service_type = type'''
     
     def __unicode__(self):
         return self.service_type
@@ -16,8 +16,8 @@ class ServiceFood(Service):
     take_out = BooleanField()
     # hours
     
-    def __init__(self):
-        super(ServiceFood, self).__init__("food")
+    '''def __init__(self):
+        super(ServiceFood, self).__init__("food")'''
 
     def __unicode__(self):
         return "Food"
@@ -26,8 +26,8 @@ class ServiceBar(Service):
     category = StringField(max_length=100, required=True)
     # hours
     
-    def __init__(self):
-        super(ServiceBar, self).__init__("bar")
+    '''def __init__(self):
+        super(ServiceBar, self).__init__("bar")'''
         
     def __unicode__(self):
         return "Bar"
@@ -36,8 +36,8 @@ class ServiceCoffee(Service):
     board_games = BooleanField()   
     # hours
     
-    def __init__(self):
-        super(ServiceCoffee, self).__init__("coffee")
+    '''def __init__(self):
+        super(ServiceCoffee, self).__init__("coffee")'''
 
     def __unicode__(self):
         return "Coffee"
@@ -47,8 +47,8 @@ class ServiceClub(Service):
     face_control = BooleanField()
     # hours
     
-    def __init__(self):
-        super(ServiceClub, self).__init__("club")
+    '''def __init__(self):
+        super(ServiceClub, self).__init__("club")'''
 
     def __unicode__(self):
         return "Club"
