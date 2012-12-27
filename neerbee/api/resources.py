@@ -72,15 +72,15 @@ class SpotResource(resources.MongoEngineResource):
         except InvalidPage:
             raise Http404("Sorry, no results on that page.")
 
-        objects = []
+        models = []
 
         for result in page.object_list:
             bundle = self.build_bundle(obj=result, request=request)
             bundle = self.full_dehydrate(bundle)
-            objects.append(bundle)
+            models.append(bundle)
 
         object_list = {
-                'objects': objects,
+                'models': models,
         }
 
         self.log_throttled_access(request)
