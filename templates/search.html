@@ -20,29 +20,23 @@
 
       <div class="row">
         <div class="span12">
-          <div id="neerbee-search">
-            Search for venues to rate.
+
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span><input autocomplete="off" id="input-search-query" type="text" placeholder="Search venues" />
           </div>
+
+          <div id="neerbee-search">
+            No results.
+          </div>
+
         </div>
       </div>
 
     </div> <!-- /container -->
 
-    <script type="text/x-mustache-template" id="index-template">
-      <div class="results">
-      </div>
-      <p>{{ count }} results.</p>
-    </script>
-
-    <script type="text/x-mustache-template" id="index-form-template">
-      <div class="input-prepend">
-        <span class="add-on"><i class="icon-search"></i></span><input id="input-search-query" class="span4" type="text" placeholder="Search venues">
-      </div>
-    </script>
-
-    <script type="text/x-mustache-template" id="index-result-template">
-      {{ name }}
-    </script>
+  <script type="text/x-mustache-template" id="result-template">
+  <a href="/spots/{% templatetag openvariable %} slug {% templatetag closevariable %}/"><strong>{% templatetag openbrace %}{% templatetag openvariable %} name {% templatetag closevariable %}{% templatetag closebrace %}</strong> <span class="muted">{% templatetag openvariable %} address {% templatetag closevariable %} {% templatetag openvariable %} neighbourhood {% templatetag closevariable %}</span></a>
+  </script>
 
     <script src="{{ STATIC_URL }}js/jquery.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
@@ -50,10 +44,7 @@
     <script src="{{ STATIC_URL }}js/backbone.js"></script>
     <script src="{{ STATIC_URL }}js/mustache.js"></script>
     <script src="{{ STATIC_URL }}js/neerbee-search.js"></script>
-    <script>
-    $(function() { 
-      NeerbeeSearch.boot($('#neerbee-search')); 
-    });
-    </script>
+    <script>$(function() { Neerbee.boot($('#neerbee-search')); });</script>
+
   </body>
 </html>
