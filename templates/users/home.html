@@ -4,7 +4,18 @@
 
 {% block content %}
 <h3>Hello {{ user.username }}</h3>
-<p>Well this is your home page. In the future here is where you are going to get your recommendations and stuff. Until then you gotta be patient mate.</p>
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <div class="input-prepend">
+	<span class="add-on"><i class="icon-search"></i></span><input autocomplete="off" id="input-search-query" type="text" placeholder="Find a spot"/>
+      </div>
+      <div id="neerbee-search">
+	No results.
+      </div>
+    </div>
+  </div>
+</div> <!-- /container -->
 <br />
 {% if user.likes %}
   <p>These are the spots you like:
@@ -21,5 +32,9 @@
 {% if not user.likes and not user.dislikes %}
   <p>{{ user.username }} hasn't rated anything yet :(</p>
 {% endif %} 
+
+<script type="text/x-mustache-template" id="result-template">
+<a href="/spots/{% templatetag openvariable %} slug {% templatetag closevariable %}/"><strong>{% templatetag openbrace %}{% templatetag openvariable %} name {% templatetag closevariable %}{% templatetag closebrace %}</strong> <span class="muted">{% templatetag openvariable %} address {% templatetag closevariable %} {% templatetag openvariable %} neighbourhood {% templatetag closevariable %}</span></a>
+</script>
 {% endblock %}
 
