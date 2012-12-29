@@ -14,17 +14,18 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-
-DATABASES = {
-            'default': {
-                        'ENGINE': 'django.db.backends.sqlite3', 
-                        'NAME': 'dev',                      
-                        'USER': '',                      
-                        'PASSWORD': '',                  
-                        'HOST': '',                      
-                        'PORT': '',                     
-            }
-}
+# use sqlite only if on dev machine
+if not os.environ.get('MONGOHQ_URL'):
+    DATABASES = {
+                'default': {
+                            'ENGINE': 'django.db.backends.sqlite3', 
+                            'NAME': 'dev',                      
+                            'USER': '',                      
+                            'PASSWORD': '',                  
+                            'HOST': '',                      
+                            'PORT': '',                     
+                }
+    } 
 
 MONGO_DATABASES = {
     # db_name, db_alias
