@@ -40,24 +40,34 @@ $(function() {
 			this.results.on('all', this.showResults, this);
 		},
 		render: function() {
-
 			var resultsView = new Neerbee.Search.Results({ collection: this.results });
-
+			var thisElement = this.$el;
 			$("#input-search-query").keyup(function() {
-				resultsView.results().fetch({data:{"q":$("#input-search-query").val()}});
+				if (jQuery.trim($("#input-search-query").val()) != '') {
+					$('#loading-image').remove();
+					thisElement.prepend('<img id="loading-image" src="/static/img/loading.gif" />');
+					resultsView.results().fetch({
+						data:{"q":jQuery.trim($("#input-search-query").val())},
+						error: function () {
+							$('#loading-image').remove();
+							//alert('Connection error. Maybe you are disconnected.');
+						}
+					});
+				}
+				else {
+					$(".results-list").empty();
+				}
 			});
-
 			this.$el.append(resultsView.render().el);
 			return this;
-
 		},
 		showResults: function() {
-
 			var resultsView = new Neerbee.Search.Results({ collection: this.results });
-
 			this.$el.empty();
 			this.$el.append(resultsView.render().el);
-
+		},
+		count: function() {
+			return this.results.models[0].attributes.models.length;
 		}
 	});
 
@@ -65,12 +75,13 @@ $(function() {
 		tagName: 'ul',
 		className: 'nav nav-tabs nav-stacked results-list',
 		render: function() {
-			for (var i = 0; i < this.collection.length; i++) {
-				var thisModel = this.collection.models[i];
-				if (thisModel.attributes.models[0]) {
+			if (this.collection.models.length > 0) {
+				var thisCollection = this.collection.models[0].attributes.models;
+				for (var i = 0; i < thisCollection.length; i++) {
+					var thisModel = thisCollection[i];
 					this.renderItem(thisModel);
 				}
-			};
+			}
 			return this;
 		},
 		renderItem: function (model) {
@@ -93,13 +104,17 @@ $(function() {
 			return this;
 		},
 		name: function() { 
-			var thisName = this.model.attributes.models[0].name;
-			thisName = thisName.replace($("#input-search-query").val(), '<span style="background-color: PaleTurquoise;">' + $("#input-search-query").val() + '</span>');
+			var thisName = highlightString(this.model.name, jQuery.trim($("#input-search-query").val()));
 			return thisName; 
 		},
-		address: function() { return this.model.attributes.models[0].address; },
-		neighbourhood: function() { return this.model.attributes.models[0].neighbourhood; },
-		slug: function() { return this.model.attributes.models[0].slug; }
+		address: function() { return this.model.address; },
+		neighbourhood: function() { return this.model.neighbourhood; },
+		slug: function() { return this.model.slug; }
 	});
 
 });
+
+function highlightString(inputString, highlightString) {
+	inputString = inputString.replace(highlightString, '<span style="background-color: PaleTurquoise;">' + highlightString + '</span>');
+	return inputString;
+}

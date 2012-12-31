@@ -3,19 +3,21 @@
 <h1>home</h1>
 
 {% block content %}
-<h3>Hello {{ user.username }}</h3>
 <div class="container">
+
+<h3>Hello {{ user.username }}</h3>
+
   <div class="row">
     <div class="span12">
       <div class="input-prepend">
 	<span class="add-on"><i class="icon-search"></i></span><input autocomplete="off" id="input-search-query" type="text" placeholder="Find a spot"/>
       </div>
       <div id="neerbee-search">
-	No results.
+	Unable to load javascript.
       </div>
     </div>
   </div>
-</div> <!-- /container -->
+
 <br />
 {% if user.likes %}
   <p>These are the spots you like:
@@ -33,8 +35,18 @@
   <p>{{ user.username }} hasn't rated anything yet :(</p>
 {% endif %} 
 
+</div> <!-- /container -->
+
 <script type="text/x-mustache-template" id="result-template">
 <a href="/spots/{% templatetag openvariable %} slug {% templatetag closevariable %}/"><strong>{% templatetag openbrace %}{% templatetag openvariable %} name {% templatetag closevariable %}{% templatetag closebrace %}</strong> <span class="muted">{% templatetag openvariable %} address {% templatetag closevariable %} {% templatetag openvariable %} neighbourhood {% templatetag closevariable %}</span></a>
 </script>
+
+  <!-- Page Specific Javascript -->
+  <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+  <script src="{{ STATIC_URL }}js/underscore.js"></script>
+  <script src="{{ STATIC_URL }}js/backbone.js"></script>
+  <script src="{{ STATIC_URL }}js/mustache.js"></script>
+  <script src="{{ STATIC_URL }}js/neerbee-search.js"></script>
+  <script>$(function() { Neerbee.boot($('#neerbee-search')); });</script>
 {% endblock %}
 

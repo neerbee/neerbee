@@ -20,6 +20,10 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <title>{% block title %}neerbee{% endblock %}</title>
+
+    <!-- Javascript -->
+    <script src="{{ STATIC_URL }}js/jquery.js"></script>
+
 </head>
 
 <body>
@@ -50,15 +54,6 @@
     <div id="content" class="container">
         {% block content %}{% endblock %}
     </div> <!-- /container -->
-
-    <!-- Javascript -->
-    <script src="{{ STATIC_URL }}js/jquery.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
-    <script src="{{ STATIC_URL }}js/underscore.js"></script>
-    <script src="{{ STATIC_URL }}js/backbone.js"></script>
-    <script src="{{ STATIC_URL }}js/mustache.js"></script>
-    <script src="{{ STATIC_URL }}js/neerbee-search.js"></script>
-    <script>$(function() { Neerbee.boot($('#neerbee-search')); });</script>
 
 </body>
 </html>
