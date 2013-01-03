@@ -4,25 +4,35 @@
 <h1>User registration page</h1>
 
 {% block content %}
-
-<form method="post" action="{% url 'registration_register' %}">
+<form class="form-horizontal" method="post" action="{% url 'registration_register' %}">
   {% csrf_token %}
   {{ form.non_field.errors }}
-  <p><label for="id_username">username:</label>
-     {{ form.username.errors }}
-     <input name="username" class="required" maxlength="30" type="text" id="id_username" /></p>
-  <p><label for="id_email">email address:</label>
-     {{ form.email.errors }}
-     <input name="email" class="required" maxlength="75" type="text" id="id_email" /></p>
-  <p><label for="id_password1">password:</label>
-     {{ form.password1.errors }}
-     <input id="id_password1" type="password" class="required" name="password1" /></p>
-  <p><label for="id_password2">password (again):</label> 
-     {{ form.password2.errors }}
-     <input id="id_password2" type="password" class="required" name="password2" /></p>
 
-  <input type="submit" value="{% trans 'Register' %}" />
+  <div class="control-group {% if form.username.errors %}error{% endif %}">
+    <label class="control-label" for="id_username">Username</label>
+    <div class="controls"><input name="username" class="required" maxlength="30" type="text" id="id_username" /></div>
+    <span class="help-inline">{{ form.username.errors }}</span>
+  </div>
+
+  <div class="control-group {% if form.email.errors %}error{% endif %}">
+    <label class="control-label" for="id_email">Email address</label>
+    <div class="controls"><input name="email" class="required" maxlength="75" type="text" id="id_email" /></div>
+    <span class="help-inline">{{ form.email.errors }}</span>
+  </div>
+
+  <div class="control-group {% if form.password1.errors %}error{% endif %}">
+    <label class="control-label" for="id_password1">Password</label>
+    <div class="controls"><input id="id_password1" type="password" class="required" name="password1" /></div>
+    <span class="help-inline">{{ form.password1.errors }}</span>
+  </div>
+
+  <div class="control-group {% if form.password2.errors %}error{% endif %}">
+    <label class="control-label" for="id_password2">Password (re-type)</label> 
+    <div class="controls"><input id="id_password2" type="password" class="required" name="password2" /></div>
+    <span class="help-inline">{{ form.password2.errors }}</span>
+  </div>
+
+  <div class="controls"><input class="btn btn-primary" type="submit" value="{% trans 'Register' %}" /></div>
 </form>
-
 {% endblock %}
 

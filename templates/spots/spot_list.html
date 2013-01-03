@@ -2,16 +2,20 @@
 {% load url from future %}
 
 {% block content %}
-<h3>Spot List</h3>
-{% if item_list %}
-    <ul>
-    {% for item in item_list %}
-    <li>
-    	<a href="{% url 'spots:spot_profile' item.slug %}">{{ item.name }}</a>
-    </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No spots are available.</p>
-{% endif %}
+<div class="row">
+	<div class="span12">
+		<h3>Spot list</h3>
+		{% if item_list %}
+		    <ul class="nav nav-tabs nav-stacked">
+		    {% for item in item_list %}
+		    <li>
+		    	<a href="{% url 'spots:spot_profile' item.slug %}">{{ item.name }}</a>
+		    </li>
+		    {% endfor %}
+		    </ul>
+		{% else %}
+		    <div class="alert">No spots are available.</div>
+		{% endif %}
+	</div>
+</div>
 {% endblock %}

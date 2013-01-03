@@ -2,17 +2,16 @@
 {% load i18n %}
 
 {% block content %}
-
-{% if account %}
-
-<p>{% trans "Account successfully activated" %}</p>
-
-<p><a href="{% url auth_login %}">{% trans "Log in" %}</a></p>
-
-{% else %}
-
-<p>{% trans "Account activation failed" %}</p>
-
+<div class="row">
+	<div class="span12">
+		{% if account %}
+		<div class="alert alert-success">{% trans "Account successfully activated" %}</div>
+		<p><a class="btn btn-primary" href="{% url auth_login %}">{% trans "Log in" %}</a></p>
+		{% else %}
+		<div class="alert alert-error">{% trans "Account successfully activated" %}</div>
+		{% trans "Account activation failed" %}</div>
+	</div>
+</div>
 {% endif %}
 
 {% endblock %}

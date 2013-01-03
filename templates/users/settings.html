@@ -3,6 +3,10 @@
 <h1>user settings</h1>
 
 {% block content %}
-<h3>your account settings</h3>
-change your <a href="{% url 'auth_password_change' %}">password</a>
+<div class="row">
+	<div class="span12">
+		<h3>Your account settings</h3>
+		<a class="btn btn-primary" href="{% url 'auth_password_change' %}">Change your password</a>
+	</div>
+</div>
 {% endblock %}

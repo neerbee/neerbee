@@ -2,67 +2,71 @@
 {% load url from future %}
 
 {% block content %}
-<h3>{{ spot.name }}</h3>
-{{ spot.services|join:", " }} | {{ spot.address }}, {{ spot.neighbourhood }}<br />
-{# service details #}
-{% for service in spot.services %}
-    {% if "category" in service %}
-        <b>{{ service }} Category:</b> {{ service.category }}<br />
-    {% endif %}
-    {% if "delivery" in service %}
-        <b>Has delivery:</b> {{ service.delivery|yesno }}<br />
-    {% endif %}
-    {% if "take_out" in service %}
-        <b>Has take out:</b> {{ service.take_out|yesno }}<br />
-    {% endif %}
-    {% if "board_games" in service %}
-        <b>Has board games:</b> {{ service.board_games|yesno }}<br />
-    {% endif %}
-    {% if "coat_check" in service %}
-        <b>Has coat check:</b> {{ service.coat_check|yesno }}<br />
-    {% endif %}
-    {% if "face_control" in service %}
-        <b>Has face control:</b> {{ service.face_control|yesno }}<br />
-    {% endif %}
+<div class="row">
+    <div class="span12">
+        <h3><i class="icon-info-sign"></i> {{ spot.name }}</h3>
+        {{ spot.services|join:", " }} | {{ spot.address }}, {{ spot.neighbourhood }}<br />
+        {# service details #}
+        {% for service in spot.services %}
+            {% if "category" in service %}
+                <b>{{ service }} Category:</b> {{ service.category }}<br />
+            {% endif %}
+            {% if "delivery" in service %}
+                <b>Has delivery:</b> {{ service.delivery|yesno }}<br />
+            {% endif %}
+            {% if "take_out" in service %}
+                <b>Has take out:</b> {{ service.take_out|yesno }}<br />
+            {% endif %}
+            {% if "board_games" in service %}
+                <b>Has board games:</b> {{ service.board_games|yesno }}<br />
+            {% endif %}
+            {% if "coat_check" in service %}
+                <b>Has coat check:</b> {{ service.coat_check|yesno }}<br />
+            {% endif %}
+            {% if "face_control" in service %}
+                <b>Has face control:</b> {{ service.face_control|yesno }}<br />
+            {% endif %}
 
-{% endfor %}
-{% if "phone" in spot %}
-<b>Phone:</b> {{ spot.phone }}<br />
-{% endif %}
-{% if "website" in spot %}
-<b>Website:</b> {{ spot.website|urlize }}<br />
-{% endif %}
-{% if "price" in spot %}
-<b>Price:</b> {{ spot.get_price_display }}<br />
-{% endif %}
-{% if "wi_fi" in spot %}
-<b>Wi-Fi:</b> {{ spot.wi_fi|yesno }}<br />
-{% endif %}
-{% if "credit_card" in spot %}
-<b>Accepts Credit Cards:</b> {{ spot.credit_card|yesno }}<br />
-{% endif %}
-{% if "wheelchair" in spot %}
-<b>Wheelchair Accessible:</b> {{ spot.wheelchair|yesno }}<br />
-{% endif %}
-{% if "tv" in spot %}
-<b>Has TV:</b> {{ spot.tv|yesno }}<br />
-{% endif %}
-{% if "smoking" in spot %}
-<b>Smoking Allowed:</b> {{ spot.smoking|yesno }}<br />
-{% endif %}
-{% if "self_service" in spot %}
-<b>Is self-service</b><br />
-{% endif %}
-{% if "reservations" in spot %}
-<b>Takes Reservations:</b> {{ spot.reservations|yesno }}<br />
-{% endif %}
-{% if "snacks" in spot %}
-<b>Has Snacks</b><br />
-{% endif %}
-{% if "outdoor_seating" in spot %}
-<b>Has outdoor seating:</b><br />
-{% endif %}
-{% if "parking" in spot %}
-<b>Has parking</b><br />
-{% endif %}
+        {% endfor %}
+        {% if "phone" in spot %}
+        <b>Phone:</b> {{ spot.phone }}<br />
+        {% endif %}
+        {% if "website" in spot %}
+        <b>Website:</b> {{ spot.website|urlize }}<br />
+        {% endif %}
+        {% if "price" in spot %}
+        <b>Price:</b> {{ spot.get_price_display }}<br />
+        {% endif %}
+        {% if "wi_fi" in spot %}
+        <b>Wi-Fi:</b> {{ spot.wi_fi|yesno }}<br />
+        {% endif %}
+        {% if "credit_card" in spot %}
+        <b>Accepts Credit Cards:</b> {{ spot.credit_card|yesno }}<br />
+        {% endif %}
+        {% if "wheelchair" in spot %}
+        <b>Wheelchair Accessible:</b> {{ spot.wheelchair|yesno }}<br />
+        {% endif %}
+        {% if "tv" in spot %}
+        <b>Has TV:</b> {{ spot.tv|yesno }}<br />
+        {% endif %}
+        {% if "smoking" in spot %}
+        <b>Smoking Allowed:</b> {{ spot.smoking|yesno }}<br />
+        {% endif %}
+        {% if "self_service" in spot %}
+        <b>Is self-service</b><br />
+        {% endif %}
+        {% if "reservations" in spot %}
+        <b>Takes Reservations:</b> {{ spot.reservations|yesno }}<br />
+        {% endif %}
+        {% if "snacks" in spot %}
+        <b>Has Snacks</b><br />
+        {% endif %}
+        {% if "outdoor_seating" in spot %}
+        <b>Has outdoor seating:</b><br />
+        {% endif %}
+        {% if "parking" in spot %}
+        <b>Has parking</b><br />
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

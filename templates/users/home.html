@@ -5,7 +5,24 @@
 {% block content %}
 <div class="container">
 
-<h3>Hello {{ user.username }}</h3>
+<div class="hero-unit">
+  <h1>Hello, {{ user.username }}!</h1>
+  {% if user.likes %}
+    <p>These are the spots you like:
+    {% for spot in user.likes %}
+    <a href="{% url 'spots:spot_profile' spot.slug %}">{{ spot.name }}</a>
+    {% endfor %}
+    </p>
+  {% endif %}
+  {% if user.dislikes %}
+    <p>These are the spots you 're not crazy about:
+    {{ user.dislikes|join:", " }}
+    </p>
+  {% endif %}
+  {% if not user.likes and not user.dislikes %}
+    <p>{{ user.username }} hasn't rated anything yet :(</p>
+  {% endif %} 
+</div>
 
   <div class="row">
     <div class="span12">
@@ -17,23 +34,6 @@
       </div>
     </div>
   </div>
-
-<br />
-{% if user.likes %}
-  <p>These are the spots you like:
-  {% for spot in user.likes %}
-  <a href="{% url 'spots:spot_profile' spot.slug %}">{{ spot.name }}</a>
-  {% endfor %}
-  </p>
-{% endif %}
-{% if user.dislikes %}
-  <p>These are the spots you 're not crazy about:
-  {{ user.dislikes|join:", " }}
-  </p>
-{% endif %}
-{% if not user.likes and not user.dislikes %}
-  <p>{{ user.username }} hasn't rated anything yet :(</p>
-{% endif %} 
 
 </div> <!-- /container -->
 
