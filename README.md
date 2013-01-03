@@ -1,8 +1,4 @@
 atoa repository
 ===============
 
-Dependencies:
-
-*	django
-*	mongoengine
-*	django-mongotesting
+Dependencies: please refer to requirements.txt file.
