@@ -2,6 +2,7 @@ from django.conf.urls.defaults import *
 from django.core.paginator import Paginator, InvalidPage
 from django.http import Http404
 from tastypie import authorization
+from tastypie import authentication
 from tastypie.utils import trailing_slash
 from tastypie_mongoengine import fields, resources
 from neerbee.spots.models import *
@@ -31,7 +32,7 @@ class ServiceResource(resources.MongoEngineResource):
     class Meta:
         object_class = Service
         allowed_methods = ('get')
-        authorization = authorization.Authorization()
+        #authorization = authorization.Authorization()
 
         polymorphic = {
                 'serviceFood': ServiceFoodResource,
@@ -50,7 +51,8 @@ class SpotResource(resources.MongoEngineResource):
     class Meta:
         queryset = Spot.objects.all()
         allowed_methods = ('get', 'post', 'put', 'delete')
-        authorization = authorization.Authorization()
+        authentication = authentication.BasicAuthentication() 
+        authorization = authorization.DjangoAuthorization()
         resource_name = 'spot'
 
     def override_urls(self):
