@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from mongoengine.django.shortcuts import get_document_or_404
 from django.contrib.auth.decorators import login_required
 from models import Spot
-from forms import SpotForm
+#from forms import SpotForm
 
 def spots(request):
     spot_list = Spot.objects.all()
