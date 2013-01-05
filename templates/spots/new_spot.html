@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+<form action="/spots/new/" method="post" class="form-horizontal">{% csrf_token %}
+{{ form.non_field_errors }}  
+<div class="control-group">
+  {{ form.name.errors }}
+  <label class="control-label" for="id_name">Name</label>
+  <div class="controls">
+    {{ form.name }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.address.errors }}
+  <label class="control-label" for="id_address">Address</label>
+  <div class="controls">
+    {{ form.address }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.neighbourhood.errors }}
+  <label class="control-label" for="id_neighbourhood">Neighbourhood</label>
+  <div class="controls">
+    {{ form.neighbourhood }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.phone.errors }}
+  <label class="control-label" for="id_phone">Phone</label>
+  <div class="controls">
+    {{ form.phone }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.website.errors }}
+  <label class="control-label" for="id_website">Website</label>
+  <div class="controls">
+    {{ form.website }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.price.errors }}
+  <label class="control-label" for="id_price">Price</label>
+  <div class="controls">
+    {{ form.price }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.wi_fi.errors }}
+  <label class="control-label" for="id_wi_fi">Wi-fi</label>
+  <div class="controls">
+    {{ form.wi_fi }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.credit_card.errors }}
+  <label class="control-label" for="id_credit_card">Credit card</label>
+  <div class="controls">
+    {{ form.credit_card }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.wheelchair.errors }}
+  <label class="control-label" for="id_wheelchair">Wheelchair access</label>
+  <div class="controls">
+    {{ form.wheelchair }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.tv.errors }}
+  <label class="control-label" for="id_tv">TV</label>
+  <div class="controls">
+    {{ form.tv }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.smoking.errors }}
+  <label class="control-label" for="id_smoking">Smoking</label>
+  <div class="controls">
+    {{ form.smoking }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.self_service.errors }}
+  <label class="control-label" for="id_self_service">Self-service</label>
+  <div class="controls">
+    {{ form.self_service }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.reservations.errors }}
+  <label class="control-label" for="id_reservations">Reservations</label>
+  <div class="controls">
+    {{ form.reservations }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.snacks.errors }}
+  <label class="control-label" for="id_snacks">Snacks</label>
+  <div class="controls">
+    {{ form.snacks }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.outdoor_seating.errors }}
+  <label class="control-label" for="id_outdoor_seating">Outdoor seating</label>
+  <div class="controls">
+    {{ form.outdoor_seating }}
+  </div>
+</div>
+<div class="control-group">
+  {{ form.parking.errors }}
+  <label class="control-label" for="id_parking">Parking</label>
+  <div class="controls">
+    {{ form.parking }}
+  </div>
+</div>
+
+Choose which services are offered by the spot:<br />
+<label class="checkbox inline">
+  {{ form.service_food }}
+  Food
+</label>
+<label class="checkbox inline">
+  {{ form.service_bar }}
+  Bar
+</label>
+<label class="checkbox inline">
+  {{ form.service_coffee }}
+  Coffee
+</label>
+<label class="checkbox inline">
+  {{ form.service_club }}
+  Club
+</label><br /><br />
+<div id="service_food">
+  Food details
+  <div class="control-group">
+    {{ form.food_category.errors }}
+    <label class="control-label" for="id_food_category">Food category</label>
+    <div class="controls">
+      {{ form.food_category }}
+    </div>
+  </div>
+  <div class="control-group">
+    {{ form.food_delivery.errors }}
+    <label class="control-label" for="id_food_delivery">Delivery</label>
+    <div class="controls">
+      {{ form.food_delivery }}
+    </div>
+  </div>
+  <div class="control-group">
+    {{ form.food_take_out.errors }}
+    <label class="control-label" for="id_food_take_out">Take out</label>
+    <div class="controls">
+      {{ form.food_take_out }}
+    </div>
+  </div>
+</div>
+<div id="service_bar">
+  Bar details
+  <div class="control-group">
+    {{ form.bar_category.errors }}
+    <label class="control-label" for="id_bar_category">Bar category</label>
+    <div class="controls">
+      {{ form.bar_category }}
+    </div>
+  </div>
+</div>
+<div id="service_coffee">
+  Coffee details
+  <div class="control-group">
+    {{ form.coffee_board_games.errors }}
+    <label class="control-label" for="id_coffee_board_games">Board games</label>
+    <div class="controls">
+      {{ form.coffee_board_games }}
+    </div>
+  </div>
+</div>
+<div id="service_club">
+  Club details
+  <div class="control-group">
+    {{ form.club_coat_check.errors }}
+    <label class="control-label" for="id_club_coat_check">Coat check</label>
+    <div class="controls">
+      {{ form.club_coat_check }}
+    </div>
+  </div>
+  <div class="control-group">
+    {{ form.club_face_control.errors }}
+    <label class="control-label" for="id_club_face_control">Face control</label>
+    <div class="controls">
+      {{ form.club_face_control }}
+    </div>
+  </div>
+</div>
+<input type="submit" value="Submit">
+</form>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#service_food").css("display", "none");
+	$("#service_bar").css("display", "none");
+	$("#service_coffee").css("display", "none");
+	$("#service_club").css("display", "none");
+
+	$("#{{ form.service_food.auto_id }}").click(function(){
+		if ($("#{{ form.service_food.auto_id }}").is(":checked")){
+		        $("#service_food").show("fast");
+		}
+		else {
+			$("#service_food").hide("fast");
+		}
+	});
+	$("#{{ form.service_bar.auto_id  }}").click(function(){
+		if ($("#{{ form.service_bar.auto_id }}").is(":checked")){
+		        $("#service_bar").show("fast");
+		}
+		else {
+			$("#service_bar").hide("fast");
+		}
+	});
+	$("#{{ form.service_coffee.auto_id }}").click(function(){
+		if ($("#{{ form.service_coffee.auto_id }}").is(":checked")){
+		        $("#service_coffee").show("fast");
+		}
+		else {
+			$("#service_coffee").hide("fast");
+		}
+	});
+	$("#{{ form.service_club.auto_id }}").click(function(){
+		if ($("#{{ form.service_club.auto_id }}").is(":checked")){
+		        $("#service_club").show("fast");
+		}
+		else {
+			$("#service_club").hide("fast");
+		}
+	});
+});
+		
+</script>
+{% endblock %}
