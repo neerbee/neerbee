@@ -200,10 +200,14 @@ Choose which services are offered by the spot:<br />
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#service_food").css("display", "none");
-	$("#service_bar").css("display", "none");
-	$("#service_coffee").css("display", "none");
-	$("#service_club").css("display", "none");
+	if (!$("#{{ form.service_food.auto_id }}").is(":checked"))
+		$("#service_food").css("display", "none");
+	if (!$("#{{ form.service_bar.auto_id }}").is(":checked"))
+		$("#service_bar").css("display", "none");
+	if (!$("#{{ form.service_coffee.auto_id }}").is(":checked"))
+		$("#service_coffee").css("display", "none");
+	if (!$("#{{ form.service_club.auto_id }}").is(":checked"))
+		$("#service_club").css("display", "none");
 
 	$("#{{ form.service_food.auto_id }}").click(function(){
 		if ($("#{{ form.service_food.auto_id }}").is(":checked")){

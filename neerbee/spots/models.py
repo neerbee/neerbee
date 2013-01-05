@@ -59,14 +59,7 @@ class Spot(Document):
     services = ListField(
                     EmbeddedDocumentField(Service)
                )
-    PRICE_RANGES = (
-            (1, '$'),
-            (2, '$$'),
-            (3, '$$$'),
-            (4, '$$$$'),
-            (5, '$$$$$'),
-    )
-    price = IntField(choices=PRICE_RANGES)
+    price = IntField()
     wi_fi = BooleanField()
     credit_card = BooleanField()
     wheelchair = BooleanField()

@@ -35,7 +35,7 @@
         <b>Website:</b> {{ spot.website|urlize }}<br />
         {% endif %}
         {% if "price" in spot %}
-        <b>Price:</b> {{ spot.get_price_display }}<br />
+        <b>Price:</b> {{ spot.price }}<br />
         {% endif %}
         {% if "wi_fi" in spot %}
         <b>Wi-Fi:</b> {{ spot.wi_fi|yesno }}<br />

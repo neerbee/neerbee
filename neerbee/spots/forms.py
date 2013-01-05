@@ -9,6 +9,7 @@ class SpotForm(forms.Form):
     website = forms.CharField(max_length=200, required=False)
     # location
     PRICE_RANGES = (
+            ('', ''),
             (1, '$'),
             (2, '$$'),
             (3, '$$$'),
@@ -50,4 +51,24 @@ class SpotForm(forms.Form):
 
     def clean(self):
         # perform service-specific validation
+        cleaned_data = super(SpotForm, self).clean()
+        service_food = cleaned_data.get("service_food")
+        service_bar = cleaned_data.get("service_bar")
+        service_coffee = cleaned_data.get("service_coffee")
+        service_club = cleaned_data.get("service_club")
+        food_category = cleaned_data.get("food_category")
+        bar_category = cleaned_data.get("bar_category")
+
+        if not (service_food or service_bar or service_coffee or service_club):
+            msg = u"Spot must offer at least one service."
+            raise forms.ValidationError(msg)
+        elif service_food and not food_category:
+            msg = u"Must specify food category."
+            raise forms.ValidationError(msg)
+        elif service_bar and not bar_category:
+            msg = u"Must specify bar category."
+            raise forms.ValidationError(msg)
+
+
+        return cleaned_data
 
