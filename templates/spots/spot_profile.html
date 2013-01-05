@@ -59,13 +59,13 @@
         <b>Takes Reservations:</b> {{ spot.reservations|yesno }}<br />
         {% endif %}
         {% if "snacks" in spot %}
-        <b>Has Snacks</b><br />
+	<b>Has Snacks</b> {{ spot.snacks|yesno }}<br />
         {% endif %}
         {% if "outdoor_seating" in spot %}
-        <b>Has outdoor seating:</b><br />
+	<b>Has outdoor seating:</b> {{ spot.outdoor_seating|yesno }}<br />
         {% endif %}
         {% if "parking" in spot %}
-        <b>Has parking</b><br />
+	<b>Has parking</b> {{ spot.parking|yesno }}<br />
         {% endif %}
     </div>
 </div>
