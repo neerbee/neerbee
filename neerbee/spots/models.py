@@ -74,7 +74,7 @@ class Spot(Document):
     slug = StringField(max_length=255, required=True)
 
     meta = {
-        'indexes': [('name', 'neighbourhood')]
+        'indexes': ['name']
     }
 
     def __unicode__(self):
