@@ -1,5 +1,5 @@
 from mongoengine import *
-from django.template.defaultfilters import slugify
+from neerbee.tools import unique_slugify
 
 class Service(EmbeddedDocument):
     service_type = StringField(max_length=50, required=True)
@@ -78,11 +78,13 @@ class Spot(Document):
     }
 
     def __unicode__(self):
-        return self.name
+        if self.slug:
+            return self.slug
+        else:
+            return self.name
 
     def save(self, *args, **kwargs):
         # For automatic slug generation.
         if not self.slug:
-            self.slug = slugify(self.name)[:50]
+            unique_slugify(self, self.name)
         return super(Spot, self).save(*args, **kwargs)
-
