@@ -47,6 +47,7 @@ class Spot(Document):
     name = StringField(max_length=200, required=True)
     address = StringField(max_length=200, required=True)
     neighbourhood = StringField(max_length=200, required=True)
+    pobox = StringField(max_length=20)
     phone = StringField(max_length=20)
     website = StringField(max_length=200)
     location = GeoPointField()

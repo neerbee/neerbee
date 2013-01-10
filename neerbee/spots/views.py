@@ -63,6 +63,8 @@ def new_spot(request):
             # add any existing details
             if form.cleaned_data.get('phone'):
                 new_spot.phone = form.cleaned_data['phone']
+            if form.cleaned_data.get('pobox'):
+                new_spot.pobox = form.cleaned_data['pobox']
             if form.cleaned_data.get('website'):
                 new_spot.website = form.cleaned_data['website']
             if form.cleaned_data.get('price'):

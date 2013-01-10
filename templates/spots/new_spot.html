@@ -6,112 +6,119 @@
 {{ form.non_field_errors }}  
 <div class="control-group">
   {{ form.name.errors }}
-  <label class="control-label" for="id_name">Name</label>
+  <label class="control-label" for="{{ form.name.auto_id }}">Name</label>
   <div class="controls">
     {{ form.name }}
   </div>
 </div>
 <div class="control-group">
   {{ form.address.errors }}
-  <label class="control-label" for="id_address">Address</label>
+  <label class="control-label" for="{{ form.address.auto_id }}">Address</label>
   <div class="controls">
     {{ form.address }}
   </div>
 </div>
 <div class="control-group">
   {{ form.neighbourhood.errors }}
-  <label class="control-label" for="id_neighbourhood">Neighbourhood</label>
+  <label class="control-label" for="{{ form.neighbourhood.auto_id }}">Neighbourhood</label>
   <div class="controls">
     {{ form.neighbourhood }}
   </div>
 </div>
 <div class="control-group">
+  {{ form.pobox.errors }}
+  <label class="control-label" for="{{ form.pobox.auto_id }}">PO Box</label>
+  <div class="controls">
+    {{ form.pobox }}
+  </div>
+</div>
+<div class="control-group">
   {{ form.phone.errors }}
-  <label class="control-label" for="id_phone">Phone</label>
+  <label class="control-label" for="{{ form.phone.auto_id }}">Phone</label>
   <div class="controls">
     {{ form.phone }}
   </div>
 </div>
 <div class="control-group">
   {{ form.website.errors }}
-  <label class="control-label" for="id_website">Website</label>
+  <label class="control-label" for="{{ form.website.auto_id }}">Website</label>
   <div class="controls">
     {{ form.website }}
   </div>
 </div>
 <div class="control-group">
   {{ form.price.errors }}
-  <label class="control-label" for="id_price">Price</label>
+  <label class="control-label" for="{{ form.price.auto_id }}">Price</label>
   <div class="controls">
     {{ form.price }}
   </div>
 </div>
 <div class="control-group">
   {{ form.wi_fi.errors }}
-  <label class="control-label" for="id_wi_fi">Wi-fi</label>
+  <label class="control-label" for="{{ form.wi_fi.auto_id }}">Wi-fi</label>
   <div class="controls">
     {{ form.wi_fi }}
   </div>
 </div>
 <div class="control-group">
   {{ form.credit_card.errors }}
-  <label class="control-label" for="id_credit_card">Credit card</label>
+  <label class="control-label" for="{{ form.credit_card.auto_id }}">Credit card</label>
   <div class="controls">
     {{ form.credit_card }}
   </div>
 </div>
 <div class="control-group">
   {{ form.wheelchair.errors }}
-  <label class="control-label" for="id_wheelchair">Wheelchair access</label>
+  <label class="control-label" for="{{ form.wheelchair.auto_id }}">Wheelchair access</label>
   <div class="controls">
     {{ form.wheelchair }}
   </div>
 </div>
 <div class="control-group">
   {{ form.tv.errors }}
-  <label class="control-label" for="id_tv">TV</label>
+  <label class="control-label" for="{{ form.tv.auto_id }}">TV</label>
   <div class="controls">
     {{ form.tv }}
   </div>
 </div>
 <div class="control-group">
   {{ form.smoking.errors }}
-  <label class="control-label" for="id_smoking">Smoking</label>
+  <label class="control-label" for="{{ form.smoking.auto_id }}">Smoking</label>
   <div class="controls">
     {{ form.smoking }}
   </div>
 </div>
 <div class="control-group">
   {{ form.self_service.errors }}
-  <label class="control-label" for="id_self_service">Self-service</label>
+  <label class="control-label" for="{{ form.self_service.auto_id }}">Self-service</label>
   <div class="controls">
     {{ form.self_service }}
   </div>
 </div>
 <div class="control-group">
   {{ form.reservations.errors }}
-  <label class="control-label" for="id_reservations">Reservations</label>
+  <label class="control-label" for="{{ form.reservations.auto_id }}">Reservations</label>
   <div class="controls">
     {{ form.reservations }}
   </div>
 </div>
 <div class="control-group">
   {{ form.snacks.errors }}
-  <label class="control-label" for="id_snacks">Snacks</label>
+  <label class="control-label" for="{{ form.snacks.auto_id }}">Snacks</label>
   <div class="controls">
     {{ form.snacks }}
   </div>
 </div>
 <div class="control-group">
   {{ form.outdoor_seating.errors }}
-  <label class="control-label" for="id_outdoor_seating">Outdoor seating</label>
+  <label class="control-label" for="{{ form.outdoor_seating.auto_id }}">Outdoor seating</label>
   <div class="controls">
     {{ form.outdoor_seating }}
   </div>
 </div>
 <div class="control-group">
   {{ form.parking.errors }}
-  <label class="control-label" for="id_parking">Parking</label>
+  <label class="control-label" for="{{ form.parking.auto_id }}">Parking</label>
   <div class="controls">
     {{ form.parking }}
   </div>

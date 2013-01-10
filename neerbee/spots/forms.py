@@ -5,6 +5,7 @@ class SpotForm(forms.Form):
     name = forms.CharField(max_length=200, label="Name")
     address = forms.CharField(max_length=200, label="Address")
     neighbourhood = forms.CharField(max_length=200, label="Neighbourhood")
+    pobox = forms.CharField(max_length=20)
     phone = forms.CharField(max_length=20, required=False)
     website = forms.CharField(max_length=200, required=False)
     # location
