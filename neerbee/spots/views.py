@@ -14,14 +14,19 @@ def spot_profile(request, spot_slug):
     
     return render(request, 'spots/spot_profile.html', {'spot': s})
 
-def new_spot(request):
-    if request.method == 'POST': # If the form has been submitted...
-        form = SpotForm(request.POST) # A form bound to the POST data
-        if form.is_valid(): # All validation rules pass
+@login_required
+def new_spot(request, spot_slug=None):
+    if request.method == 'POST':
+        form = SpotForm(request.POST)
+        if form.is_valid():
             # create new Spot object first only with mandatory fields
-            new_spot = Spot(name = form.cleaned_data['name'],
+            if spot_slug is None:
+                new_spot = Spot(name = form.cleaned_data['name'],
                             address = form.cleaned_data['address'],
                             neighbourhood = form.cleaned_data['neighbourhood'])
+            else:
+                print "HERE"
+                new_spot = get_document_or_404(Spot, slug=spot_slug)
 
             # create service list
             new_spot.services = []
@@ -44,8 +49,8 @@ def new_spot(request):
             if form.cleaned_data.get('service_coffee'):
                 service_coffee = ServiceCoffee()
                 if form.cleaned_data.get('coffee_board_games'):
-                    service_coffee.board_games =\
-                        form.cleaned_data['coffee_board_games']
+                    service_coffee.board_games = form.cleaned_data[
+                                                'coffee_board_games']
 
                 new_spot.services.append(service_coffee)
 
@@ -94,7 +99,31 @@ def new_spot(request):
             new_spot.save()
             return HttpResponseRedirect('/spots/') # Redirect after POST
     else:
-        form = SpotForm() # An unbound form
+        if spot_slug is None:
+            form = SpotForm() # An unbound form
+        else:
+            s = get_document_or_404(Spot, slug=spot_slug)
+
+            # take care of service-specific information
+            for service in s._data['services']:
+                if service.__class__ is ServiceFood:
+                    s._data['service_food'] = True
+                    s._data['food_category'] = service.category
+                    s._data['food_delivery'] = service.delivery
+                    s._data['food_take_out'] = service.take_out
+                elif service.__class__ is ServiceBar:
+                    s._data['service_bar'] = True
+                    s._data['bar_category'] = service.category
+                elif service.__class__ is ServiceCoffee:
+                    s._data['service_coffee'] = True
+                    s._data['coffee_board_games'] = service.board_games
+                elif service.__class__ is ServiceClub:
+                    s._data['service_club'] = True
+                    s._data['club_coat_check'] = service.coat_check
+                    s._data['club_face_control'] = service.face_control
+
+            form = SpotForm(initial=s._data);
+
 
     return render(request, 'spots/new_spot.html', {
         'form': form,

@@ -72,7 +72,7 @@ class Spot(Document):
     outdoor_seating = BooleanField()
     parking = BooleanField()
 
-    slug = StringField(max_length=255, required=True)
+    slug = StringField(max_length=255, required=True, unique=True)
 
     meta = {
         'indexes': ['name']

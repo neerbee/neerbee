@@ -39,7 +39,7 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
 	#while not slug or queryset.filter(**{slug_field_name: slug}):
 	while not slug or slug in result:
 		slug = original_slug
-		print slug
+
 		end = '%s%s' % (slug_separator, next)
 		if slug_len and len(slug) + len(end) > slug_len:
 			slug = slug[:slug_len-len(end)]
