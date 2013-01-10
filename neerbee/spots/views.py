@@ -15,7 +15,11 @@ def spot_profile(request, spot_slug):
     return render(request, 'spots/spot_profile.html', {'spot': s})
 
 @login_required
-def new_spot(request, spot_slug=None):
+def create_or_edit_spot(request, spot_slug=None):
+    if spot_slug:
+        print "spot slug: " + spot_slug
+    else:
+        print "shit is null"
     if request.method == 'POST':
         form = SpotForm(request.POST)
         if form.is_valid():
@@ -25,7 +29,6 @@ def new_spot(request, spot_slug=None):
                             address = form.cleaned_data['address'],
                             neighbourhood = form.cleaned_data['neighbourhood'])
             else:
-                print "HERE"
                 new_spot = get_document_or_404(Spot, slug=spot_slug)
 
             # create service list
@@ -125,7 +128,8 @@ def new_spot(request, spot_slug=None):
             form = SpotForm(initial=s._data);
 
 
-    return render(request, 'spots/new_spot.html', {
+    return render(request, 'spots/create_or_edit_spot.html', {
         'form': form,
+        'spot_slug': spot_slug,
     })
 

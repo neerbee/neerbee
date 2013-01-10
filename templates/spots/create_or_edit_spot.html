@@ -2,7 +2,11 @@
 {% load url from future %}
 
 {% block content %}
-<form action="/spots/new/" method="post" class="form-horizontal">{% csrf_token %}
+{% if spot_slug %}
+  <form action="{% url 'spots:edit_spot' spot_slug %}" method="post" class="form-horizontal">{% csrf_token %}
+{% else %}
+<form action="{% url 'spots:new_spot' %}" method="post" class="form-horizontal">{% csrf_token %}
+{% endif %}
 {{ form.non_field_errors }}  
 <div class="control-group">
   {{ form.name.errors }}

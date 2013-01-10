@@ -9,7 +9,7 @@
 		    <ul class="nav nav-tabs nav-stacked">
 		    {% for item in item_list %}
 		    <li>
-		    	<a href="{% url 'spots:spot_profile' item.slug %}">{{ item.name }}</a>
+		    <a href="{% url 'spots:spot_profile' item.slug %}">{{ item.name }}</a>
 		    </li>
 		    {% endfor %}
 		    </ul>
