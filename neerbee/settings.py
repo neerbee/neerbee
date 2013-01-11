@@ -138,7 +138,7 @@ INSTALLED_APPS = (
     #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'neerbee.admin',
+    'neerbee.admin',
     'neerbee.accounts',
     'neerbee.spots',
     'neerbee.users',
