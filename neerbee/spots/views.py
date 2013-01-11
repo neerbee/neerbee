@@ -29,6 +29,7 @@ def create_or_edit_spot(request, spot_slug=None):
                             address = form.cleaned_data['address'],
                             neighbourhood = form.cleaned_data['neighbourhood'])
             else:
+                # this is an edit form
                 new_spot = get_document_or_404(Spot, slug=spot_slug)
 
             # create service list
@@ -105,6 +106,7 @@ def create_or_edit_spot(request, spot_slug=None):
         if spot_slug is None:
             form = SpotForm() # An unbound form
         else:
+            # this is an edit form
             s = get_document_or_404(Spot, slug=spot_slug)
 
             # take care of service-specific information
