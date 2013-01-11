@@ -4,7 +4,7 @@
 {% block content %}
 <div class="row">
     <div class="span12">
-	<a href="{% url 'spots:edit_spot' spot.slug %}">edit</a>
+	<a href="{% url 'admin:edit_spot' spot.slug %}">edit</a>
 	<h3><i class="icon-info-sign"></i> {{ spot.name }}</h3>
         {{ spot.services|join:", " }} | {{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}<br />
         {# service details #}

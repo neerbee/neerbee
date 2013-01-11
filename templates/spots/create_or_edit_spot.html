@@ -3,9 +3,9 @@
 
 {% block content %}
 {% if spot_slug %}
-  <form action="{% url 'spots:edit_spot' spot_slug %}" method="post" class="form-horizontal">{% csrf_token %}
+  <form action="{% url 'admin:edit_spot' spot_slug %}" method="post" class="form-horizontal">{% csrf_token %}
 {% else %}
-  <form action="{% url 'spots:create_spot' %}" method="post" class="form-horizontal">{% csrf_token %}
+  <form action="{% url 'admin:create_spot' %}" method="post" class="form-horizontal">{% csrf_token %}
 {% endif %}
 {{ form.non_field_errors }}  
 <div class="control-group">
