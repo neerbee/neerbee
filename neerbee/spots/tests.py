@@ -45,8 +45,8 @@ class SpotModelTest(SpotTestCase):
         self.assertEquals(only_spot_in_database.services[0].category, "Diner")   
 
 class SpotFormTest(SpotTestCase):
-    # test the view that creates a new spot
-    def test_new_spot_view(self):
+    # test the validation of the view that creates a new spot
+    def test_new_spot_view_validation(self):
         # log user in
         resp = self.client.login(username='nikos', password='123')
         self.assertTrue(resp)
@@ -56,10 +56,32 @@ class SpotFormTest(SpotTestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertTrue('form' in resp.context)
         self.assertTrue('spot_slug' in resp.context)
-        self.assertEqual(resp.context['form']['name'].errors, [u'This field is required.'])
-        self.assertEqual(resp.context['form']['address'].errors, [u'This field is required.'])
-        self.assertEqual(resp.context['form']['neighbourhood'].errors, [u'This field is required.'])
-        self.assertEqual(resp.context['form']['pobox'].errors, [u'This field is required.'])
+        self.assertEqual(resp.context['form']['name'].errors,
+                            [u'This field is required.'])
+        self.assertEqual(resp.context['form']['address'].errors,
+                            [u'This field is required.'])
+        self.assertEqual(resp.context['form']['neighbourhood'].errors,
+                            [u'This field is required.'])
+        self.assertEqual(resp.context['form']['pobox'].errors,
+                            [u'This field is required.'])
+        self.assertEqual([u'Spot must offer at least one service.'],
+                        resp.context['form'].non_field_errors())
 
+        # must specify food category
+        resp = self.client.post(reverse('admin:create_spot'), 
+                                {'service_food': True})
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual([u'Must specify food category.'],
+                        resp.context['form'].non_field_errors())
+                  
+        # must specify bar category
+        resp = self.client.post(reverse('admin:create_spot'), 
+                                {'service_bar': True})
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual([u'Must specify bar category.'],
+                        resp.context['form'].non_field_errors())
+    
+    # test that the view inserts new spot correctly    
+    #def test_new_spot_view(self):
     # then test the view that edits an existing spot
         
