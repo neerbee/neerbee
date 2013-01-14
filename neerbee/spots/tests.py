@@ -1,4 +1,5 @@
 from mongotesting import MongoTestCase
+from django.core.urlresolvers import reverse
 from neerbee.spots.models import *
 
 class SpotTestCase(MongoTestCase):
@@ -43,10 +44,22 @@ class SpotModelTest(SpotTestCase):
         only_spot_in_database = all_spots_in_database[0]
         self.assertEquals(only_spot_in_database.services[0].category, "Diner")   
 
+class SpotFormTest(SpotTestCase):
     # test the view that creates a new spot
     def test_new_spot_view(self):
-        resp = self.client.get('/admin/create_spot/')
+        # log user in
+        resp = self.client.login(username='nikos', password='123')
+        self.assertTrue(resp)
+
+        # send no POST data
+        resp = self.client.post(reverse('admin:create_spot'))
         self.assertEqual(resp.status_code, 200)
+        self.assertTrue('form' in resp.context)
+        self.assertTrue('spot_slug' in resp.context)
+        self.assertEqual(resp.context['form']['name'].errors, [u'This field is required.'])
+        self.assertEqual(resp.context['form']['address'].errors, [u'This field is required.'])
+        self.assertEqual(resp.context['form']['neighbourhood'].errors, [u'This field is required.'])
+        self.assertEqual(resp.context['form']['pobox'].errors, [u'This field is required.'])
 
     # then test the view that edits an existing spot
         
