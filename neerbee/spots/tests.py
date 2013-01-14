@@ -1,5 +1,5 @@
 from mongotesting import MongoTestCase
-from neerbee.spots.models import Spot, ServiceFood, ServiceBar
+from neerbee.spots.models import *
 
 class SpotTestCase(MongoTestCase):
     def setUp(self):
@@ -42,4 +42,11 @@ class SpotModelTest(SpotTestCase):
         all_spots_in_database = Spot.objects.all()
         only_spot_in_database = all_spots_in_database[0]
         self.assertEquals(only_spot_in_database.services[0].category, "Diner")   
+
+    # test the view that creates a new spot
+    def test_new_spot_view(self):
+        resp = self.client.get('/admin/create_spot/')
+        self.assertEqual(resp.status_code, 200)
+
+    # then test the view that edits an existing spot
         

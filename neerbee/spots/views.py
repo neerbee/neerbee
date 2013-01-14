@@ -17,10 +17,6 @@ def spot_profile(request, spot_slug):
 # called by admin app
 @login_required
 def create_or_edit_spot(request, spot_slug=None):
-    if spot_slug:
-        print "spot slug: " + spot_slug
-    else:
-        print "shit is null"
     if request.method == 'POST':
         form = SpotForm(request.POST)
         if form.is_valid():
