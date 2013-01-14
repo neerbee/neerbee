@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% load url from future %}
 
+{% block html_head %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/neerbee.map.css" />
+<!--[if lte IE 8]>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.ie.css" />
+<![endif]-->
+<script src="{{ STATIC_URL }}js/leaflet.js"></script>
+<script src="{{ STATIC_URL }}js/web-maps-lite.js"></script>
+{% endblock %}
+
 {% block content %}
 {% if spot_slug %}
   <form action="{% url 'admin:edit_spot' spot_slug %}" method="post" class="form-horizontal">{% csrf_token %}
@@ -31,10 +41,13 @@
 </div>
 <div class="control-group">
   {{ form.pobox.errors }}
-  <label class="control-label" for="{{ form.pobox.auto_id }}">PO Box</label>
+  <label class="control-label" for="{{ form.pobox.auto_id }}">Postcode</label>
   <div class="controls">
     {{ form.pobox }}
   </div>
+</div>
+<div class="control-group">
+  <div id="form-map"></div>
 </div>
 <div class="control-group">
   {{ form.phone.errors }}
@@ -206,19 +219,77 @@ Choose which services are offered by the spot:<br />
     </div>
   </div>
 </div>
-<input type="submit" value="Submit">
+<input class="btn btn-success" type="submit" value="Submit">
 </form>
 
 <script type="text/javascript">
 $(document).ready(function(){
+
+  $('[name="address"]').keyup(function() {
+    var valueText = $(this).val();
+    if (valueText.length > 3) {
+       geoText(valueText + ', Ελλάδα');
+    }
+  });
+
+  // OpenStreetMap maps
+
+  var map = L.map('form-map').setView([37.9833333, 23.7333333], 13);
+  L.tileLayer('http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+      attribution: 'Data, imagery and map information provided by <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.',
+      maxZoom: 18,
+      subdomains: ['otile1','otile2','otile3','otile4']
+  }).addTo(map);
+
+  var thisLayerGroup = L.layerGroup([]);
+  
+  function geoText (text) {
+
+    thisLayerGroup.clearLayers();
+
+    var geocoder = new CM.Geocoder('4ba9e7ddb94b4c809ea26baa852dd1a6');
+
+    geocoder.getLocations(text, function(response) {
+      /*var p1 = new L.Point(response.bounds[0][0], response.bounds[0][1]),
+          p2 = new L.Point(response.bounds[1][0], response.bounds[1][1]),
+          bounds = new L.Bounds(p1, p2);
+      map.fitBounds(bounds);*/
+      for (var i = 0; i < response.features.length; i++) {
+          var coords = response.features[i].centroid.coordinates;
+          var features = response.features[i];
+
+          console.log(features);
+
+          var thisMarker = L.marker([coords[0], coords[1]]).addTo(map).bindPopup(features.properties.name);
+
+          thisLayerGroup.addLayer(thisMarker);
+
+          map.panTo([coords[0], coords[1]]);
+      }
+    });
+
+  }
+
+  /* 
+
+  //Leaflet Default maps 
+
+  var map = L.map('form-map').setView([51.505, -0.09], 13);
+  L.tileLayer('http://{s}.tile.cloudmade.com/4ba9e7ddb94b4c809ea26baa852dd1a6/997/256/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+      maxZoom: 18
+  }).addTo(map);
+  
+  */
+
 	if (!$("#{{ form.service_food.auto_id }}").is(":checked"))
-		$("#service_food").css("display", "none");
+		$("#service_food").hide()
 	if (!$("#{{ form.service_bar.auto_id }}").is(":checked"))
-		$("#service_bar").css("display", "none");
+		$("#service_bar").hide()
 	if (!$("#{{ form.service_coffee.auto_id }}").is(":checked"))
-		$("#service_coffee").css("display", "none");
+		$("#service_coffee").hide()
 	if (!$("#{{ form.service_club.auto_id }}").is(":checked"))
-		$("#service_club").css("display", "none");
+		$("#service_club").hide();
 
 	$("#{{ form.service_food.auto_id }}").click(function(){
 		if ($("#{{ form.service_food.auto_id }}").is(":checked")){
