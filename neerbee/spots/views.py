@@ -24,10 +24,17 @@ def create_or_edit_spot(request, spot_slug=None):
             if spot_slug is None:
                 new_spot = Spot(name = form.cleaned_data['name'],
                             address = form.cleaned_data['address'],
-                            neighbourhood = form.cleaned_data['neighbourhood'])
+                            neighbourhood = form.cleaned_data['neighbourhood'],
+                            pobox = form.cleaned_data['pobox'])
             else:
                 # this is an edit form
                 new_spot = get_document_or_404(Spot, slug=spot_slug)
+                if form.cleaned_data.get('address'):
+                    new_spot.address = form.cleaned_data['address']
+                if form.cleaned_data.get('neighbourhood'):
+                    new_spot.neighbourhood = form.cleaned_data['neighbourhood']
+                if form.cleaned_data.get('pobox'):
+                    new_spot.pobox = form.cleaned_data['pobox']    
 
             # create service list
             new_spot.services = []
@@ -69,8 +76,6 @@ def create_or_edit_spot(request, spot_slug=None):
             # add any existing details
             if form.cleaned_data.get('phone'):
                 new_spot.phone = form.cleaned_data['phone']
-            if form.cleaned_data.get('pobox'):
-                new_spot.pobox = form.cleaned_data['pobox']
             if form.cleaned_data.get('website'):
                 new_spot.website = form.cleaned_data['website']
             if form.cleaned_data.get('price'):
@@ -124,7 +129,7 @@ def create_or_edit_spot(request, spot_slug=None):
                     s._data['club_coat_check'] = service.coat_check
                     s._data['club_face_control'] = service.face_control
 
-            form = SpotForm(initial=s._data);
+            form = SpotForm(initial=s._data)
 
 
     return render(request, 'spots/create_or_edit_spot.html', {

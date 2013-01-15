@@ -82,6 +82,55 @@ class SpotFormTest(SpotTestCase):
                         resp.context['form'].non_field_errors())
     
     # test that the view inserts new spot correctly    
-    #def test_new_spot_view(self):
+    def test_create_spot_view(self):
+        # log user in
+        resp = self.client.login(username='nikos', password='123')
+        self.assertTrue(resp)
+
+        # send valid POST data
+        resp = self.client.post(reverse('admin:create_spot'),
+                                {'name': 'Busaba',
+                                 'address': '1-6 Batemans Row',
+                                 'neighbourhood': 'Shoreditch',
+                                 'pobox': 'EC2A3HH',
+                                 'service_food': True,
+                                 'food_category': 'Thai'})
+        # should be redirected to /spots/
+        self.assertEqual(resp.status_code, 302)
+        # get the saved spot
+        bus = Spot.objects(name='Busaba')
+        bus = bus[0]
+        self.assertIsNotNone(bus)
+        # and check that data was saved correctly
+        self.assertEqual(bus.name, 'Busaba')
+        self.assertEqual(bus.address, '1-6 Batemans Row')
+        self.assertEqual(bus.neighbourhood, 'Shoreditch')
+        self.assertEqual(bus.pobox, 'EC2A3HH')
+        self.assertIsInstance(bus.services[0], ServiceFood)
+        self.assertEqual(bus.services[0].category, 'Thai')
+
     # then test the view that edits an existing spot
-        
+    def test_edit_spot_view(self):
+        # log user in
+        resp = self.client.login(username='nikos', password='123')
+        self.assertTrue(resp)
+        # post for existing slug changing the address
+        resp = self.client.post(reverse('admin:create_spot'),
+                                {'spot_slug': 'busaba',
+                                 'name': 'Busaba',
+                                 'address': 'P Benaki',
+                                 'neighbourhood': 'Soho',
+                                 'pobox': 'EC2A3HH',
+                                 'service_food': True,
+                                 'food_category': 'Thai'})
+        # should be redirected to /spots/
+        self.assertEqual(resp.status_code, 302)
+        # get the saved spot
+        bus = Spot.objects(name='Busaba')
+        # check that the spot was edited and not a new one created
+        self.assertEqual(len(bus), 1)
+        bus = bus[0]
+        self.assertIsNotNone(bus)
+        # and check that data was saved correctly
+        self.assertEqual(bus.address, 'P Benaki')
+        self.assertEqual(bus.neighbourhood, 'Soho')
