@@ -29,6 +29,10 @@ def create_or_edit_spot(request, spot_slug=None):
             else:
                 # this is an edit form
                 new_spot = get_document_or_404(Spot, slug=spot_slug)
+                # should be able to even change spot name but must solve
+                # slug issues first
+                #if form.cleaned_data.get('name'):
+                #    new_spot.name = form.cleaned_data['name']
                 if form.cleaned_data.get('address'):
                     new_spot.address = form.cleaned_data['address']
                 if form.cleaned_data.get('neighbourhood'):

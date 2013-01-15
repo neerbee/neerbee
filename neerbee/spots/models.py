@@ -1,5 +1,5 @@
 from mongoengine import *
-from neerbee.tools import unique_slugify
+from neerbee.tools import unique_slugify_spot
 
 class Service(EmbeddedDocument):
     service_type = StringField(max_length=50, required=True)
@@ -87,5 +87,5 @@ class Spot(Document):
     def save(self, *args, **kwargs):
         # For automatic slug generation.
         if not self.slug:
-            unique_slugify(self, self.name)
+            unique_slugify_spot(self, self.name)
         return super(Spot, self).save(*args, **kwargs)

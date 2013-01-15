@@ -2,7 +2,7 @@ import re
 from django.template.defaultfilters import slugify
 
 
-def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
+def unique_slugify_spot(instance, value, slug_field_name='slug', queryset=None,
 					slug_separator='-'):
 	"""
 	Calculates and stores a unique slug of ``value`` for an instance.
@@ -33,10 +33,19 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
 		queryset = queryset.exclude(pk=instance.pk)
 
 	result = {i.slug for i in queryset}	
-	# Find a unique slug. If one matches, add '-2' to the end and try again
+	# Find a unique slug. If name matches, use neighbourhood as extra field
+	if slug in result:
+		neighbourhood = getattr(instance, 'neighbourhood')
+		slug = slugify(slug + "-" + neighbourhood)
+		if slug_len:
+			slug = slug[:slug_len]
+		slug = _slug_strip(slug, slug_separator)
+		original_slug = slug
+
+
+	# If one matches, add '-2' to the end and try again
 	# (then '-3', etc).
 	next = 2
-	#while not slug or queryset.filter(**{slug_field_name: slug}):
 	while not slug or slug in result:
 		slug = original_slug
 
