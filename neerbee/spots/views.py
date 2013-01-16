@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from mongoengine.django.shortcuts import get_document_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from models import *
 from forms import SpotForm
@@ -35,8 +36,8 @@ def create_or_edit_spot(request, spot_slug=None):
                 #    new_spot.name = form.cleaned_data['name']
                 if form.cleaned_data.get('address'):
                     new_spot.address = form.cleaned_data['address']
-                if form.cleaned_data.get('neighbourhood'):
-                    new_spot.neighbourhood = form.cleaned_data['neighbourhood']
+                #if form.cleaned_data.get('neighbourhood'):
+                #    new_spot.neighbourhood = form.cleaned_data['neighbourhood']
                 if form.cleaned_data.get('pobox'):
                     new_spot.pobox = form.cleaned_data['pobox']    
 
@@ -140,4 +141,14 @@ def create_or_edit_spot(request, spot_slug=None):
         'form': form,
         'spot_slug': spot_slug,
     })
+
+# called by admin app
+@csrf_exempt
+def delete_spot(request, spot_slug=None):
+    if request.method == 'POST' and spot_slug:
+        s = get_document_or_404(Spot, slug=spot_slug)
+        s.delete()
+        return HttpResponseRedirect('/spots/') # Redirect after POST
+
+    return HttpResponseRedirect('/spots/') # Redirect after POST
 

@@ -116,7 +116,7 @@ class SpotFormTest(SpotTestCase):
         self.assertTrue(resp)
         # post for existing slug changing the address
         resp = self.client.post(reverse('admin:create_spot'),
-                                {'spot_slug': 'busaba',
+                                {'spot_slug': 'busaba-soho',
                                  'name': 'Busaba',
                                  'address': 'P Benaki',
                                  'neighbourhood': 'Soho',
@@ -133,4 +133,31 @@ class SpotFormTest(SpotTestCase):
         self.assertIsNotNone(bus)
         # and check that data was saved correctly
         self.assertEqual(bus.address, 'P Benaki')
-        self.assertEqual(bus.neighbourhood, 'Soho')
+        self.assertEqual(bus.neighbourhood, 'Shoreditch')
+
+class SpotDeleteTest(SpotTestCase):
+    # test that we can delete a spot
+    def test_delete_spot_view(self):
+        # log user in
+        resp = self.client.login(username='nikos', password='123')
+        self.assertTrue(resp)
+
+        resp = self.client.post(reverse('admin:create_spot'),
+                                {'name': 'Busaba',
+                                 'address': '1-6 Batemans Row',
+                                 'neighbourhood': 'Shoreditch',
+                                 'pobox': 'EC2A3HH',
+                                 'service_food': True,
+                                 'food_category': 'Thai'})
+        self.assertEqual(resp.status_code, 302)
+        bus = Spot.objects(name='Busaba')
+        self.assertEqual(len(bus), 1)
+        bus=bus[0]
+        self.assertIsNotNone(bus)
+        # post with data
+        resp = self.client.post(reverse('admin:delete_spot'),
+                                {'spot_slug': 'busaba-shoreditch'})
+        # should be redirected to /spots/
+        self.assertEqual(resp.status_code, 302)
+        bus = Spot.objects(name='Busaba')
+        self.assertIsNone(bus)
