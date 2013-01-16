@@ -206,7 +206,10 @@ Choose which services are offered by the spot:<br />
     </div>
   </div>
 </div>
-<input type="submit" value="Submit">
+<input type="submit" name="submit" value="Submit">
+{% if spot_slug %}
+<input type="submit" name="delete" value="Delete">
+{% endif %}
 </form>
 
 <script type="text/javascript">

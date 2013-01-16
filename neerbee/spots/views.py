@@ -22,6 +22,11 @@ def create_or_edit_spot(request, spot_slug=None):
         form = SpotForm(request.POST)
         if form.is_valid():
             # create new Spot object first only with mandatory fields
+            if 'delete' in request.POST:
+                s = get_document_or_404(Spot, slug=spot_slug)
+                s.delete()
+                return HttpResponseRedirect('/spots/') # Redirect after POST
+
             if spot_slug is None:
                 new_spot = Spot(name = form.cleaned_data['name'],
                             address = form.cleaned_data['address'],
@@ -141,14 +146,3 @@ def create_or_edit_spot(request, spot_slug=None):
         'form': form,
         'spot_slug': spot_slug,
     })
-
-# called by admin app
-@csrf_exempt
-def delete_spot(request, spot_slug=None):
-    if request.method == 'POST' and spot_slug:
-        s = get_document_or_404(Spot, slug=spot_slug)
-        s.delete()
-        return HttpResponseRedirect('/spots/') # Redirect after POST
-
-    return HttpResponseRedirect('/spots/') # Redirect after POST
-
