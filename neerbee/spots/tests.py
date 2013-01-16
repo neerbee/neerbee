@@ -135,29 +135,3 @@ class SpotFormTest(SpotTestCase):
         self.assertEqual(bus.address, 'P Benaki')
         self.assertEqual(bus.neighbourhood, 'Shoreditch')
 
-class SpotDeleteTest(SpotTestCase):
-    # test that we can delete a spot
-    def test_delete_spot_view(self):
-        # log user in
-        resp = self.client.login(username='nikos', password='123')
-        self.assertTrue(resp)
-
-        resp = self.client.post(reverse('admin:create_spot'),
-                                {'name': 'Busaba',
-                                 'address': '1-6 Batemans Row',
-                                 'neighbourhood': 'Shoreditch',
-                                 'pobox': 'EC2A3HH',
-                                 'service_food': True,
-                                 'food_category': 'Thai'})
-        self.assertEqual(resp.status_code, 302)
-        bus = Spot.objects(name='Busaba')
-        self.assertEqual(len(bus), 1)
-        bus=bus[0]
-        self.assertIsNotNone(bus)
-        # post with data
-        resp = self.client.post(reverse('admin:delete_spot'),
-                                {'spot_slug': 'busaba-shoreditch'})
-        # should be redirected to /spots/
-        self.assertEqual(resp.status_code, 302)
-        bus = Spot.objects(name='Busaba')
-        self.assertIsNone(bus)
