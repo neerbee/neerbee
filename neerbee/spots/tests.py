@@ -114,10 +114,17 @@ class SpotFormTest(SpotTestCase):
         # log user in
         resp = self.client.login(username='nikos', password='123')
         self.assertTrue(resp)
-        # post for existing slug changing the address
+        # send valid POST data
         resp = self.client.post(reverse('admin:create_spot'),
-                                {'spot_slug': 'busaba-soho',
-                                 'name': 'Busaba',
+                                {'name': 'Busaba',
+                                 'address': '1-6 Batemans Row',
+                                 'neighbourhood': 'Shoreditch',
+                                 'pobox': 'EC2A3HH',
+                                 'service_food': True,
+                                 'food_category': 'Thai'})
+        # post for existing slug changing the address
+        resp = self.client.post('/admin/edit_spot/busaba-shoreditch/',
+                                {'name': 'Busaba',
                                  'address': 'P Benaki',
                                  'neighbourhood': 'Soho',
                                  'pobox': 'EC2A3HH',
@@ -133,5 +140,34 @@ class SpotFormTest(SpotTestCase):
         self.assertIsNotNone(bus)
         # and check that data was saved correctly
         self.assertEqual(bus.address, 'P Benaki')
+        # but the neighbourhood is not allowed to change
         self.assertEqual(bus.neighbourhood, 'Shoreditch')
+
+    # then test that we can delete a spot
+    def test_delete_spot(self):
+        # log user in
+        resp = self.client.login(username='nikos', password='123')
+        self.assertTrue(resp)
+        # send valid POST data
+        resp = self.client.post(reverse('admin:create_spot'),
+                                {'name': 'Busaba',
+                                 'address': '1-6 Batemans Row',
+                                 'neighbourhood': 'Shoreditch',
+                                 'pobox': 'EC2A3HH',
+                                 'service_food': True,
+                                 'food_category': 'Thai'})
+        resp = self.client.post(reverse('admin:edit_spot', args=['busaba-shoreditch']),
+                                {'name': 'Busaba',
+                                 'address': 'P Benaki',
+                                 'neighbourhood': 'Soho',
+                                 'pobox': 'EC2A3HH',
+                                 'service_food': True,
+                                 'food_category': 'Thai',
+                                 'delete': True})
+        # should be redirected to /spots/
+        self.assertEqual(resp.status_code, 302)
+        # verify that the spot does not exist anymore
+        bus = Spot.objects(name='Busaba')
+        self.assertEqual(len(bus), 0)
+
 
