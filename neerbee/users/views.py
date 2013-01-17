@@ -3,6 +3,7 @@ from mongoengine.django.shortcuts import get_document_or_404
 from django.contrib.auth.decorators import login_required
 
 def user_home(request):
+    #request.session['django_language'] = 'el'
     if not request.user.is_authenticated():
         return render(request, 'index.html')
     else:
