@@ -27,12 +27,14 @@ class MongoTestCase(TestCase):
             raise SkipTest('django does not have Python 3 support')
 
         from mongoengine.connection import connect, disconnect, get_connection
+        from neerbee.users.models import Bee
         for db_name, db_alias in settings.MONGO_DATABASES.items():
             db_name = 'test_%s' % db_name
             connection = get_connection(db_alias)
             connection.drop_database(db_name)
             disconnect(db_alias)
             connect(db_name, port=settings.MONGO_PORT)
+            Bee.create_user(username="nikos", email="nikos@neerbee.com", password="123")
         super(MongoTestCase, self)._pre_setup()
 
     def _post_teardown(self):

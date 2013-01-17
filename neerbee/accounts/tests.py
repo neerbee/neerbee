@@ -1,16 +1,9 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
-from django.test import TestCase
+from mongotesting import MongoTestCase
+from neerbee.users.models import Bee
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class AccountTestCase(MongoTestCase):
+    def test_login(self):
+    	# test that default user can be logged in
+    	resp = self.client.login(username='nikos', password='123')
+    	self.assertEqual(resp, True)

@@ -33,10 +33,10 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
 		queryset = queryset.exclude(pk=instance.pk)
 
 	result = {i.slug for i in queryset}	
-	# Find a unique slug. If one matches, add '-2' to the end and try again
+
+	# If one matches, add '-2' to the end and try again
 	# (then '-3', etc).
 	next = 2
-	#while not slug or queryset.filter(**{slug_field_name: slug}):
 	while not slug or slug in result:
 		slug = original_slug
 

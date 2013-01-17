@@ -87,5 +87,5 @@ class Spot(Document):
     def save(self, *args, **kwargs):
         # For automatic slug generation.
         if not self.slug:
-            unique_slugify(self, self.name)
+            unique_slugify(self, self.name + "-" + self.neighbourhood)
         return super(Spot, self).save(*args, **kwargs)
