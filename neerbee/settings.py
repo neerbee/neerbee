@@ -53,6 +53,15 @@ TIME_ZONE = 'Europe/Athens'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
+LANGUAGES = (
+    ('en', 'English'),
+    ('el', 'Greek'),
+)
+
+LOCALE_PATHS = (
+    './locale',
+)
+
 SITE_ID = 1
 #SITE = 'www.neerbee.com'
 SITE = os.environ['SITE']

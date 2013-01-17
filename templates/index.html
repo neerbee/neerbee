@@ -2,10 +2,9 @@
 {% load i18n %}
 {% load url from future %}
 <h1>neerbee</h1>
-
 {% block content %}
 <div class="hero-unit">
-	<h1>Welcome to neerbee!</h1>
+	<h1>{% trans "Welcome to neerbee!" %}</h1>
 	<p>If you are already a member of <strong>neerbee</strong> please <a href="{% url 'django.contrib.auth.views.login' %}">login</a>. </p>
 	<p>If you aren't a member yet you don't know what you 're missing out on. You can <a href="{% url 'registration_register' %}">register</a> or you can just view the <a href="{% url 'spots:spots' %}">spots</a>.</p>
 </div>
