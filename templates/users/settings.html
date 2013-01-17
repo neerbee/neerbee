@@ -6,7 +6,9 @@
 <div class="row">
 	<div class="span12">
 		<h3>Your account settings</h3>
-		<a class="btn btn-primary" href="{% url 'auth_password_change' %}">Change your password</a>
+		<ul>
+		<li>Your preferred language is: {{ user.preferred_language }}<br></li>
+		<li><a class="btn btn-primary" href="{% url 'auth_password_change' %}">Change your password</a></li>
 	</div>
 </div>
 {% endblock %}

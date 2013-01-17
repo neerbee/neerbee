@@ -6,14 +6,11 @@ from django.dispatch import receiver
 
 @receiver(user_logged_in)
 def get_preferred_language(sender, **kwargs):
-	request = kwargs['request']
-	user = kwargs['user']
-	if user.preferred_language:
-		request.session['django_language'] = user.preferred_language
-	else:
-		request.session['django_language'] = 'el'
+	if kwargs['user'].preferred_language:
+		lang_code = kwargs['user'].preferred_language
+		kwargs['request'].session['django_language'] = lang_code
 
 class Bee(User):
     likes = ListField(ReferenceField(Spot, reverse_delete_rule=CASCADE))
     dislikes = ListField(ReferenceField(Spot, reverse_delete_rule=CASCADE))
-    preferred_language = StringField(max_length=10, default='en')
+    preferred_language = StringField(max_length=10)

@@ -7,7 +7,6 @@
 <div class="container">
 
 <div class="hero-unit">
-  {{ LANGUAGE_CODE|language_name }} 
   <h1>{% trans "Hello," %} {{ user.username }}!</h1>
   {% if user.likes %}
     <p>These are the spots you like:
