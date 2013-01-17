@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% load url from future %}
 
+{% block html_head %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/neerbee.map.css" />
+<!--[if lte IE 8]>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.ie.css" />
+<![endif]-->
+<script src="{{ STATIC_URL }}js/leaflet.js"></script>
+<script src="{{ STATIC_URL }}js/leaflet.control.geosearch.js"></script>
+<script src="{{ STATIC_URL }}js/leaflet.geosearch.provider.google.js"></script>
+{% endblock %}
+
 {% block content %}
 {% if spot_slug %}
   <form action="{% url 'admin:edit_spot' spot_slug %}" method="post" class="form-horizontal">{% csrf_token %}
@@ -21,6 +32,7 @@
   <div class="controls">
     {{ form.address }}
   </div>
+  <div id="id_address_results"></div>
 </div>
 <div class="control-group">
   {{ form.neighbourhood.errors }}
@@ -31,10 +43,13 @@
 </div>
 <div class="control-group">
   {{ form.pobox.errors }}
-  <label class="control-label" for="{{ form.pobox.auto_id }}">PO Box</label>
+  <label class="control-label" for="{{ form.pobox.auto_id }}">Postcode</label>
   <div class="controls">
     {{ form.pobox }}
   </div>
+</div>
+<div class="control-group">
+  <div id="form-map"></div>
 </div>
 <div class="control-group">
   {{ form.phone.errors }}
@@ -206,22 +221,61 @@ Choose which services are offered by the spot:<br />
     </div>
   </div>
 </div>
+
+<input class="btn btn-success" type="submit" value="Submit">
+=======
 <input type="submit" name="submit" value="Submit">
 {% if spot_slug %}
 <input type="submit" name="delete" value="Delete">
 {% endif %}
+
 </form>
 
 <script type="text/javascript">
+
+var geoControl;
+
+function geoResultShow (resNum) {
+  $('#id_address').val(geoResults[resNum].Label);
+  $('#id_neighbourhood').val(geoResults[resNum].neighborhood);
+  $('#id_pobox').val(geoResults[resNum].postal_code);
+  geoControl._showLocation(geoResults[resNum].X, geoResults[resNum].Y);
+}
+
 $(document).ready(function(){
+
+  var geoResults = new Array();
+
+  var map = L.map('form-map').setView([37.9833333, 23.7333333], 13);
+
+  L.tileLayer('http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+      attribution: 'Data, imagery and map information provided by <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.',
+      maxZoom: 18,
+      subdomains: ['otile1','otile2','otile3','otile4']
+  }).addTo(map);
+
+  geoControl = new L.Control.GeoSearch({
+    provider: new L.GeoSearch.Provider.Google()
+  }).addTo(map);
+
+
+
+  $('[name="address"]').keyup(function() {
+    $('#id_address_results').html('');
+    var valueText = $(this).val();
+    if (valueText.length > 3) {
+       geoControl.geosearch(valueText);
+    }
+  });
+
 	if (!$("#{{ form.service_food.auto_id }}").is(":checked"))
-		$("#service_food").css("display", "none");
+		$("#service_food").hide()
 	if (!$("#{{ form.service_bar.auto_id }}").is(":checked"))
-		$("#service_bar").css("display", "none");
+		$("#service_bar").hide()
 	if (!$("#{{ form.service_coffee.auto_id }}").is(":checked"))
-		$("#service_coffee").css("display", "none");
+		$("#service_coffee").hide()
 	if (!$("#{{ form.service_club.auto_id }}").is(":checked"))
-		$("#service_club").css("display", "none");
+		$("#service_club").hide();
 
 	$("#{{ form.service_food.auto_id }}").click(function(){
 		if ($("#{{ form.service_food.auto_id }}").is(":checked")){
