@@ -1,19 +1,29 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from mongoengine.django.shortcuts import get_document_or_404
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import View, TemplateView
 from django.contrib.auth.decorators import login_required
-from models import *
-from forms import SpotForm
 
-def spots(request):
-    spot_list = Spot.objects.all()
-    return render(request, 'spots/spot_list.html', {'item_list': spot_list})
+from mongoengine.django.shortcuts import get_document_or_404
 
-def spot_profile(request, spot_slug):
-    s = get_document_or_404(Spot, slug=spot_slug)
+from .models import *
+from .forms import SpotForm
+
+class SpotListView(TemplateView):
+    template_name = "spots/spot_list.html"
     
-    return render(request, 'spots/spot_profile.html', {'spot': s})
+    def get_context_data(self, **kwargs):
+        spot_list = Spot.objects.all()
+        return {'item_list': spot_list}
+
+
+class SpotDetailView(TemplateView):
+    template_name = "spots/spot_profile.html"
+
+    def get_context_data(self, **kwargs):
+        s = get_document_or_404(Spot, slug=kwargs['spot_slug'])
+        return {'spot': s}
+
 
 # called by admin app
 @login_required

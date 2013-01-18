@@ -1,7 +1,18 @@
 from django.conf.urls import patterns, include, url
 
+from .views import SpotDetailView, SpotListView
+
 urlpatterns = patterns(
         'neerbee.spots.views',
-        url(r'^$', 'spots', name="spots"),
-        url(r'^athens/(?P<spot_slug>\S+)/$', 'spot_profile', name="spot_profile"),
+        url(
+            regex=r'^$',
+            #'spots',
+            view=SpotListView.as_view(),
+            name="spots"
+        ),
+        url(
+            regex=r'^athens/(?P<spot_slug>\S+)/$',
+            view=SpotDetailView.as_view(), 
+            name="spot_profile"
+        ),
 )

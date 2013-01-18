@@ -1,15 +1,20 @@
 from django.shortcuts import render
-from mongoengine.django.shortcuts import get_document_or_404
-from django.contrib.auth.decorators import login_required
+from django.views.generic import View, TemplateView
 
-def user_home(request):
-    #request.session['django_language'] = 'el'
-    if not request.user.is_authenticated():
-        return render(request, 'index.html')
-    else:
-        return render(request, 'users/home.html', {'user': request.user})
+from braces.views import LoginRequiredMixin
 
-@login_required
-def user_settings(request):
-    return render(request, 'users/settings.html', {'user': request.user})
 
+class UserHomeView(View):
+
+    def get(self, request):
+        if not request.user.is_authenticated():       
+            return render(request, 'index.html')
+        else:
+            return render(request, 'users/home.html', {'user': request.user})
+
+
+class UserSettingsView(LoginRequiredMixin, TemplateView):
+	template_name = "users/settings.html"
+
+	def get(self, request):
+		return render(request, {'user': request.user})
