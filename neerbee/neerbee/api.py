@@ -1,10 +1,13 @@
 from django.conf.urls.defaults import *
 from django.core.paginator import Paginator, InvalidPage
 from django.http import Http404
+
 from tastypie import authorization
 from tastypie import authentication
 from tastypie.utils import trailing_slash
+#from tastypie_mongoengine import fields, resources
 from tastypie_mongoengine import fields, resources
+
 from spots.models import *
 
 
@@ -32,7 +35,6 @@ class ServiceResource(resources.MongoEngineResource):
     class Meta:
         object_class = Service
         allowed_methods = ('get')
-        #authorization = authorization.Authorization()
 
         polymorphic = {
                 'serviceFood': ServiceFoodResource,

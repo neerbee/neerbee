@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic.simple import direct_to_template
-from tastypie.api import Api
-from api.resources import *
 
+from tastypie.api import Api
+
+from neerbee.api import *
 from users.views import UserHomeView, UserSettingsView
 
 v1_api = Api(api_name='v1')

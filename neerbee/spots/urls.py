@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 from .views import SpotDetailView, SpotListView, SpotCreateView
 
 urlpatterns = patterns(
-        'neerbee.spots.views',
+        'spots.views',
         url(
             regex=r'^$',
             #'spots',
