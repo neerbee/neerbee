@@ -23,8 +23,9 @@ various steps of the user-signup process.
 from django.conf.urls.defaults import patterns, url
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth import views as auth_views
-from neerbee.registration.views import activate, register
-from neerbee.registration.forms import RegistrationFormUniqueEmail
+
+from registration.views import activate, register
+from registration.forms import RegistrationFormUniqueEmail
 
 """
 Activation keys get matched by \w+ instead of the more specific

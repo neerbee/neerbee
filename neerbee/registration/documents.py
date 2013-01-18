@@ -7,8 +7,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
 from mongoengine import StringField
-#from mongoengine.django.auth import User
-from neerbee.users.models import Bee as User
+from users.models import Bee as User
 
 from signals import activate
 

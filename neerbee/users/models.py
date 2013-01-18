@@ -1,8 +1,10 @@
 from mongoengine import *
 from mongoengine.django.auth import User
-from neerbee.spots.models import Spot
+
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
+
+from spots.models import Spot
 
 @receiver(user_logged_in)
 def get_preferred_language(sender, **kwargs):

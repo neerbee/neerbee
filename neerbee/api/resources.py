@@ -5,7 +5,7 @@ from tastypie import authorization
 from tastypie import authentication
 from tastypie.utils import trailing_slash
 from tastypie_mongoengine import fields, resources
-from neerbee.spots.models import *
+from spots.models import *
 
 
 class ServiceFoodResource(resources.MongoEngineResource):

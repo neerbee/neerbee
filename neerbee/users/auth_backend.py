@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AnonymousUser
-from neerbee.users.models import Bee
+
+from users.models import Bee
 
 class BeeAuthBackend(object):
     """Authenticate using MongoEngine and neerbee.user.models.Bee

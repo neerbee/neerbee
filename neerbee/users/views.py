@@ -16,5 +16,5 @@ class UserHomeView(View):
 class UserSettingsView(LoginRequiredMixin, TemplateView):
 	template_name = "users/settings.html"
 
-	def get(self, request):
-		return render(request, {'user': request.user})
+	def get(self, request, *args, **kwargs):
+	    return render(request, self.template_name, {'user': request.user})

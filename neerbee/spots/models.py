@@ -1,5 +1,6 @@
 from mongoengine import *
-from neerbee.tools import unique_slugify
+
+from .tools import unique_slugify
 
 class Service(EmbeddedDocument):
     service_type = StringField(max_length=50, required=True)
