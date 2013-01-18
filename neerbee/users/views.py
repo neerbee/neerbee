@@ -6,7 +6,7 @@ from braces.views import LoginRequiredMixin
 
 class UserHomeView(View):
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated():       
             return render(request, 'index.html')
         else:
