@@ -5,7 +5,6 @@ from django.http import Http404
 from tastypie import authorization
 from tastypie import authentication
 from tastypie.utils import trailing_slash
-#from tastypie_mongoengine import fields, resources
 from tastypie_mongoengine import fields, resources
 
 from spots.models import *
@@ -45,7 +44,7 @@ class ServiceResource(resources.MongoEngineResource):
 
 class SpotResource(resources.MongoEngineResource):
     services = fields.EmbeddedListField(
-                    of='neerbee.api.resources.ServiceResource', 
+                    of='neerbee.api.ServiceResource', 
                     attribute='services', 
                     full=True, 
                     null=True
