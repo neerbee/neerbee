@@ -1,15 +1,22 @@
-# Django settings for neerbee project.
+# settings/local.py
+from .base import *
+
 import os
 from urlparse import urlparse
+from unipath import Path
+
+# The full path to the django_website directory
+PROJECT_ROOT = Path(__file__).ancestor(3)
+
+TEMPLATE_DIRS = (
+    PROJECT_ROOT.child('templates'),
+)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
-path = lambda *a: os.path.join(ROOT, *a)
-
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Nikos Fertakis', 'nikos@neerbee.com'),
 )
 
 MANAGERS = ADMINS
@@ -79,7 +86,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = path('./media')
+MEDIA_ROOT = PROJECT_ROOT.child('media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -90,16 +97,15 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = path('./static')
+#STATIC_ROOT = PROJECT_ROOT.child('static')
+STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
-# Additional locations of static files
 STATICFILES_DIRS = (
-    "./media",
-    "./static",
+    PROJECT_ROOT.child('static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -136,10 +142,6 @@ ROOT_URLCONF = 'neerbee.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'neerbee.wsgi.application'
 
-TEMPLATE_DIRS = (
-        './templates',
-)
-
 INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -162,8 +164,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SESSION_ENGINE = 'mongoengine.django.sessions'
-
-DEFAULT_FORM_EMAIL = 'hello@neerbee.com'
 
 EMAIL_HOST = os.environ['EMAIL_HOST']
 EMAIL_PORT = os.environ['EMAIL_PORT']
