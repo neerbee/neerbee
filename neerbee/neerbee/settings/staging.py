@@ -142,10 +142,6 @@ ROOT_URLCONF = 'neerbee.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'neerbee.wsgi.application'
 
-INSTALLED_APPS += (
-    'mongotesting',
-)
-
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 
 AUTHENTICATION_BACKENDS = (

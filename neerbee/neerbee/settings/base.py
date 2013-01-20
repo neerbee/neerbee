@@ -23,3 +23,18 @@ TEMPLATE_CONTEXT_PROCESSORS = (
             'django.contrib.auth.context_processors.auth',
             'django.contrib.messages.context_processors.messages',
 )
+
+
+INSTALLED_APPS = (
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'tastypie',
+    'tastypie_mongoengine',
+    'accounts',
+    'admin',
+    'registration',
+    'spots',
+    'users',
+)
