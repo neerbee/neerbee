@@ -65,9 +65,9 @@ LANGUAGES = (
     ('el', 'Greek'),
 )
 
-LOCALE_PATHS = (
-    './locale',
-)
+#LOCALE_PATHS = (
+#    './locale',
+#)
 
 SITE_ID = 1
 SITE = os.environ['SITE']

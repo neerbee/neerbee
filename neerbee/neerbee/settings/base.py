@@ -5,6 +5,7 @@ import os
 # into your settings, but ImproperlyConfigured is an eception.
 from django.core.exceptions import ImproperlyConfigured
 
+from unipath import Path
 
 def get_env_variable(var_name):
     """ Get the environment variable or return exception. """
@@ -14,16 +15,8 @@ def get_env_variable(var_name):
         error_msg = "Set the %s env variable" % var_name
         raise ImproperlyConfigured(error_msg)
 
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-            'django.core.context_processors.debug',
-            'django.core.context_processors.i18n',
-            'django.core.context_processors.media',
-            'django.core.context_processors.static',
-            'django.contrib.auth.context_processors.auth',
-            'django.contrib.messages.context_processors.messages',
-)
-
+# The full path to the django website directory
+PROJECT_ROOT = Path(__file__).ancestor(3)
 
 INSTALLED_APPS = (
     'django.contrib.contenttypes',
@@ -38,3 +31,17 @@ INSTALLED_APPS = (
     'spots',
     'users',
 )
+
+LOCALE_PATHS = (
+   PROJECT_ROOT.child('locale'), 
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+            'django.core.context_processors.debug',
+            'django.core.context_processors.i18n',
+            'django.core.context_processors.media',
+            'django.core.context_processors.static',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+)
+
