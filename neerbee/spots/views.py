@@ -54,6 +54,8 @@ class SpotUpdateView(LoginRequiredMixin, TemplateView):
         spot_slug = kwargs['spot_slug']
         s = get_document_or_404(Spot, slug=spot_slug)
         # take care of service-specific information
+        # in the future I think it should be taken care of
+        # in the form, not in the view. maybe override constructor
         for service in s._data['services']:
             if service.__class__ is ServiceFood:
                 s._data['service_food'] = True
