@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic import View, TemplateView
@@ -42,4 +43,6 @@ class UserSettingsView(LoginRequiredMixin, TemplateView):
                 user.save()
                 # start using new language from current session
                 request.session['django_language'] = user.preferred_language
+                msg = 'User settings updated!'
+                messages.info(request, msg)
                 return HttpResponseRedirect('/')

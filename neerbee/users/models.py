@@ -1,8 +1,8 @@
-from mongoengine import *
-from mongoengine.django.auth import User
-
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
+
+from mongoengine import *
+from mongoengine.django.auth import User
 
 from spots.models import Spot
 

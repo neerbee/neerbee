@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic import View, TemplateView
@@ -42,6 +43,8 @@ class SpotCreateView(LoginRequiredMixin, TemplateView):
                             pobox = form.cleaned_data['pobox'])
 
             form.save(new_spot)
+            msg = 'Spot created!'
+            messages.info(request, msg)
             return HttpResponseRedirect('/spots/') # Redirect after POST 
 
            
@@ -85,6 +88,8 @@ class SpotUpdateView(LoginRequiredMixin, TemplateView):
         if 'delete' in request.POST:
             s = get_document_or_404(Spot, slug=spot_slug)
             s.delete()
+            msg = 'Spot deleted!'
+            messages.info(request, msg)
             return HttpResponseRedirect('/spots/')
         # then POST was to edit spot
         if form.is_valid():
@@ -97,4 +102,6 @@ class SpotUpdateView(LoginRequiredMixin, TemplateView):
                 new_spot.pobox = form.cleaned_data['pobox']
 
             form.save(new_spot)
+            msg = 'Spot updated!'
+            messages.info(request, msg)
             return HttpResponseRedirect('/spots/') # Redirect after POST 

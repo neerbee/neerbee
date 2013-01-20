@@ -30,6 +30,17 @@
 </head>
 
 <body>
+  {% if messages %}
+    <ul class="unstyled">
+      {% for message in messages %}
+      <li id="message_{{ forloop.counter }}"
+        {% if message.tags %} class="alert alert-success"
+          {% endif %}>
+        {{ message }}
+      </li>
+      {% endfor %}  
+    </ul>
+  {% endif %}
     <div id="navbar" class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
