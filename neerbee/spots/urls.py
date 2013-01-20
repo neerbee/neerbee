@@ -15,9 +15,4 @@ urlpatterns = patterns(
             view=SpotDetailView.as_view(), 
             name="spot_profile"
         ),
-        url(
-            regex=r'^edit/$',
-            view=SpotCreateView.as_view(),
-            name="spot_create_view"
-        ),
 )

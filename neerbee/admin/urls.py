@@ -1,7 +1,17 @@
 from django.conf.urls import patterns, include, url
 
+from spots.views import SpotCreateView, SpotUpdateView
+
 urlpatterns = patterns(
         '',
-        url(r'^edit_spot/(?P<spot_slug>\S+)/$', 'spots.views.create_or_edit_spot', name="edit_spot"),
-        url(r'^create_spot/$', 'spots.views.create_or_edit_spot', name="create_spot"),
+        url(
+            regex=r'^edit_spot/(?P<spot_slug>\S+)/$',
+            view=SpotUpdateView.as_view(),
+            name="edit_spot"
+        ),
+        url(
+            regex=r'^create_spot/$',
+            view=SpotCreateView.as_view(),
+            name="create_spot"
+        ),
 )

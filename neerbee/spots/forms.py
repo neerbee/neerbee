@@ -1,5 +1,7 @@
 from django import forms
 
+from .models import Spot, ServiceFood, ServiceBar, ServiceCoffee, ServiceClub
+
 class SpotForm(forms.Form):
     # general spot attributes
     name = forms.CharField(max_length=200, label="Name")
@@ -70,6 +72,75 @@ class SpotForm(forms.Form):
             msg = u"Must specify bar category."
             raise forms.ValidationError(msg)
 
-
         return cleaned_data
+
+    def save(self, spot):
+        spot.services = []
+        if self.cleaned_data.get('service_food'):
+            service_food = ServiceFood(category =
+                                        self.cleaned_data['food_category'])
+            if self.cleaned_data.get('food_delivery'):
+                service_food.delivery = self.cleaned_data['food_delivery']
+            if self.cleaned_data.get('food_take_out'):
+                service_food.take_out = self.cleaned_data['take_out']
+
+            spot.services.append(service_food)
+
+        if self.cleaned_data.get('service_bar'):
+            service_bar = ServiceBar(category =
+                                        self.cleaned_data['bar_category'])
+
+            spot.services.append(service_bar)
+
+        if self.cleaned_data.get('service_coffee'):
+            service_coffee = ServiceCoffee()
+            if self.cleaned_data.get('coffee_board_games'):
+                service_coffee.board_games = self.cleaned_data[
+                                                'coffee_board_games']
+            
+            spot.services.append(service_coffee)
+
+        if self.cleaned_data.get('service_club'):
+            service_club = ServiceClub()
+            if self.cleaned_data.get('club_coat_check'):
+                service_club.coat_check = self.cleaned_data[
+                                                'club_coat_check']
+            if self.cleaned_data.get('club_face_control'):
+                service_club.face_control = self.cleaned_data[
+                                                'club_face_control']
+
+            spot.services.append(service_club)
+
+
+        # add any existing details
+        if self.cleaned_data.get('phone'):
+            spot.phone = self.cleaned_data['phone']
+        if self.cleaned_data.get('website'):
+            spot.website = self.cleaned_data['website']
+        if self.cleaned_data.get('price'):
+            spot.price = self.cleaned_data['price']
+        if self.cleaned_data.get('wi_fi'):
+            spot.wi_fi = self.cleaned_data['wi_fi']
+        if self.cleaned_data.get('credit_card'):
+            spot.credit_card = self.cleaned_data['credit_card']
+        if self.cleaned_data.get('wheelchair'):
+            spot.wheelchair = self.cleaned_data['wheelchair']
+        if self.cleaned_data.get('tv'):
+            spot.tv = self.cleaned_data['tv']
+        if self.cleaned_data.get('smoking'):
+            spot.smoking = self.cleaned_data['smoking']
+        if self.cleaned_data.get('self_service'):
+            spot.self_service = self.cleaned_data['self_service']
+        if self.cleaned_data.get('reservations'):
+            spot.reservations = self.cleaned_data['reservations']
+        if self.cleaned_data.get('snacks'):
+            spot.snacks = self.cleaned_data['snacks']
+        if self.cleaned_data.get('outdoor_seating'):
+            spot.outdoor_seating = self.cleaned_data['outdoor_seating']
+        if self.cleaned_data.get('parking'):
+            spot.parking = self.cleaned_data['parking']
+
+        # finally, save spot in database
+        spot.save()
+                                        
 
