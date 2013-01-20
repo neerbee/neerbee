@@ -1,14 +1,23 @@
 {% extends "base.html" %}
 {% load url from future %}
-<h1>user settings</h1>
 
 {% block content %}
 <div class="row">
-	<div class="span12">
-		<h3>Your account settings</h3>
-		<ul>
-		<li>Your preferred language is: {{ user.preferred_language }}<br></li>
-		<li><a class="btn btn-primary" href="{% url 'auth_password_change' %}">Change your password</a></li>
-	</div>
+  <div class="span12">
+    <h3>Your account settings</h3>
+      <form action="{% url 'user_settings' %}" method="post" class="form-horizontal">
+      {% csrf_token %}
+      {{ form.non_field_errors }}	
+        <div class="control-group">
+        {{ form.preferred_language.errors }}
+          <label class="control-label" for="{{ form.preferred_language.auto_id }}">Preferred Language</label>
+          <div class="controls">
+            {{ form.preferred_language }}
+          </div>  
+        </div>
+        <input class="btn btn-success" type="submit" value="Submit">
+      </form>
+      <a class="btn btn-primary" href="{% url 'auth_password_change' %}">Change your password</a>
+  </div>
 </div>
 {% endblock %}
