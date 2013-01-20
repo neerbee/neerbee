@@ -1,7 +1,12 @@
 # settings/local.py
+# These are the settings for the Heroku Staging server.
+# In the future they should only contain the values that
+# are different from the other environments.
 from .base import *
 
 import os
+import mongoengine
+
 from urlparse import urlparse
 from unipath import Path
 
@@ -21,34 +26,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-# use sqlite only if on dev machine
-if not os.environ.get('MONGOHQ_URL'):
-    DATABASES = {
-                'default': {
-                            'ENGINE': 'django.db.backends.sqlite3', 
-                            'NAME': 'dev',                      
-                            'USER': '',                      
-                            'PASSWORD': '',                  
-                            'HOST': '',                      
-                            'PORT': '',                     
-                }
-    } 
-
-MONGO_DATABASES = {
-    # db_name, db_alias
-    'neerbee': 'default', 
-}
-
-MONGO_DATABASE_NAME = os.environ['MONGO_DATABASE_NAME']
-
-import mongoengine
-#use the following when deploying on heroku:
-if os.environ.get('MONGOHQ_URL'):
-    mongoengine.connect(MONGO_DATABASE_NAME, host=os.environ['MONGOHQ_URL'])
-else:
-    MONGO_HOST = os.environ['MONGO_HOST']
-    MONGO_PORT = int(os.environ['MONGO_PORT'])
-    mongoengine.connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT)
+mongoengine.connect(MONGO_DATABASE_NAME, host=get_env_variable('MONGOHQ_URL'))
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -111,9 +89,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '5%5x$##n4en&amp;=j834%u=v8c_ozq0bvd5%ev60cpla5p#vck(_#'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (

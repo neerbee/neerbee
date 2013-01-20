@@ -36,6 +36,15 @@ LOCALE_PATHS = (
    PROJECT_ROOT.child('locale'), 
 )
 
+MONGO_DATABASES = {
+    # db_name, db_alias
+    'neerbee': 'default',
+}
+
+MONGO_DATABASE_NAME = 'neerbee'
+
+SECRET_KEY = get_env_variable('SECRET_KEY')
+
 TEMPLATE_CONTEXT_PROCESSORS = (
             'django.core.context_processors.debug',
             'django.core.context_processors.i18n',
