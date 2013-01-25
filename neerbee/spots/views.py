@@ -53,9 +53,28 @@ class SpotUpdateView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         spot_slug = kwargs['spot_slug']
-        spot = get_document_or_404(Spot, slug=spot_slug)
+        s = get_document_or_404(Spot, slug=spot_slug)
+        # take care of service-specific information
+        # in the future I think it should be taken care of
+        # in the form, not in the view. maybe override constructor
+        for service in s._data['services']:
+            if service.__class__ is ServiceFood:
+                s._data['service_food'] = True
+                s._data['food_category'] = service.category
+                s._data['food_delivery'] = service.delivery
+                s._data['food_take_out'] = service.take_out
+            elif service.__class__ is ServiceBar:
+                s._data['service_bar'] = True
+                s._data['bar_category'] = service.category
+            elif service.__class__ is ServiceCoffee:
+                s._data['service_coffee'] = True
+                s._data['coffee_board_games'] = service.board_games
+            elif service.__class__ is ServiceClub:
+                s._data['service_club'] = True
+                s._data['club_coat_check'] = service.coat_check
+                s._data['club_face_control'] = service.face_control
 
-        form = SpotForm(spot)
+        form = SpotForm(initial=s._data)
 
         return render(request, self.template_name, {
                                             'form': form,
