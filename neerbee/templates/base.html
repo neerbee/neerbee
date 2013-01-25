@@ -56,15 +56,15 @@
 
     <div id="content" class="container">
   {% if messages %}
-    <ul class="unstyled">
+   
       {% for message in messages %}
-      <li id="message_{{ forloop.counter }}"
+      <div id="message_{{ forloop.counter }}"
         {% if message.tags %} class="alert alert-success"
           {% endif %}>
         {{ message }}
-      </li>
+      </div>
       {% endfor %}  
-    </ul>
+
   {% endif %}
         {% block content %}{% endblock %}
     </div> <!-- /container -->
