@@ -6,6 +6,7 @@ from django.views.generic import View, TemplateView
 from mongoengine.django.shortcuts import get_document_or_404
 from braces.views import LoginRequiredMixin
 
+from users.views import IsStaffMixin
 from .models import *
 from .forms import SpotForm
 
@@ -26,10 +27,13 @@ class SpotDetailView(TemplateView):
         return {'spot': s}
 
 
-class SpotCreateView(LoginRequiredMixin, TemplateView):
+class SpotCreateView(LoginRequiredMixin, IsStaffMixin, TemplateView):
     template_name = "spots/create_or_edit_spot.html"
 
     def get(self, request, *args, **kwargs):
+        #if not request.user.is_staff:
+        #    return HttpResponseRedirect('/spots/') # Redirect after POST 
+
         form = SpotForm()
         return render(request, self.template_name, {'form': form})
 
@@ -48,7 +52,7 @@ class SpotCreateView(LoginRequiredMixin, TemplateView):
             return HttpResponseRedirect('/spots/') # Redirect after POST 
 
            
-class SpotUpdateView(LoginRequiredMixin, TemplateView):
+class SpotUpdateView(LoginRequiredMixin, IsStaffMixin, TemplateView):
     template_name = "spots/create_or_edit_spot.html"
 
     def get(self, request, *args, **kwargs):
