@@ -242,6 +242,8 @@ function geoResultShow (resNum) {
   $('#id_neighbourhood').val(geoResults[resNum].neighborhood);
   $('#id_pobox').val(geoResults[resNum].postal_code);
   geoControl._showLocation(geoResults[resNum].X, geoResults[resNum].Y);
+  $('#id_latitude').val(geoResults[resNum].X);
+  $('#id_longtitude').val(geoResults[resNum].Y);
 }
 
 $(document).ready(function(){
