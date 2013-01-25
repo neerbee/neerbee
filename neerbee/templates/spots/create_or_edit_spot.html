@@ -262,8 +262,6 @@ $(document).ready(function(){
     provider: new L.GeoSearch.Provider.Google()
   }).addTo(map);
 
-
-
   $('[name="address"]').keyup(function() {
     $('#id_address_results').html('');
     var valueText = $(this).val();
@@ -271,6 +269,10 @@ $(document).ready(function(){
        geoControl.geosearch(valueText);
     }
   });
+
+  if ($('#id_latitude').val() != '' && $('#id_longtitude').val() != '') {
+    geoControl._showLocation($('#id_latitude').val(), $('#id_longtitude').val());
+  }
 
 	if (!$("#{{ form.service_food.auto_id }}").is(":checked"))
 		$("#service_food").hide()
