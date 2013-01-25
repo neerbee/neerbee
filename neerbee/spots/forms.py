@@ -82,7 +82,7 @@ class SpotForm(forms.Form):
             if self.cleaned_data.get('food_delivery'):
                 service_food.delivery = self.cleaned_data['food_delivery']
             if self.cleaned_data.get('food_take_out'):
-                service_food.take_out = self.cleaned_data['take_out']
+                service_food.take_out = self.cleaned_data['food_take_out']
 
             spot.services.append(service_food)
 
