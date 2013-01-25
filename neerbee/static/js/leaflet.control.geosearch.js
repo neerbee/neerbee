@@ -6,12 +6,13 @@
 L.GeoSearch = {};
 L.GeoSearch.Provider = {};
 
-L.GeoSearch.Result = function (x, y, label, postal_code, neighborhood) {
+L.GeoSearch.Result = function (x, y, label, postal_code, neighborhood, formatted_address) {
     this.X = x;
     this.Y = y;
     this.Label = label;
     this.postal_code = postal_code;
     this.neighborhood = neighborhood;
+    this.formatted_address = formatted_address;
 };
 
 L.Control.GeoSearch = L.Control.extend({
@@ -80,8 +81,8 @@ L.Control.GeoSearch = L.Control.extend({
 
                     i = 0;
                     $('#id_address_results').append('<ul>');
-                    while(results[i].Label) {
-                        $('#id_address_results').append('<li><a onClick="geoResultShow(\'' + i + '\');" href="#">' +  results[i].Label + '</a></li>');
+                    while(results[i].formatted_address) {
+                        $('#id_address_results').append('<li><a onClick="geoResultShow(\'' + i + '\');" href="#">' +  results[i].formatted_address + '</a></li>');
                         i++;
                     }
                     $('#id_address_results').append('</ul>');

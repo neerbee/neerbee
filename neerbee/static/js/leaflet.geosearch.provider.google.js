@@ -34,6 +34,10 @@ L.GeoSearch.Provider.Google = L.Class.extend({
             var neighborhood = null;
             var postalcode = null;
             var address = null;
+            var streetnumber = null;
+            var streetname = null;
+
+            console.log(data.results[i]);
 
             for (var x = 0; x < data.results[i].address_components.length; x++) {
                 if (data.results[i].address_components[x].types[0] == 'neighborhood') {
@@ -54,14 +58,28 @@ L.GeoSearch.Provider.Google = L.Class.extend({
                 else if (data.results[i].address_components[x].types[0] == 'postal_code') {
                     postalcode = data.results[i].address_components[x].long_name;
                 }
+                else if (data.results[i].address_components[x].types[0] == 'street_number') {
+                    streetnumber = data.results[i].address_components[x].long_name;
+                }
+                else if (data.results[i].address_components[x].types[0] == 'route') {
+                    streetname = data.results[i].address_components[x].long_name;
+                }
+            }
+
+            if (streetnumber && streetname) {
+                address = streetname + ' ' + streetnumber;
+            }
+            else {
+                address = data.results[i].formatted_address
             }
 
             results.push(new L.GeoSearch.Result(
                 data.results[i].geometry.location.lng, 
                 data.results[i].geometry.location.lat, 
-                data.results[i].formatted_address,
+                address,
                 postalcode,
-                neighborhood
+                neighborhood,
+                data.results[i].formatted_address
             ));
 
         }
