@@ -55,7 +55,7 @@ L.GeoSearch.Provider.Google = L.Class.extend({
                 else if (data.results[i].address_components[x].types[0] == 'administrative_area_level_3' && neighborhood == null) {
                     neighborhood = data.results[i].address_components[x].long_name;
                 }
-                else if (data.results[i].address_components[x].types[0] == 'postal_code') {
+                else if (data.results[i].address_components[x].types[0] == 'postal_code' || data.results[i].address_components[x].types[0] == 'postal_code_prefix') {
                     postalcode = data.results[i].address_components[x].long_name;
                 }
                 else if (data.results[i].address_components[x].types[0] == 'street_number') {
