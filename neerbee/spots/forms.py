@@ -52,6 +52,29 @@ class SpotForm(forms.Form):
     club_coat_check = forms.BooleanField(required=False)
     club_face_control = forms.BooleanField(required=False)
 
+    def __init__(self, spot=None):
+        if spot:
+            for service in spot._data['services']:
+                if service.__class__ is ServiceFood:
+                    spot._data['service_food'] = True
+                    spot._data['food_category'] = service.category
+                    spot._data['food_delivery'] = service.delivery
+                    spot._data['food_take_out'] = service.take_out
+                elif service.__class__ is ServiceBar:
+                    spot._data['service_bar'] = True
+                    spot._data['bar_category'] = service.category
+                elif service.__class__ is ServiceCoffee:
+                    spot._data['service_coffee'] = True
+                    spot._data['coffee_board_games'] = service.board_games
+                elif service.__class__ is ServiceClub:
+                    spot._data['service_club'] = True
+                    spot._data['club_coat_check'] = service.coat_check
+                    spot._data['club_face_control'] = service.face_control  
+
+            return super(forms.Form, self).__init__(spot._data)
+        else:
+            return super(forms.Form, self).__init__()    
+
     def clean(self):
         # perform service-specific validation
         cleaned_data = super(SpotForm, self).clean()

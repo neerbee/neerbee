@@ -3,7 +3,7 @@ from django.contrib.auth.models import AnonymousUser
 from users.models import Bee
 
 class BeeAuthBackend(object):
-    """Authenticate using MongoEngine and neerbee.user.models.Bee
+    """Authenticate using MongoEngine and users.models.Bee
     """
 
     supports_object_permissions = False

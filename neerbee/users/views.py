@@ -13,6 +13,8 @@ from .models import User
 class UserHomeView(View):
 
     def get(self, request, *args, **kwargs):
+        #request.session['_auth_user_backend'] = 'users.auth_backend.BeeAuthBackend'
+        print request.session['_auth_user_backend']
         if not request.user.is_authenticated():       
             return render(request, 'index.html')
         else:
