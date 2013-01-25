@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import HiddenInput
 
 from .models import Spot, ServiceFood, ServiceBar, ServiceCoffee, ServiceClub
 
@@ -30,6 +31,9 @@ class SpotForm(forms.Form):
     snacks = forms.BooleanField(required=False)
     outdoor_seating = forms.BooleanField(required=False)
     parking = forms.BooleanField(required=False)
+
+    longtitude = forms.CharField(max_length=100, widget=HiddenInput, label="Longtitude", required=False)
+    latitude = forms.CharField(max_length=100, widget=HiddenInput, label="Latitude", required=False)
 
     # service-specific spot attributes
     service_food = forms.BooleanField(required=False)
@@ -110,6 +114,10 @@ class SpotForm(forms.Form):
                                                 'club_face_control']
 
             spot.services.append(service_club)
+
+        # store location    
+        if self.cleaned_data.get('latitude') and self.cleaned_data.get('longtitude'):
+            spot.location = [self.cleaned_data['longtitude'], self.cleaned_data['latitude']]    
 
 
         # add any existing details

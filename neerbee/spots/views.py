@@ -74,6 +74,10 @@ class SpotUpdateView(LoginRequiredMixin, TemplateView):
                 s._data['club_coat_check'] = service.coat_check
                 s._data['club_face_control'] = service.face_control
 
+        if s._data.get('location'):
+            s._data['longtitude'] = s._data['location'][0]
+            s._data['latitude'] = s._data['location'][1]
+
         form = SpotForm(initial=s._data)
 
         return render(request, self.template_name, {
