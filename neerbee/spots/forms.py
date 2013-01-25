@@ -117,7 +117,7 @@ class SpotForm(forms.Form):
 
         # store location    
         if self.cleaned_data.get('latitude') and self.cleaned_data.get('longtitude'):
-            spot.location = [self.cleaned_data['longtitude'], self.cleaned_data['latitude']]    
+            spot.location = [float(self.cleaned_data['longtitude']), float(self.cleaned_data['latitude'])]    
 
 
         # add any existing details
