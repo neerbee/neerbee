@@ -1,6 +1,7 @@
 from mongoengine import *
 
 from .tools import unique_slugify
+from .el_en_transliterate import only_latin_chars, transliterate_text
 
 class Service(EmbeddedDocument):
     service_type = StringField(max_length=50, required=True)
@@ -87,6 +88,13 @@ class Spot(Document):
 
     def save(self, *args, **kwargs):
         # For automatic slug generation.
+        name = self.name
+        neighbourhood = self.neighbourhood
         if not self.slug:
-            unique_slugify(self, self.name + "-" + self.neighbourhood)
+            if not only_latin_chars(self.name):
+                name = transliterate_text(self.name)
+            if not only_latin_chars(self.neighbourhood):
+                neighbourhood = transliterate_text(self.neighbourhood)
+
+            unique_slugify(self, name + "-" + neighbourhood)
         return super(Spot, self).save(*args, **kwargs)
