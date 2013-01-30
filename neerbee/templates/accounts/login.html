@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load url from future %}
+{% block content %}
 <div class="row">
 	<div class="span12">
-		{% block content %}
 		{% if form.errors %}
 		<div class="alert alert-error">{{ form.errors }}</div>
 		{% endif %}
@@ -11,24 +11,23 @@
 		<form class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">
 		{% csrf_token %}
 			<div class="control-group">
-				<label class="control-label" for="username">{% trans "Username" %}</label>
+				<label class="control-label">{% trans "Username" %}</label>
 				<div class="controls">{{ form.username }}</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="password">{% trans "Password" %}</label>
+				<label class="control-label">{% trans "Password" %}</label>
 				<div class="controls">{{ form.password }}</div>
 			</div>
 			<div class="controls">
-				<input class="btn btn-primary" type="submit" value="Login" />
+				<button class="btn btn-primary" type="submit"><i class="icon-user icon-white"></i> Login</button>
 			</div>
+			<br />
 			<input type="hidden" name="next" value="{{ next }}" />
+			<div class="controls btn-group">
+				<a class="btn btn-small" href="{% url 'registration_register' %}">{% trans "Don't have an account yet?" %}</a>
+				<a class="btn btn-small" href="/accounts/password/reset/">{% trans "Forgot your password?" %}</a>
+			</div>
 		</form>
-
-		<div class="controls btn-group">
-			<a class="btn btn-small" href="{% url 'registration_register' %}"><i class="icon-edit"></i> {% trans "Don't have an account yet?" %}</a>
-			<a class="btn btn-small" href="/accounts/password/reset/">{% trans "Forgot your password?" %}</a>
-		</div>
-
 	</div>
 </div>
 {% endblock %}
