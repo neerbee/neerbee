@@ -109,7 +109,7 @@ $(function() {
 		},
 		address: function() { return this.model.address; },
 		neighbourhood: function() { return this.model.neighbourhood; },
-		slug: function() { return this.model.slug; }
+		spot_url: function() { return this.model.spot_url; }
 	});
 
 });
