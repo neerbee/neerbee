@@ -1,11 +1,13 @@
 from django.conf.urls.defaults import *
 from django.core.paginator import Paginator, InvalidPage
 from django.http import Http404
+from django.core.urlresolvers import reverse
 
 from tastypie import authorization
 from tastypie import authentication
 from tastypie.utils import trailing_slash
 from tastypie_mongoengine import fields, resources
+from tastypie import fields as tastypie_fields
 
 from spots.models import *
 
@@ -49,12 +51,17 @@ class SpotResource(resources.MongoEngineResource):
                     full=True, 
                     null=True
                     ) 
+
     class Meta:
         queryset = Spot.objects.all()
         allowed_methods = ('get', 'post', 'put', 'delete')
         authentication = authentication.BasicAuthentication() 
         authorization = authorization.DjangoAuthorization()
         resource_name = 'spot'
+
+    def dehydrate(self, bundle):
+        bundle.data['spot_url'] = reverse('spots:spot_profile', args=[bundle.obj.slug])
+        return bundle
 
     def override_urls(self):
         return [
