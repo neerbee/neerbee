@@ -11,8 +11,8 @@
       <div class="span12">
         <p><i class="icon-heart"></i>{% trans "These are the spots you like:" %}</p>
         <ul class="nav nav-pills">
-          {% for spot in user.likes %}
-          <li><a href="{% url 'spots:spot_profile' spot.slug %}">{{ spot.name }}</a></li>
+          {% for like in user.likes %}
+          <li><a href="{% url 'spots:spot_profile' like.spot.slug %}">{{ like.spot.name }}</a> at {{ like.liked_at|date:"SHORT_DATE_FORMAT" }}</li>
           {% endfor %}
         </ul>
       </div>
@@ -23,8 +23,8 @@
       <div class="span12">
         <p><i class="icon-remove"></i>{% trans "These are the spots you aren't crazy about:" %}</p>
         <ul class="nav nav-pills">
-          {% for spot in user.dislikes %}
-          <li><a href="{% url 'spots:spot_profile' spot.slug %}">{{ spot.name }}</a></li>
+          {% for dislike in user.dislikes %}
+          <li><a href="{% url 'spots:spot_profile' dislike.spot.slug %}">{{ dislike.spot.name }}</a> at {{ dislike.liked_at|date:"SHORT_DATE_FORMAT" }}</li>
           {% endfor %}
         </ul>
       </div>

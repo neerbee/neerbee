@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
 
@@ -12,7 +14,22 @@ def get_preferred_language(sender, **kwargs):
 		lang_code = kwargs['user'].preferred_language
 		kwargs['request'].session['django_language'] = lang_code
 
+class Like(EmbeddedDocument):
+    spot = ReferenceField(Spot)
+    liked_at = DateTimeField(default=datetime.datetime.now, required=True)
+
+    def __unicode__(self):
+        return "Like"
+
+class Dislike(EmbeddedDocument):
+    spot = ReferenceField(Spot)
+    disliked_at = DateTimeField(default=datetime.datetime.now, required=True)
+
+    def __unicode__(self):
+        return "Dislike"        
+
 class Bee(User):
-    likes = ListField(ReferenceField(Spot, reverse_delete_rule=CASCADE))
-    dislikes = ListField(ReferenceField(Spot, reverse_delete_rule=CASCADE))
+    likes = ListField(EmbeddedDocumentField(Like))
+    dislikes = ListField(EmbeddedDocumentField(Dislike))
     preferred_language = StringField(max_length=10)
+
