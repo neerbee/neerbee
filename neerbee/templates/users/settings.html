@@ -1,23 +1,28 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load url from future %}
 
 {% block content %}
 <div class="row">
   <div class="span12">
-    <h3>Your account settings</h3>
+    <h3>{% trans "Your account settings" %}</h3>
       <form action="{% url 'user_settings' %}" method="post" class="form-horizontal">
-      {% csrf_token %}
-      {{ form.non_field_errors }}	
+        {% csrf_token %}
+        {{ form.non_field_errors }}	
         <div class="control-group">
         {{ form.preferred_language.errors }}
-          <label class="control-label" for="{{ form.preferred_language.auto_id }}">Preferred Language</label>
+          <label class="control-label" for="{{ form.preferred_language.auto_id }}">{% trans "Preferred Language" %}</label>
           <div class="controls">
             {{ form.preferred_language }}
+            <input class="btn" type="submit" value="{% trans "Change" %}">
           </div>  
         </div>
-        <input class="btn btn-success" type="submit" value="Submit">
+        <div class="control-group">
+          <div class="controls">
+            <a class="btn" href="{% url 'auth_password_change' %}">{% trans "Change your password" %}</a>
+          </div>
+        </div>
       </form>
-      <a class="btn btn-primary" href="{% url 'auth_password_change' %}">Change your password</a>
   </div>
 </div>
 {% endblock %}

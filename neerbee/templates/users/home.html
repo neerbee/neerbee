@@ -1,34 +1,44 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load url from future %}
-<h1>home</h1>
-
 {% block content %}
 <div class="container">
 
-<div class="hero-unit">
-  <h1>{% trans "Hello," %} {{ user.username }}!</h1>
-  {% if user.likes %}
-    <p>These are the spots you like:
-    {% for spot in user.likes %}
-    <a href="{% url 'spots:spot_profile' spot.slug %}">{{ spot.name }}</a>
-    {% endfor %}
-    </p>
-  {% endif %}
-  {% if user.dislikes %}
-    <p>These are the spots you 're not crazy about:
-    {{ user.dislikes|join:", " }}
-    </p>
-  {% endif %}
-  {% if not user.likes and not user.dislikes %}
-    <p>{{ user.username }} hasn't rated anything yet :(</p>
-  {% endif %} 
-</div>
+  <div class="hero-unit">
+    <h1>{% trans "Hello," %} {{ user.username }}!</h1>
+    {% if user.likes %}
+    <div class="row-fluid">
+      <div class="span12">
+        <p><i class="icon-heart"></i>{% trans "These are the spots you like:" %}</p>
+        <ul class="nav nav-pills">
+          {% for spot in user.likes %}
+          <li><a href="{% url 'spots:spot_profile' spot.slug %}">{{ spot.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+    {% if user.dislikes %}
+    <div class="row-fluid">
+      <div class="span12">
+        <p><i class="icon-remove"></i>{% trans "These are the spots you aren't crazy about:" %}</p>
+        <ul class="nav nav-pills">
+          {% for spot in user.dislikes %}
+          <li><a href="{% url 'spots:spot_profile' spot.slug %}">{{ spot.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+    {% if not user.likes and not user.dislikes %}
+      <p class="muted">{{ user.username }} {% trans "hasn't rated anything yet :(" %}</p>
+    {% endif %} 
+  </div>
 
   <div class="row">
     <div class="span12">
       <div class="input-prepend">
-	<span class="add-on"><i class="icon-search"></i></span><input autocomplete="off" id="input-search-query" type="text" placeholder="Find a spot"/>
+	<span class="add-on"><i class="icon-search"></i></span><input autocomplete="off" id="input-search-query" type="text" placeholder="{% trans "Find a spot" %}"/>
       </div>
       <div id="neerbee-search">
 	       Unable to load javascript.
@@ -36,7 +46,7 @@
     </div>
   </div>
 
-<a href="{% url 'admin:create_spot' %}">Add a new spot</a>
+  <a class="btn btn-warning" href="{% url 'admin:create_spot' %}"><i class="icon-plus icon-white"></i> {% trans "Add a new spot" %}</a>
 
 </div> <!-- /container -->
 
@@ -44,11 +54,11 @@
 <a href="/spots/{% templatetag openvariable %} slug {% templatetag closevariable %}/"><strong>{% templatetag openbrace %}{% templatetag openvariable %} name {% templatetag closevariable %}{% templatetag closebrace %}</strong> <span class="muted">{% templatetag openvariable %} address {% templatetag closevariable %} {% templatetag openvariable %} neighbourhood {% templatetag closevariable %}</span></a>
 </script>
 
-  <!-- Page Specific Javascript -->
-  <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
-  <script src="{{ STATIC_URL }}js/underscore.js"></script>
-  <script src="{{ STATIC_URL }}js/backbone.js"></script>
-  <script src="{{ STATIC_URL }}js/mustache.js"></script>
-  <script src="{{ STATIC_URL }}js/neerbee-search.js"></script>
-  <script>$(function() { Neerbee.boot($('#neerbee-search')); });</script>
+<!-- Page Specific Javascript -->
+<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+<script src="{{ STATIC_URL }}js/underscore.js"></script>
+<script src="{{ STATIC_URL }}js/backbone.js"></script>
+<script src="{{ STATIC_URL }}js/mustache.js"></script>
+<script src="{{ STATIC_URL }}js/neerbee-search.js"></script>
+<script>$(function() { Neerbee.boot($('#neerbee-search')); });</script>
 {% endblock %}
