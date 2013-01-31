@@ -1,7 +1,6 @@
 from django.conf.urls.defaults import *
 from django.core.paginator import Paginator, InvalidPage
 from django.http import Http404
-from django.core.urlresolvers import reverse
 
 from tastypie import authorization
 from tastypie import authentication
@@ -63,7 +62,7 @@ class SpotResource(resources.MongoEngineResource):
         resource_name = 'spot'
 
     def dehydrate(self, bundle):
-        bundle.data['spot_url'] = reverse('spots:spot_profile', args=[bundle.obj.slug])
+        bundle.data['spot_url'] = bundle.obj.get_absolute_url()
         return bundle
 
     def override_urls(self):

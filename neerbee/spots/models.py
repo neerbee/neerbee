@@ -1,3 +1,5 @@
+from django.core.urlresolvers import reverse
+
 from mongoengine import *
 
 from .tools import unique_slugify
@@ -99,3 +101,6 @@ class Spot(Document):
 
             unique_slugify(self, name + "-" + neighbourhood)
         return super(Spot, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('spots:spot_profile', args=[self.slug])

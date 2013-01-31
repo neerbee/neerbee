@@ -16,7 +16,7 @@ class SpotListView(TemplateView):
     template_name = "spots/spot_list.html"
     
     def get_context_data(self, **kwargs):
-        spot_list = Spot.objects.all()
+        spot_list = Spot.objects.order_by('name')
         return {'item_list': spot_list}
 
 
