@@ -11,6 +11,8 @@ from tastypie import fields as tastypie_fields
 
 from spots.models import *
 
+from .tastypie_future import SessionAuthentication
+
 
 class ServiceFoodResource(resources.MongoEngineResource):
     class Meta:
@@ -55,7 +57,8 @@ class SpotResource(resources.MongoEngineResource):
     class Meta:
         queryset = Spot.objects.all()
         allowed_methods = ('get', 'post', 'put', 'delete')
-        authentication = authentication.BasicAuthentication() 
+        #authentication = authentication.BasicAuthentication() 
+        authentication = SessionAuthentication()
         authorization = authorization.DjangoAuthorization()
         resource_name = 'spot'
 
