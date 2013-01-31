@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-17 15:11+0200\n"
+"POT-Creation-Date: 2013-01-31 12:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,63 +17,113 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: .\neerbee\registration\forms.py:47
+#: .\registration\forms.py:47
 msgid "username"
 msgstr ""
 
-#: .\neerbee\registration\forms.py:50
+#: .\registration\forms.py:50
 msgid "email address"
 msgstr ""
 
-#: .\neerbee\registration\forms.py:53
+#: .\registration\forms.py:53
 msgid "password"
 msgstr ""
 
-#: .\neerbee\registration\forms.py:56
+#: .\registration\forms.py:56
 msgid "password (again)"
 msgstr ""
 
-#: .\neerbee\registration\forms.py:68
+#: .\registration\forms.py:68
 msgid "This username is already taken. Please choose another."
 msgstr ""
 
-#: .\neerbee\registration\forms.py:84
+#: .\registration\forms.py:84
 msgid "You must type the same password each time"
 msgstr ""
 
-#: .\neerbee\registration\forms.py:114
+#: .\registration\forms.py:114
 msgid "I have read and agree to the Terms of Service"
 msgstr ""
 
-#: .\neerbee\registration\forms.py:116
+#: .\registration\forms.py:116
 msgid "You must agree to the terms to register"
 msgstr ""
 
-#: .\neerbee\registration\forms.py:134
+#: .\registration\forms.py:134
 msgid ""
 "This email address is already in use. Please supply a different email "
 "address."
 msgstr ""
 
-#: .\neerbee\registration\forms.py:162
+#: .\registration\forms.py:162
 msgid ""
 "Registration using free email addresses is prohibited. Please supply a "
 "different email address."
 msgstr ""
 
-#: .\templates\index.html.py:7
+#: .\spots\views.py:48
+msgid "Spot created!"
+msgstr "Το Σημείο δημιουργήθηκε!"
+
+#: .\spots\views.py:97
+msgid "Spot deleted!"
+msgstr "Το Σημείο σβήστηκε"
+
+#: .\spots\views.py:111
+msgid "Spot updated!"
+msgstr "Το Σημείο ενημερώθηκε"
+
+#: .\templates\base.html.py:32
+msgid "home"
+msgstr "σπίτι"
+
+#: .\templates\base.html.py:33
+msgid "spots"
+msgstr "σημεία"
+
+#: .\templates\base.html.py:38
+msgid "Login"
+msgstr "Είσοδος"
+
+#: .\templates\base.html.py:41
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: .\templates\base.html.py:42
+msgid "Logout"
+msgstr "Έξοδος"
+
+#: .\templates\index.html.py:6
 msgid "Welcome to neerbee!"
 msgstr "Καλωσορίσατε στο neerbee!"
 
+#: .\templates\accounts\login.html.py:14
+#: .\templates\registration\registration_form.html.py:10
+msgid "Username"
+msgstr "Όνομα"
+
+#: .\templates\accounts\login.html.py:18
+#: .\templates\registration\registration_form.html.py:22
+msgid "Password"
+msgstr "Κωδικός"
+
+#: .\templates\accounts\login.html.py:27
+msgid "Don't have an account yet?"
+msgstr "Δεν έχετε λογαριασμό στο neerbee;"
+
+#: .\templates\accounts\login.html.py:28
+msgid "Forgot your password?"
+msgstr "Ξεχάσατε τον κωδικό σας;"
+
 #: .\templates\accounts\password_change_done.html.py:7
 msgid "Password changed"
-msgstr ""
+msgstr "Ο κωδικός αλλάχθηκε"
 
 #: .\templates\accounts\password_change_form.html.py:11
 #: .\templates\accounts\password_reset_confirm.html.py:13
 #: .\templates\accounts\password_reset_form.html.py:11
 msgid "Submit"
-msgstr ""
+msgstr "Υποβολή"
 
 #: .\templates\accounts\password_reset_complete.html.py:7
 msgid "Password reset successfully"
@@ -82,7 +132,7 @@ msgstr ""
 #: .\templates\accounts\password_reset_complete.html.py:9
 #: .\templates\registration\activate.html.py:9
 msgid "Log in"
-msgstr ""
+msgstr "Είσοδος"
 
 #: .\templates\accounts\password_reset_confirm.html.py:20
 msgid "Password reset failed"
@@ -123,7 +173,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: .\templates\admin\index.html.py:35
+#: .\templates\admin\index.html.py:35 .\templates\users\settings.html.py:17
 msgid "Change"
 msgstr ""
 
@@ -150,11 +200,11 @@ msgstr ""
 #: .\templates\registration\activate.html.py:8
 #: .\templates\registration\activate.html.py:11
 msgid "Account successfully activated"
-msgstr ""
+msgstr "Ο λογαριασμός ενεργοποιήθηκε"
 
 #: .\templates\registration\activate.html.py:12
 msgid "Account activation failed"
-msgstr ""
+msgstr "Δεν ήταν εφικτό να ενημερωθεί ο λογαριασμός"
 
 #: .\templates\registration\activation_email.txt.py:2
 msgid "Activate account at"
@@ -173,13 +223,58 @@ msgstr ""
 msgid "You are now registered. Activation email sent."
 msgstr ""
 
-#: .\templates\registration\registration_form.html.py:35
+#: .\templates\registration\registration_form.html.py:16
+msgid "Email address"
+msgstr "Διεύθυνση e-mail"
+
+#: .\templates\registration\registration_form.html.py:28
+msgid "Password (re-type)"
+msgstr ""
+
+#: .\templates\registration\registration_form.html.py:33
 msgid "Register"
 msgstr ""
 
-#: .\templates\users\home.html.py:9
+#: .\templates\users\home.html.py:8
 msgid "Hello,"
 msgstr "Γειά,"
 
-#~ msgid "This is the title"
-#~ msgstr "Ο τίτλος μάγκα μου"
+#: .\templates\users\home.html.py:14
+msgid "Find a spot"
+msgstr "Βρείτε ένα σημείο"
+
+#: .\templates\users\home.html.py:19
+msgid "Add a new spot"
+msgstr "Προσθέστε ένα σημείο"
+
+#: .\templates\users\home.html.py:27
+msgid "These are the spots you like:"
+msgstr "Αυτά είναι τα σημεία που σας αρέσουν"
+
+#: .\templates\users\home.html.py:35
+msgid "These are the spots you aren't crazy about:"
+msgstr "Αυτά είναι τα σημεία που δεν σας αρέσουν και τόσο"
+
+#: .\templates\users\home.html.py:43
+msgid "hasn't rated anything yet :("
+msgstr "δεν έχει βαθμολογίσει τίποτα ακόμα :("
+
+#: .\templates\users\settings.html.py:8
+msgid "Your account settings"
+msgstr "Οι ρυθμίσεις του λογαριασμού σας"
+
+#: .\templates\users\settings.html.py:14
+msgid "Preferred Language"
+msgstr "Προτιμούμενη γλώσσα"
+
+#: .\templates\users\settings.html.py:22
+msgid "Change your password"
+msgstr "Αλλάξτε τον κωδικό σας"
+
+#: .\users\views.py:25
+msgid "Need to be staff to do this."
+msgstr "Πρέπει να είστε μέλος της ομάδας για να το κάνετε αυτό"
+
+#: .\users\views.py:68
+msgid "User settings updated!"
+msgstr "Οι ρυθμίσεις σας ενημερώθηκαν!"

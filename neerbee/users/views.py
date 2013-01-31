@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic import View, TemplateView
 from django.utils.translation import get_language_from_request
+from django.utils.translation import ugettext as _
 
 from mongoengine.django.shortcuts import get_document_or_404
 from braces.views import LoginRequiredMixin
@@ -21,7 +22,7 @@ class IsStaffMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff:
-            msg = 'Need to be staff to do this.'
+            msg = _("Need to be staff to do this.")
             messages.error(request, msg)
             return redirect_to_login(request.get_full_path(),
                                          self.login_url,
@@ -64,6 +65,6 @@ class UserSettingsView(LoginRequiredMixin, TemplateView):
                 user.save()
                 # start using new language from current session
                 request.session['django_language'] = user.preferred_language
-                msg = 'User settings updated!'
-                messages.info(request, msg)
+                msg = _("User settings updated!")
+                messages.success(request, msg)
                 return HttpResponseRedirect('/')

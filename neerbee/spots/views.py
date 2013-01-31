@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic import View, TemplateView
+from django.utils.translation import ugettext as _
 
 from mongoengine.django.shortcuts import get_document_or_404
 from braces.views import LoginRequiredMixin
@@ -31,9 +32,6 @@ class SpotCreateView(LoginRequiredMixin, IsStaffMixin, TemplateView):
     template_name = "spots/create_or_edit_spot.html"
 
     def get(self, request, *args, **kwargs):
-        #if not request.user.is_staff:
-        #    return HttpResponseRedirect('/spots/') # Redirect after POST 
-
         form = SpotForm()
         return render(request, self.template_name, {'form': form})
 
@@ -47,8 +45,8 @@ class SpotCreateView(LoginRequiredMixin, IsStaffMixin, TemplateView):
                             pobox = form.cleaned_data['pobox'])
 
             form.save(new_spot)
-            msg = 'Spot created!'
-            messages.info(request, msg)
+            msg = _("Spot created!")
+            messages.success(request, msg)
             return HttpResponseRedirect('/spots/') # Redirect after POST 
 
            
@@ -96,8 +94,8 @@ class SpotUpdateView(LoginRequiredMixin, IsStaffMixin, TemplateView):
         if 'delete' in request.POST:
             s = get_document_or_404(Spot, slug=spot_slug)
             s.delete()
-            msg = 'Spot deleted!'
-            messages.info(request, msg)
+            msg = _("Spot deleted!")
+            messages.success(request, msg)
             return HttpResponseRedirect('/spots/')
         # then POST was to edit spot
         if form.is_valid():
@@ -110,6 +108,6 @@ class SpotUpdateView(LoginRequiredMixin, IsStaffMixin, TemplateView):
                 new_spot.pobox = form.cleaned_data['pobox']
 
             form.save(new_spot)
-            msg = 'Spot updated!'
-            messages.info(request, msg)
+            msg = _("Spot updated!")
+            messages.success(request, msg)
             return HttpResponseRedirect('/spots/') # Redirect after POST 
