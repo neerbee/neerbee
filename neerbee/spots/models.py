@@ -47,6 +47,7 @@ class ServiceClub(Service):
 
 class Spot(Document):
     name = StringField(max_length=200, required=True)
+    city = StringField(max_length=20, required=True)
     address = StringField(max_length=200, required=True)
     neighbourhood = StringField(max_length=200, required=True)
     pobox = StringField(max_length=20)

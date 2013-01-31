@@ -1,11 +1,16 @@
 from django import forms
 from django.forms.widgets import HiddenInput
+from django.utils.translation import ugettext as _
 
 from .models import Spot, ServiceFood, ServiceBar, ServiceCoffee, ServiceClub
 
 class SpotForm(forms.Form):
     # general spot attributes
     name = forms.CharField(max_length=200, label="Name")
+    CITY_CHOICES = (
+            ('ATH', _('Athens')),
+    )
+    city = forms.ChoiceField(choices=CITY_CHOICES, required=True)
     address = forms.CharField(max_length=200, label="Address")
     neighbourhood = forms.CharField(max_length=200, label="Neighbourhood")
     pobox = forms.CharField(max_length=20)
@@ -79,6 +84,15 @@ class SpotForm(forms.Form):
         return cleaned_data
 
     def save(self, spot):
+        # should be able to change name and neighbourhood but
+        # must solve slug issues first
+        if self.cleaned_data.get('city'):
+            spot.city = self.cleaned_data['city']
+        if self.cleaned_data.get('address'):
+            spot.address = self.cleaned_data['address']
+        if self.cleaned_data.get('pobox'):
+            spot.pobox = self.cleaned_data['pobox']
+
         spot.services = []
         if self.cleaned_data.get('service_food'):
             service_food = ServiceFood(category =

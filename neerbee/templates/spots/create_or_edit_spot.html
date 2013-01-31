@@ -27,6 +27,13 @@
   </div>
 </div>
 <div class="control-group">
+  {{ form.city.errors }}
+  <label class="control-label" for="{{ form.city.auto_id }}">City</label>
+  <div class="controls">
+    {{ form.city }}
+  </div>
+</div>
+<div class="control-group">
   {{ form.address.errors }}
   <label class="control-label" for="{{ form.address.auto_id }}">Address</label>
   <div class="controls">

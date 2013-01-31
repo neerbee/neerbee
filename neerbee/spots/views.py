@@ -40,6 +40,7 @@ class SpotCreateView(LoginRequiredMixin, IsStaffMixin, TemplateView):
 
         if form.is_valid():
             new_spot = Spot(name = form.cleaned_data['name'],
+                            city = form.cleaned_data['city'],
                             address = form.cleaned_data['address'],
                             neighbourhood = form.cleaned_data['neighbourhood'],
                             pobox = form.cleaned_data['pobox'])
@@ -100,13 +101,6 @@ class SpotUpdateView(LoginRequiredMixin, IsStaffMixin, TemplateView):
         # then POST was to edit spot
         if form.is_valid():
             new_spot = get_document_or_404(Spot, slug=spot_slug)
-            # should be able to change name and neighbourhood but
-            # must solve slug issues first
-            if form.cleaned_data.get('address'):
-                new_spot.address = form.cleaned_data['address']
-            if form.cleaned_data.get('pobox'):
-                new_spot.pobox = form.cleaned_data['pobox']
-
             form.save(new_spot)
             msg = _("Spot updated!")
             messages.success(request, msg)
