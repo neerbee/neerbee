@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.widgets import HiddenInput
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Spot, ServiceFood, ServiceBar, ServiceCoffee, ServiceClub
 
