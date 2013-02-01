@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block content %}
+<div class="row">
+  <div class="span12">
+    <h3>{% trans "Administration Panel" %}</h3>
+    <a class="btn btn-warning" href="{% url 'admin:create_spot' %}"><i class="icon-plus icon-white"></i> {% trans "Add a new spot" %}</a>
+  </div>
+</div>
+{% endblock %}

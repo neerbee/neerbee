@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.views.generic import View, TemplateView
+from django.views.generic import TemplateView
 from django.utils.translation import ugettext as _
 
 from mongoengine.django.shortcuts import get_document_or_404

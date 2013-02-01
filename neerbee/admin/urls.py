@@ -2,8 +2,15 @@ from django.conf.urls import patterns, include, url
 
 from spots.views import SpotCreateView, SpotUpdateView
 
+from .views import AdminPanelView
+
 urlpatterns = patterns(
         '',
+        url(
+            regex=r'^$',
+            view=AdminPanelView.as_view(),
+            name="admin_panel"
+        ),
         url(
             regex=r'^edit_spot/(?P<spot_slug>\S+)/$',
             view=SpotUpdateView.as_view(),

@@ -6,7 +6,6 @@ urlpatterns = patterns(
         'spots.views',
         url(
             regex=r'^$',
-            #'spots',
             view=SpotListView.as_view(),
             name="spots"
         ),
