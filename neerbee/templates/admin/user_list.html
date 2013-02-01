@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+<div class="row">
+    <div class="span12">
+        <h3>User list</h3>
+        {% if item_list %}
+            <ul class="nav nav-tabs nav-stacked">
+            {% for item in item_list %}
+            <li>
+            <a href="#">{{ item.username }} {% if item.is_staff %} <i class="icon-glass"></i> {% endif %}</a>
+            </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <div class="alert">No users are available.</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

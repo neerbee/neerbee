@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 
 from spots.views import SpotCreateView, SpotUpdateView
 
-from .views import AdminPanelView
+from .views import AdminPanelView, UserListView
 
 urlpatterns = patterns(
         '',
@@ -20,5 +20,10 @@ urlpatterns = patterns(
             regex=r'^create_spot/$',
             view=SpotCreateView.as_view(),
             name="create_spot"
+        ),
+        url(
+            regex=r'^user_list/$',
+            view=UserListView.as_view(),
+            name="user_list"
         ),
 )
