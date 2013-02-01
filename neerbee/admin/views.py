@@ -12,5 +12,5 @@ class UserListView(LoginRequiredMixin, IsStaffMixin, TemplateView):
     template_name = "admin/user_list.html"
     
     def get_context_data(self, **kwargs):
-        user_list = Bee.objects.order_by('name')
+        user_list = Bee.objects.order_by('username')
         return {'item_list': user_list}
