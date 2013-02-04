@@ -18,20 +18,24 @@ class ServiceFoodResource(resources.MongoEngineResource):
         object_class = ServiceFood
         resource_name = 'servicefood'
 
+
 class ServiceBarResource(resources.MongoEngineResource):
     class Meta:
         object_class = ServiceBar
         resource_name = 'servicebar'
+
 
 class ServiceCoffeeResource(resources.MongoEngineResource):
     class Meta:
         object_class = ServiceCoffee
         resource_name = 'servicecoffee'
 
+
 class ServiceClubResource(resources.MongoEngineResource):
     class Meta:
         object_class = ServiceClub
         resource_name = 'serviceclub'
+
 
 class ServiceResource(resources.MongoEngineResource):
     class Meta:
@@ -45,6 +49,7 @@ class ServiceResource(resources.MongoEngineResource):
                 'serviceClub': ServiceClubResource
         }
 
+
 class SpotResource(resources.MongoEngineResource):
     services = fields.EmbeddedListField(
                     of='neerbee.api.ServiceResource', 
@@ -56,7 +61,6 @@ class SpotResource(resources.MongoEngineResource):
     class Meta:
         queryset = Spot.objects.all()
         allowed_methods = ('get', 'post', 'put', 'delete')
-        #authentication = authentication.BasicAuthentication() 
         authentication = SessionAuthentication()
         authorization = authorization.DjangoAuthorization()
         resource_name = 'spot'

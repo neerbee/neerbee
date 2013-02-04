@@ -1,13 +1,14 @@
 from django.contrib import messages
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect, HttpResponse
+from django.views.generic import TemplateView, View
 from django.utils.translation import ugettext as _
 
 from mongoengine.django.shortcuts import get_document_or_404
 from braces.views import LoginRequiredMixin
 
 from users.views import IsStaffMixin
+from users.models import Like
 from .models import *
 from .forms import SpotForm
 
@@ -40,6 +41,14 @@ class SpotDetailView(LoginRequiredMixin, TemplateView):
                                     'likes': likes,
                                     'dislikes': dislikes,
                                     })
+
+
+class SpotLikeView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
+        request.user.likes.append(Like(spot=spot))
+        request.user.save()
+        return HttpResponse()
 
 
 class SpotCreateView(LoginRequiredMixin, IsStaffMixin, TemplateView):

@@ -7,10 +7,14 @@
     {% if user.is_staff %}    
 	<a class="btn" href="{% url 'admin:edit_spot' spot.slug %}">edit</a>
     {% endif %}
-    {% if likes %}
-    You like this<br>
-    {% endif %}
-	<h3><i class="icon-info-sign"></i> {{ spot.name }}</h3>
+    
+    
+    
+	<h3><i class="icon-info-sign"></i> {{ spot.name }} 
+        {% if likes %}<i class="icon-thumbs-up"></i>
+        {% elif dislikes %}<i class="icon-thumbs-down"></i>
+        {% endif %}
+    </h3>
         {{ spot.services|join:", " }} | {{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}<br />
         {# service details #}
         {% for service in spot.services %}
