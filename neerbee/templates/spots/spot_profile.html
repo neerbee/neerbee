@@ -34,6 +34,10 @@
             {% endif %}
 
         {% endfor %}
+        {% if "location" in spot %}
+        <b>long: </b> {{ spot.location.0 }}
+        <b>lat: </b> {{ spot.location.1 }}
+        {% endif %}
         {% if "phone" in spot %}
         <b>Phone:</b> {{ spot.phone }}<br />
         {% endif %}
