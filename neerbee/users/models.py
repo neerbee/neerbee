@@ -19,14 +19,14 @@ class Like(EmbeddedDocument):
     liked_at = DateTimeField(default=datetime.datetime.now, required=True)
 
     def __unicode__(self):
-        return "Like"
+        return self.spot.name
 
 class Dislike(EmbeddedDocument):
     spot = ReferenceField(Spot)
     disliked_at = DateTimeField(default=datetime.datetime.now, required=True)
 
     def __unicode__(self):
-        return "Dislike"        
+        return self.spot.name   
 
 class Bee(User):
     likes = ListField(EmbeddedDocumentField(Like))

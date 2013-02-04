@@ -23,9 +23,23 @@ class SpotListView(TemplateView):
 class SpotDetailView(TemplateView):
     template_name = "spots/spot_profile.html"
 
-    def get_context_data(self, **kwargs):
-        s = get_document_or_404(Spot, slug=kwargs['spot_slug'])
-        return {'spot': s}
+    def get(self, request, *args, **kwargs):
+        spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
+        likes = False
+        for like in request.user.likes:
+            if spot == like.spot:
+                likes = True
+
+        dislikes = False
+        for dislike in request.user.dislikes:
+            if spot == dislike.spot:
+                dislikes = True
+     
+        return render(request, self.template_name, {
+                                    'spot': spot,
+                                    'likes': likes,
+                                    'dislikes': dislikes,
+                                    })
 
 
 class SpotCreateView(LoginRequiredMixin, IsStaffMixin, TemplateView):

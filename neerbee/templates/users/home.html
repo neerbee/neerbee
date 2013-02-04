@@ -26,7 +26,7 @@
       <p><i class="icon-heart"></i> {% trans "These are the spots you like:" %}</p>
       <ul class="nav nav-pills">
         {% for like in user.likes %}
-        <li><a href="{% url 'spots:spot_profile' like.spot.slug %}">{{ like.spot.name }} at {{ like.liked_at|date:"SHORT_DATE_FORMAT" }}</a></li>
+        <li><a href="{% url 'spots:spot_profile' like.spot.slug %}"> {{ like.spot.name }} at {{ like.liked_at|date:"SHORT_DATE_FORMAT" }}</a></li>
         {% endfor %}
       </ul>
   {% endif %}
