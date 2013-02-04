@@ -12,7 +12,7 @@ from .models import *
 from .forms import SpotForm
 
 
-class SpotListView(TemplateView):
+class SpotListView(LoginRequiredMixin, TemplateView):
     template_name = "spots/spot_list.html"
     
     def get_context_data(self, **kwargs):
@@ -20,7 +20,7 @@ class SpotListView(TemplateView):
         return {'item_list': spot_list}
 
 
-class SpotDetailView(TemplateView):
+class SpotDetailView(LoginRequiredMixin, TemplateView):
     template_name = "spots/spot_profile.html"
 
     def get(self, request, *args, **kwargs):
