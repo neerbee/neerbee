@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% load url from future %}
 
+{% block html_head %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/neerbee.map.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome.min.css" />
+<!--[if lte IE 8]>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.ie.css" />
+<![endif]-->
+<script src="{{ STATIC_URL }}js/leaflet.js"></script>
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="span12">
@@ -8,13 +18,15 @@
 	<a class="btn" href="{% url 'admin:edit_spot' spot.slug %}">edit</a>
     {% endif %}
     
-    
-    
-	<h3><i class="icon-info-sign"></i> {{ spot.name }} 
-        {% if likes %}<i class="icon-thumbs-up"></i>
-        {% elif dislikes %}<i class="icon-thumbs-down"></i>
-        {% endif %}
-    </h3>
+	<h3><small><i class="icon-info-sign"></i></small> {{ spot.name }}</h3>
+
+    <div class="btn-group">
+        <button id="spot-like" class="spot-likeness btn {% if likes %}btn-success{% endif %}"><i class="icon-thumbs-up"></i></button>
+        <button id="spot-dislike" class="spot-likeness btn {% if dislikes %}btn-danger{% endif %}"><i class="icon-thumbs-down"></i></button>
+    </div>
+
+    <div id="spot-profile-map"></div>
+
         {{ spot.services|join:", " }} | {{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}<br />
         {# service details #}
         {% for service in spot.services %}
@@ -36,12 +48,7 @@
             {% if "face_control" in service %}
                 <b>Has face control:</b> {{ service.face_control|yesno }}<br />
             {% endif %}
-
         {% endfor %}
-        {% if "location" in spot %}
-        <b>long: </b> {{ spot.location.0 }}
-        <b>lat: </b> {{ spot.location.1 }}
-        {% endif %}
         {% if "phone" in spot %}
         <b>Phone:</b> {{ spot.phone }}<br />
         {% endif %}
@@ -83,4 +90,75 @@
         {% endif %}
     </div>
 </div>
+
+<script type="text/javascript">
+
+var spotLoc0 = {{ spot.location.0 }};
+var spotLoc1 = {{ spot.location.1 }};
+
+function showLike (action) {
+    if (action == 'like') {
+        $('#spot-like').addClass('btn-success');
+        $('#spot-dislike').removeClass('btn-danger');
+    }
+    else if (action == 'dislike') {
+        $('#spot-like').removeClass('btn-success');
+        $('#spot-dislike').addClass('btn-danger');
+    }
+    else {
+        $('#spot-like').removeClass('btn-success');
+        $('#spot-dislike').removeClass('btn-danger');
+    }
+}
+
+$(document).ready(function(){
+
+  var map = L.map('spot-profile-map').setView([spotLoc0, spotLoc1], 17);
+  var marker = L.marker([spotLoc0, spotLoc1]).addTo(map);
+  marker.bindPopup("{{ spot.name }}");
+
+  L.tileLayer('http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png', {
+      attribution: 'Data, imagery and map information provided by <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.',
+      maxZoom: 18,
+      subdomains: ['otile1','otile2','otile3','otile4']
+  }).addTo(map);
+
+  $('button.spot-likeness').click(function(){
+
+    var currentAction;
+    
+    if ($(this).attr('id') == 'spot-like') {
+        if ($(this).hasClass('btn-success')) {
+            currentAction = 'neutral';
+        }
+        else {
+            currentAction = 'like';
+        }
+    }
+    else {
+        if ($(this).hasClass('btn-danger')) {
+            currentAction = 'neutral';
+        }
+        else {
+            currentAction = 'dislike';
+        }
+    }
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "/api/v1/spot/{{ spot.slug }}/likeness",
+        data: { 
+            action: currentAction,
+            X-CSRFToken: $.cookie('csrftoken')
+        },
+        success: function (response) {
+            showLike(response.action);
+        }
+    });
+
+  });
+
+});
+</script>
 {% endblock %}

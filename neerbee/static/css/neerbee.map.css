@@ -4,3 +4,10 @@
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
+
+#spot-profile-map {
+	height: 250px;
+	width: 500px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
