@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" />
-  <link rel="stylesheet" href="{% static "css/neerbee.css" %}">
   <style type="text/css">
     body {
       padding-top: 60px;
     }
   </style>
+  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" />
+  <link rel="stylesheet" href="{% static "css/neerbee.css" %}">
+  <link rel="stylesheet" href="{% static "css/bootstrap-responsive.min.css" %}" />
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -19,6 +20,11 @@
   <!-- Javascript -->
   <script src="{% static "js/jquery.js" %}"></script>
   <script src="{% static "js/bootstrap.js" %}"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("[rel=tooltip]").tooltip();
+    });
+  </script>
   {% block html_head %}{% endblock %}
 </head>
 <body>
@@ -36,14 +42,13 @@
       </ul>
       <div class="pull-right">
         {% if user.is_anonymous %}
-        <a class="btn btn-small btn-success" href="{% url 'django.contrib.auth.views.login' %}"><i class="icon-user icon-white"></i> {% trans "Login" %}</a>
+        <a class="btn btn-small btn-success" rel="tooltip" data-placement="bottom" title="{% trans "Login" %}" href="{% url 'django.contrib.auth.views.login' %}"><i class="icon-user icon-white"></i></a>
         {% else %}
-        <a class="btn btn-small" href="#"><i class="icon-user"></i> {{ user.username }}</a>
-        <a class="btn btn-small" href="{% url 'user_settings' %}"><i class="icon-cog"></i> {% trans "Settings" %}</a>
+        <a class="btn btn-small" rel="tooltip" data-placement="bottom" title="{% trans "Account settings" %}"  href="{% url 'user_settings' %}"><i class="icon-user"></i></a>
         {% if user.is_staff %}
-        <a class="btn btn-small" href="{% url 'admin:admin_panel' %}"><i class="icon-cog"></i> {% trans "Admin" %}</a>
+        <a class="btn btn-small" href="{% url 'admin:admin_panel' %}"><i class="icon-cog"></i></a>
         {% endif %}  
-        <a class="btn btn-small btn-danger" title="{% trans "Logout" %}" href="{% url 'django.contrib.auth.views.logout' %}"><i class="icon-remove icon-white"></i></a>
+        <a class="btn btn-small btn-danger" data-placement="bottom" rel="tooltip" title="{% trans "Logout" %}" href="{% url 'django.contrib.auth.views.logout' %}"><i class="icon-remove icon-white"></i></a>
         {% endif %}
       </div>  
     </div>
