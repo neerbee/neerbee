@@ -92,9 +92,13 @@
 </div>
 
 <script type="text/javascript">
-
+{% if "location" in spot %}
 var spotLoc0 = parseFloat("{{ spot.location.0 }}");
 var spotLoc1 = parseFloat("{{ spot.location.1 }}");
+{% else %}
+var spotLoc0 = 37.986828;
+var spotLoc1 = 23.730125;
+{% endif %}
 
 function showLike (action) {
     if (action == 'like') {
