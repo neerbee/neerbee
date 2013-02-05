@@ -8,10 +8,10 @@ from mongoengine.django.shortcuts import get_document_or_404
 from braces.views import LoginRequiredMixin, JSONResponseMixin
 
 from users.views import IsStaffMixin
-from users.models import Like, Dislike
+from users.models import Like, Dislike, Trait
 from .models import *
 from .forms import SpotForm
-from .traits import Traits
+from .traits import traits
 
 
 class SpotListView(LoginRequiredMixin, TemplateView):
@@ -72,25 +72,13 @@ class SpotLikenessView(LoginRequiredMixin, JSONResponseMixin, View):
         raise Http404
 
 
-class SpotTraitToggleView(LoginRequiredMixin, JSONResponseMixin, View):
+class SpotTraitView(LoginRequiredMixin, JSONResponseMixin, View):
     def post(self, request, *args, **kwargs):
         spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
-        trait_name = request.POST.get('trait')
-        value = request.POST.get('value')
-        if request.user.has_rated_spot(spot):
-            trait_rate = request.user.get_rate(spot) 
-            setattr(trait_rate.traits, trait_name, value)
-            trait_rate.save()
-            return self.render_json_response({'action': 'neutral'})
-        else:
-            trait_rate = TraitRate()
-            trait_rate.spot = spot
-            trait_rate.traits = Traits()
-            setattr(trait_rate.traits, trait_name, value)
-            trait_rate.save()
-            request.user.trait_rates.append(trait_rate)
-            request.user.save()
-            return self.render_json_response({'action': 'neutral'})
+        trait = request.POST.get('trait')
+        if trait in traits:
+            Trait(user=request.user, spot=spot, trait=trait).save()
+            return self.render_json_response({'trait': trait})
 
         raise Http404
 

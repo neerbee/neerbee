@@ -1,6 +1,14 @@
 from mongoengine import *
 
-class Traits(EmbeddedDocument):
+traits = {
+    # Restaurant
+    'italian',
+    'taverna',
+    'mexican'
+    }
+
+
+class OldTraits(EmbeddedDocument):
     # Restaurant
     italian = BooleanField()
     taverna = BooleanField()

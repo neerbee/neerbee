@@ -7,7 +7,6 @@ from mongoengine import *
 from mongoengine.django.auth import User
 
 from spots.models import Spot
-from spots.traits import Traits
 
 @receiver(user_logged_in)
 def get_preferred_language(sender, **kwargs):
@@ -46,12 +45,13 @@ class Like(Document):
     user = ReferenceField(Bee)
     spot = ReferenceField(Spot)
 
-    def __unicode__(self):
-        return "Like"
-
 
 class Dislike(Document):
     user = ReferenceField(Bee)
     spot = ReferenceField(Spot)
 
 
+class Trait(Document):
+    user = ReferenceField(Bee)
+    spot = ReferenceField(Spot)
+    trait = StringField(max_length=50)
