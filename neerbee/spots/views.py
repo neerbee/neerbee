@@ -1,14 +1,14 @@
 from django.contrib import messages
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.views.generic import TemplateView, View
 from django.utils.translation import ugettext as _
 
 from mongoengine.django.shortcuts import get_document_or_404
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, JSONResponseMixin
 
 from users.views import IsStaffMixin
-from users.models import Like
+from users.models import Like, Dislike
 from .models import *
 from .forms import SpotForm
 
@@ -37,12 +37,25 @@ class SpotDetailView(LoginRequiredMixin, TemplateView):
                                     })
 
 
-class SpotLikeView(LoginRequiredMixin, View):
+class SpotLikenessView(LoginRequiredMixin, JSONResponseMixin, View):
     def post(self, request, *args, **kwargs):
         spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
-        request.user.likes.append(Like(spot=spot))
-        request.user.save()
-        return HttpResponse()
+        print request.POST
+        if request.POST.get('action') == 'like' and not request.user.likes_spot(spot):
+            request.user.likes.append(Like(spot=spot))
+            request.user.save()
+            return self.render_json_response({'action': 'like'})
+        elif request.POST.get('action') == 'dislike' and not request.user.dislikes_spot(spot):
+            request.user.dislikes.append(Dislike(spot=spot))
+            request.user.save()
+            return self.render_json_response({'action': 'dislike'})
+        elif request.POST.get('action') == 'neutral':
+            if not request.user.remove_like(spot):   
+                request.user.remove_dislike(spot)
+            request.user.save()
+            return self.render_json_response({'action': 'neutral'})
+
+        raise Http404
 
 
 class SpotCreateView(LoginRequiredMixin, IsStaffMixin, TemplateView):

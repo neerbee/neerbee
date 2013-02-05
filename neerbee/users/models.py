@@ -39,3 +39,31 @@ class Bee(User):
 
     def dislikes_spot(self, spot):
         return spot in (dislike.spot for dislike in self.dislikes)    
+
+    def get_like(self, spot):
+        if self.likes_spot(spot):
+            return [like for like in self.likes if spot == like.spot][0]
+        else:
+            return None
+
+    def get_dislike(self, spot):
+        if self.dislikes_spot(spot):
+            return [dislike for dislike in self.dislikes if spot == dislike.spot][0]
+        else:
+            return None
+
+    def remove_like(self, spot):
+        like = self.get_like(spot)
+        if like:
+            self.likes.remove(like)   
+            return True
+        else:
+            return False
+
+    def remove_dislike(self, spot):
+        dislike = self.get_dislike(spot)
+        if dislike:
+            self.dislikes.remove(dislike)
+            return True
+        else:
+            return False
