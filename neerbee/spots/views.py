@@ -42,10 +42,14 @@ class SpotLikenessView(LoginRequiredMixin, JSONResponseMixin, View):
         spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
         print request.POST
         if request.POST.get('action') == 'like' and not request.user.likes_spot(spot):
+            if request.user.dislikes_spot(spot):
+                request.user.remove_dislike(spot)
             request.user.likes.append(Like(spot=spot))
             request.user.save()
             return self.render_json_response({'action': 'like'})
         elif request.POST.get('action') == 'dislike' and not request.user.dislikes_spot(spot):
+            if request.user.likes_spot(spot):
+                request.user.remove_like(spot)
             request.user.dislikes.append(Dislike(spot=spot))
             request.user.save()
             return self.render_json_response({'action': 'dislike'})

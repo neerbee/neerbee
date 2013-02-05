@@ -42,13 +42,17 @@ class Bee(User):
 
     def get_like(self, spot):
         if self.likes_spot(spot):
-            return [like for like in self.likes if spot == like.spot][0]
+            for like in self.likes:
+                if spot == like.spot:
+                    return like
         else:
             return None
 
     def get_dislike(self, spot):
         if self.dislikes_spot(spot):
-            return [dislike for dislike in self.dislikes if spot == dislike.spot][0]
+            for dislike in self.dislikes:
+                if spot == dislike.spot:
+                    return dislike
         else:
             return None
 
