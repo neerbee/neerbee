@@ -112,6 +112,18 @@ function showLike (action) {
     }
 }
 
+function csrfSafeMethod(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    crossDomain: false,
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type)) {
+            xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+        }
+    }
+});
+
 $(document).ready(function(){
 
   var map = L.map('spot-profile-map').setView([spotLoc0, spotLoc1], 17);
@@ -148,15 +160,17 @@ $(document).ready(function(){
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: "/api/v1/spot/{{ spot.slug }}/likeness",
+        url: "/api/v1/spot/{{ spot.slug }}/likeness/",
         data: { 
-            action: currentAction,
-            'X-CSRFToken': $.cookie('csrftoken')
+            action: currentAction
         },
         success: function (response) {
             console.log(response);
             showLike(response.action);
-        }
+        },  
+        error: function(){  
+            alert("fail");  
+        }  
     });
 
   });
