@@ -30,16 +30,25 @@
 <body>
 <div id="navbar" class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-    <div class="container">
+    <div class="container-fluid">
+
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+
       <a class="brand" href="/"><div id="nb-logo"></div></a>
-      <ul class="nav pull-left">
-        {% block navbar %}
-        {% if not user.is_anonymous %}
-          <li><a href="/">{% trans "home" %}</a></li>
-          <li><a href="{% url 'spots:spots'  %}">{% trans "spots" %}</a></li>
-        {% endif %}
-        {% endblock %}
-      </ul>
+      <div class="nav-collapse collapse">
+        <ul class="nav pull-left">
+          {% block navbar %}
+          {% if not user.is_anonymous %}
+            <li><a href="/">{% trans "home" %}</a></li>
+            <li><a href="{% url 'spots:spots'  %}">{% trans "spots" %}</a></li>
+          {% endif %}
+          {% endblock %}
+        </ul>
+      </div>
       <div class="pull-right">
         {% if user.is_anonymous %}
         <a class="btn btn-small btn-success" rel="tooltip" data-placement="bottom" title="{% trans "Login" %}" href="{% url 'django.contrib.auth.views.login' %}"><i class="icon-user icon-white"></i></a>
