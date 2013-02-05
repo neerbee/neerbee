@@ -8,9 +8,10 @@ from mongoengine.django.shortcuts import get_document_or_404
 from braces.views import LoginRequiredMixin, JSONResponseMixin
 
 from users.views import IsStaffMixin
-from users.models import Like, Dislike
+from users.models import Like, Dislike, TraitRate
 from .models import *
 from .forms import SpotForm
+from .traits import Traits
 
 
 class SpotListView(LoginRequiredMixin, TemplateView):
@@ -40,7 +41,7 @@ class SpotDetailView(LoginRequiredMixin, TemplateView):
 class SpotLikenessView(LoginRequiredMixin, JSONResponseMixin, View):
     def post(self, request, *args, **kwargs):
         spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
-        print request.POST
+        
         if request.POST.get('action') == 'like' and not request.user.likes_spot(spot):
             if request.user.dislikes_spot(spot):
                 request.user.remove_dislike(spot)
@@ -56,6 +57,29 @@ class SpotLikenessView(LoginRequiredMixin, JSONResponseMixin, View):
         elif request.POST.get('action') == 'neutral':
             if not request.user.remove_like(spot):   
                 request.user.remove_dislike(spot)
+            request.user.save()
+            return self.render_json_response({'action': 'neutral'})
+
+        raise Http404
+
+
+class SpotTraitToggleView(LoginRequiredMixin, JSONResponseMixin, View):
+    def post(self, request, *args, **kwargs):
+        spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
+        trait_name = request.POST.get('trait')
+        value = request.POST.get('value')
+        if request.user.has_rated_spot(spot):
+            trait_rate = request.user.get_rate(spot) 
+            setattr(trait_rate.traits, trait_name, value)
+            trait_rate.save()
+            return self.render_json_response({'action': 'neutral'})
+        else:
+            trait_rate = TraitRate()
+            trait_rate.spot = spot
+            trait_rate.traits = Traits()
+            setattr(trait_rate.traits, trait_name, value)
+            trait_rate.save()
+            request.user.trait_rates.append(trait_rate)
             request.user.save()
             return self.render_json_response({'action': 'neutral'})
 
