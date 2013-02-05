@@ -20,13 +20,9 @@
     
 	<h3><small><i class="icon-info-sign"></i></small> {{ spot.name }}</h3>
 
-    {% if likes %}<i class="icon-thumbs-up"></i>
-    {% elif dislikes %}<i class="icon-thumbs-down"></i>
-    {% endif %}
-
     <div class="btn-group">
-        <button id="spot-like" class="spot-likeness btn"><i class="icon-thumbs-up"></i></button>
-        <button id="spot-dislike" class="spot-likeness btn"><i class="icon-thumbs-down"></i></button>
+        <button id="spot-like" class="spot-likeness btn {% if likes %}btn-success{% endif %}"><i class="icon-thumbs-up"></i></button>
+        <button id="spot-dislike" class="spot-likeness btn {% if dislikes %}btn-danger{% endif %}"><i class="icon-thumbs-down"></i></button>
     </div>
 
     <div id="spot-profile-map"></div>
