@@ -54,3 +54,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
             'django.contrib.messages.context_processors.messages',
 )
 
+# If you set this to False, Django will not format dates, numbers and
+# calendars according to the current locale.
+USE_L10N = False

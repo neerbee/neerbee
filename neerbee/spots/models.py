@@ -80,7 +80,7 @@ class Spot(Document):
     slug = StringField(max_length=255, required=True, unique=True)
 
     meta = {
-        'indexes': ['name']
+        'indexes': ['name', 'slug']
     }
 
     def __unicode__(self):
