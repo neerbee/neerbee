@@ -148,7 +148,10 @@ $(document).ready(function(){
         type: "POST",
         dataType: "json",
         url: "/api/v1/spot/{{ spot.slug }}/likeness",
-        data: { action: currentAction },
+        data: { 
+            action: currentAction,
+            X-CSRFToken: $.cookie('csrftoken')
+        },
         success: function (response) {
             showLike(response.action);
         }
