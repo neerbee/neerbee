@@ -26,15 +26,9 @@ class SpotDetailView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
-        likes = False
-        for like in request.user.likes:
-            if spot == like.spot:
-                likes = True
-
-        dislikes = False
-        for dislike in request.user.dislikes:
-            if spot == dislike.spot:
-                dislikes = True
+        
+        likes = request.user.likes_spot(spot)
+        dislikes = request.user.dislikes_spot(spot)
      
         return render(request, self.template_name, {
                                     'spot': spot,
