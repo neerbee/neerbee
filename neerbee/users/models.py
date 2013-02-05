@@ -21,6 +21,7 @@ class Like(EmbeddedDocument):
     def __unicode__(self):
         return self.spot.name
 
+
 class Dislike(EmbeddedDocument):
     spot = ReferenceField(Spot)
     disliked_at = DateTimeField(default=datetime.datetime.now, required=True)
@@ -33,3 +34,8 @@ class Bee(User):
     dislikes = ListField(EmbeddedDocumentField(Dislike))
     preferred_language = StringField(max_length=10)
 
+    def likes_spot(self, spot):
+        return spot in (like.spot for like in self.likes)
+
+    def dislikes_spot(self, spot):
+        return spot in (dislike.spot for dislike in self.dislikes)    
