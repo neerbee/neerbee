@@ -6,7 +6,6 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" />
-  <link rel="stylesheet" href="{% static "css/bootstrap-responsive.css" %}"/>
   <link rel="stylesheet" href="{% static "css/neerbee.css" %}">
   <style type="text/css">
     body {
@@ -44,7 +43,7 @@
         {% if user.is_staff %}
         <a class="btn btn-small" href="{% url 'admin:admin_panel' %}"><i class="icon-cog"></i> {% trans "Admin" %}</a>
         {% endif %}  
-        <a class="btn btn-small btn-danger" href="{% url 'django.contrib.auth.views.logout' %}"><i class="icon-remove icon-white"></i> {% trans "Logout" %}</a>
+        <a class="btn btn-small btn-danger" title="{% trans "Logout" %}" href="{% url 'django.contrib.auth.views.logout' %}"><i class="icon-remove icon-white"></i></a>
         {% endif %}
       </div>  
     </div>
