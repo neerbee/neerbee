@@ -15,82 +15,43 @@ def get_preferred_language(sender, **kwargs):
 		lang_code = kwargs['user'].preferred_language
 		kwargs['request'].session['django_language'] = lang_code
 
-class TraitRate(Document):
-    spot = ReferenceField(Spot)
-    traits = EmbeddedDocumentField(Traits)
-
-    def __unicode__(self):
-        return self.spot.name
-
-
-class Like(EmbeddedDocument):
-    spot = ReferenceField(Spot)
-    liked_at = DateTimeField(default=datetime.datetime.now, required=True)
-
-    def __unicode__(self):
-        return self.spot.name
-
-
-class Dislike(EmbeddedDocument):
-    spot = ReferenceField(Spot)
-    disliked_at = DateTimeField(default=datetime.datetime.now, required=True)
-
-    def __unicode__(self):
-        return self.spot.name   
-
 
 class Bee(User):
-    likes = ListField(EmbeddedDocumentField(Like))
-    dislikes = ListField(EmbeddedDocumentField(Dislike))
-    trait_rates = ListField(ReferenceField(TraitRate))
+    likes = ListField(ReferenceField(Spot, reverse_delete_rule=CASCADE))
+    dislikes = ListField(ReferenceField(Spot, reverse_delete_rule=CASCADE))
     preferred_language = StringField(max_length=10)
 
     def likes_spot(self, spot):
-        return spot in (like.spot for like in self.likes)
+        return spot in self.likes
 
     def dislikes_spot(self, spot):
-        return spot in (dislike.spot for dislike in self.dislikes)    
-
-    def has_rated_spot(self, spot):
-        return spot in (trait_rate.spot for trait_rate in self.trait_rates)
-
-    def get_like(self, spot):
-        if self.likes_spot(spot):
-            for like in self.likes:
-                if spot == like.spot:
-                    return like
-        else:
-            return None
-
-    def get_dislike(self, spot):
-        if self.dislikes_spot(spot):
-            for dislike in self.dislikes:
-                if spot == dislike.spot:
-                    return dislike
-        else:
-            return None
-
-    def get_rate(self, spot):
-        if self.has_rated_spot(spot):
-            for trait_rate in self.trait_rates:
-                if spot == trait_rate.spot:
-                    return trait_rate
-        else:
-            return None
-
+        return spot in self.dislikes
 
     def remove_like(self, spot):
-        like = self.get_like(spot)
-        if like:
-            self.likes.remove(like)   
+        if spot in self.likes:
+            self.likes.remove(spot)
             return True
         else:
             return False
 
     def remove_dislike(self, spot):
-        dislike = self.get_dislike(spot)
-        if dislike:
-            self.dislikes.remove(dislike)
+        if spot in self.dislikes:
+            self.dislikes.remove(spot)
             return True
         else:
             return False
+
+
+class Like(Document):
+    user = ReferenceField(Bee)
+    spot = ReferenceField(Spot)
+
+    def __unicode__(self):
+        return "Like"
+
+
+class Dislike(Document):
+    user = ReferenceField(Bee)
+    spot = ReferenceField(Spot)
+
+

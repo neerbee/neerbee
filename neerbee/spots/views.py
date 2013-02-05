@@ -8,7 +8,7 @@ from mongoengine.django.shortcuts import get_document_or_404
 from braces.views import LoginRequiredMixin, JSONResponseMixin
 
 from users.views import IsStaffMixin
-from users.models import Like, Dislike, TraitRate
+from users.models import Like, Dislike
 from .models import *
 from .forms import SpotForm
 from .traits import Traits
@@ -44,19 +44,28 @@ class SpotLikenessView(LoginRequiredMixin, JSONResponseMixin, View):
         
         if request.POST.get('action') == 'like' and not request.user.likes_spot(spot):
             if request.user.dislikes_spot(spot):
+                Dislike.objects(user=request.user, spot=spot).first().delete()
                 request.user.remove_dislike(spot)
-            request.user.likes.append(Like(spot=spot))
+            request.user.likes.append(spot)
             request.user.save()
+            Like(user=request.user, spot=spot).save()
             return self.render_json_response({'action': 'like'})
         elif request.POST.get('action') == 'dislike' and not request.user.dislikes_spot(spot):
             if request.user.likes_spot(spot):
+                Like.objects(user=request.user, spot=spot).first().delete()
                 request.user.remove_like(spot)
-            request.user.dislikes.append(Dislike(spot=spot))
+            request.user.dislikes.append(spot)
             request.user.save()
+            Dislike(user=request.user, spot=spot).save()
             return self.render_json_response({'action': 'dislike'})
         elif request.POST.get('action') == 'neutral':
-            if not request.user.remove_like(spot):   
+            if request.user.likes_spot(spot):
+                Like.objects(user=request.user, spot=spot).first().delete()
+                request.user.remove_like(spot)   
+            else:
+                Dislike.objects(user=request.user, spot=spot).first().delete()
                 request.user.remove_dislike(spot)
+
             request.user.save()
             return self.render_json_response({'action': 'neutral'})
 
