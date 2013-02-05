@@ -27,7 +27,6 @@
     </div>
 
     <div id="spot-profile-map"></div>
-
         {{ spot.services|join:", " }} | {{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}<br />
         {# service details #}
         {% for service in spot.services %}
