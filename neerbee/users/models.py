@@ -15,9 +15,17 @@ def get_preferred_language(sender, **kwargs):
 		kwargs['request'].session['django_language'] = lang_code
 
 
+class SpotTraits(EmbeddedDocument):
+    spot = ReferenceField(Spot)
+    traits = ListField(StringField(max_length=50))
+
+
 class Bee(User):
     likes = ListField(ReferenceField(Spot, reverse_delete_rule=CASCADE))
     dislikes = ListField(ReferenceField(Spot, reverse_delete_rule=CASCADE))
+    spot_traits = ListField(
+                        EmbeddedDocumentField(SpotTraits)
+                    )
     preferred_language = StringField(max_length=10)
 
     def likes_spot(self, spot):
@@ -39,6 +47,28 @@ class Bee(User):
             return True
         else:
             return False
+
+    def has_added_traits_in_spot(self, spot):
+        for spot_trait in self.spot_traits:
+            if spot_trait.spot == spot:
+                return True
+        return False
+
+    def get_spot_traits(self, spot):
+        for spot_trait in self.spot_traits:
+            if spot_trait.spot == spot:
+                return spot_trait.traits
+        return None
+
+    def add_trait_to_spot(self, spot, trait):
+        traits = self.get_spot_traits(spot)
+        if traits and trait not in traits:
+            traits.append(trait)
+        else:
+            spot_trait = SpotTraits(spot=spot, traits=[])
+            spot_trait.traits.append(trait)
+            self.spot_traits.append(spot_trait)
+
 
 
 class Like(Document):

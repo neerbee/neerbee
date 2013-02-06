@@ -78,6 +78,8 @@ class SpotTraitView(LoginRequiredMixin, JSONResponseMixin, View):
         trait = request.POST.get('trait')
         if trait in traits:
             Trait(user=request.user, spot=spot, trait=trait).save()
+            request.user.add_trait_to_spot(spot, trait)
+            request.user.save()
             return self.render_json_response({'trait': trait})
 
         raise Http404
