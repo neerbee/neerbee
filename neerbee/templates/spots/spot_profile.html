@@ -29,7 +29,29 @@
 
     <div id="spot-profile-map"></div>
 
-    <div id="spot-traits" class="jqcloud"></div>
+    <div class="spot-trait-container accordion" id="spot-traits-accordion">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#spot-traits-accordion" href="#peopleThink">People think about this spot</a>
+            </div>
+            <div id="peopleThink" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                    <div id="spot-traits" class="jqcloud"></div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#spot-traits-accordion" href="#youThink">What do you think about this spot?</a>
+            </div>
+            <div id="youThink" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <ul id="spot-all-traits" class="nav nav-pills">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
         {{ spot.services|join:", " }} | {{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}<br />
         {# service details #}
@@ -119,9 +141,29 @@ function showLike (action) {
     }
 }
 
-function csrfSafeMethod(method) {
+function csrfSafeMethod (method) {
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
+
+function traitButton (traitId) {
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "/api/v1/spot/{{ spot.slug }}/trait/",
+        data: { 
+            trait: traitId
+        },
+        success: function (response) {
+            console.log(response);
+            alert('success');
+        },
+        error: function (response) {
+            console.log(response);
+            alert('fail');
+        }
+    });
+}
+
 $.ajaxSetup({
     crossDomain: false,
     beforeSend: function(xhr, settings) {
@@ -177,15 +219,30 @@ $(document).ready(function(){
     });
 
   });
-
-    var traitCloud = new Array();
     
     $.ajax({
         type: "GET",
         dataType: "json",
         url: "/api/v1/spot/{{ spot.slug }}/trait/",
+        data: { number: 5 },
         success: function (response) {
             $("#spot-traits").jQCloud(response);
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "/api/v1/spot/{{ spot.slug }}/trait/",
+        success: function (response) {
+            for (var i=0, len=response.length; i<len; i++) {
+                $('#spot-all-traits').append('<li><a href="#" id="btn-trait-' + response[i].text + '" >' + response[i].text + '</a></li>');
+            }
+            $('[id^=btn-trait-]').each(function(){
+                $(this).click(function(){
+                    traitButton($(this).attr('id').substring(10));
+                });
+            });
         }
     });
 
