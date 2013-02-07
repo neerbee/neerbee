@@ -98,3 +98,6 @@ class Spot(Document):
 
     def get_absolute_url(self):
         return reverse('spots:spot_profile', args=[self.slug])
+
+    def get_services(self):
+        return {service.service_type for service in self.services}

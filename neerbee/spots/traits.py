@@ -1,192 +1,206 @@
-from mongoengine import *
-
-traits = {
-    # Restaurant
-    'italian',
-    'taverna',
-    'mexican',
-    'burgers',
-    'thai',
-    'chinese',
-    'french',
-    'sushi',
-    'asian',
-    'tapas',
-    'english',
-    'modern_greek',
-    'chef',
-    'traditional_greek',
-    'mezedes',
-    'cretan',
-    'grill_souvlaki',
-    'fish',
-    'homemade',
-    'exotic',
-    'vegetarian',
-    'beerfood',
-    'indian',
-    'turkish',
-    'molecular',
-    'crepes',
-    'healthy',
-    'big_portions',
-    'minimal_food',
-    'dirty',
-    'sharing',
-    'buffet',
-    'food_on_the_go',
-    'after_hours',
-    'brunch',
-    'latin',
-    'spicy',
-    'comforting',
-    'steakhouse',
-    'breakfast',
-    # Bar
-    'dance',
-    'shots',
-    'cocktails',
-    'wine',
-    'pub',
-    'big_club',
-    'small',
-    'sitting',
-    'gigs',
-    'clean_drinks',
-    'face_control',
-    'sit_at_the_bar',
-    'hotel_bar',
-    'kername',
-    'shisha',
-    'raki_tsipouro',
-    'sports',
-    'gay_bar'
-
+food_traits = {
+        # Restaurant
+        'italian',
+        'taverna',
+        'mexican',
+        'burgers',
+        'thai',
+        'chinese',
+        'french',
+        'sushi',
+        'asian',
+        'tapas',
+        'english',
+        'modern_greek',
+        'chef',
+        'traditional_greek',
+        'mezedes',
+        'cretan',
+        'grill_souvlaki',
+        'fish',
+        'homemade',
+        'exotic',
+        'vegetarian',
+        'beerfood',
+        'indian',
+        'turkish',
+        'molecular',
+        'crepes',
+        'healthy',
+        'big_portions',
+        'minimal_food',
+        'dirty',
+        'sharing',
+        'buffet',
+        'food_on_the_go',
+        'after_hours',
+        'brunch',
+        'latin',
+        'spicy',
+        'comforting',
+        'steakhouse',
+        'breakfast'
     }
 
+bar_traits = {
+        # Bar
+        'dance',
+        'shots',
+        'cocktails',
+        'wine',
+        'pub',
+        'big_club',
+        'small',
+        'sitting',
+        'gigs',
+        'clean_drinks',
+        'face_control',
+        'sit_at_the_bar',
+        'hotel_bar',
+        'kername',
+        'shisha',
+        'raki_tsipouro',
+        'sports',
+        'gay_bar'
+    }
 
-class OldTraits(EmbeddedDocument):
-    # Bar
-    dance = BooleanField()
-    shots = BooleanField()
-    cocktails = BooleanField()
-    wine = BooleanField()
-    pub = BooleanField()
-    big_club = BooleanField()
-    small = BooleanField()
-    sitting = BooleanField()
-    gigs = BooleanField()
-    clean_drinks = BooleanField()
-    face_control = BooleanField()
-    sit_at_the_bar = BooleanField()
-    hotel_bar = BooleanField()
-    kername = BooleanField()
-    shisha = BooleanField()
-    raki_tsipouro = BooleanField()
-    sports = BooleanField()
-    gay_bar = BooleanField()
+coffee_traits = {
+        # Coffee
+        'board_games',
+        'frapou',
+        'espresso_bar',
+        'coffee_on_the_go',
+        'work_and_study',
+        'big_cups'
+    }
 
-    # Coffee
-    board_games = BooleanField()
-    frapou = BooleanField()
-    espresso_bar = BooleanField()
-    coffee_on_the_go = BooleanField()
-    work_and_study = BooleanField()
-    big_cups = BooleanField()
+hood_traits = {    
+        # Hood
+        'downtown',
+        'busy',
+        'underground',
+        'suburbs',
+        'by_the_sea',
+        'posh_hood',
+        'calm',
+        'touristic',
+        'corporate',
+    }
 
-    # Hood
-    downtown = BooleanField()
-    busy = BooleanField()
-    underground = BooleanField()
-    suburbs = BooleanField()
-    by_the_sea = BooleanField()
-    posh_hood = BooleanField()
-    calm = BooleanField()
-    touristic = BooleanField()
-    corporate = BooleanField()
+space_traits = {
+        # Space
+        'modern',
+        'prive',
+        'traditional',
+        'spacey',
+        'colourful',
+        'minimal',
+        'retro',
+        'concept',
+        'table_sharing',
+        'house_like',
+        'sofas',
+        'big_tables',
+        'cozy',
+        'crowded',
+        'great_view',
+        'terrace',
+        'open_air',
+        'garden'
+    }
 
-    # Space
-    modern = BooleanField()
-    prive = BooleanField()
-    traditional = BooleanField()
-    spacey = BooleanField()
-    colourful = BooleanField()
-    minimal = BooleanField()
-    retro = BooleanField()
-    concept = BooleanField()
-    table_sharing = BooleanField()
-    house_like = BooleanField()
-    sofas = BooleanField()
-    big_tables = BooleanField()
-    cozy = BooleanField()
-    crowded = BooleanField()
-    great_view = BooleanField()
-    terrace = BooleanField()
-    open_air = BooleanField()
-    garden = BooleanField()
+crowd_traits = {
+        # Crowd
+        'kids',
+        'students',
+        'females',
+        'males',
+        'professionals',
+        'young_professionals',
+        'hipsters',
+        'old_people',
+        'hippies',
+        'indy',
+        'posh',
+        'couples',
+        'celebrities',
+        'singles',
+        'gay_lesbian',
+        'families',
+        'artists',
+        'musicians'
+    }
 
-    # Crowd
-    kids = BooleanField()
-    students = BooleanField()
-    females = BooleanField()
-    males = BooleanField()
-    professionals = BooleanField()
-    young_professionals = BooleanField()
-    hipsters = BooleanField()
-    old_people = BooleanField()
-    hippies = BooleanField()
-    indy = BooleanField()
-    posh = BooleanField()
-    couples = BooleanField()
-    celebrities = BooleanField()
-    singles = BooleanField()
-    gay_lesbian = BooleanField()
-    families = BooleanField()
-    artists = BooleanField()
-    musicians = BooleanField()
+ambience_traits = {    
+        # Ambience
+        'noisy',
+        'dark',
+        'beer_smell',
+        'smokey',
+        'romantic',
+        'candles',
+        'sexy',
+        'flashy',
+        'flirty',
+        'bright',
+        'clean',
+        'party',
+        'friendly',
+        'family_like',
+        'quiet',
+        'loud',
+        'chillout'
+    }
 
-    # Ambience
-    noisy = BooleanField()
-    dark = BooleanField()
-    beer_smell = BooleanField()
-    smokey = BooleanField()
-    romantic = BooleanField()
-    candles = BooleanField()
-    sexy = BooleanField()
-    flashy = BooleanField()
-    flirty = BooleanField()
-    bright = BooleanField()
-    clean = BooleanField()
-    party = BooleanField()
-    friendly = BooleanField()
-    family_like = BooleanField()
-    quiet = BooleanField()
-    loud = BooleanField()
-    chillout = BooleanField()
+music_traits = {
+        # Music
+        'mainstream',
+        'rock',
+        'hip_hop',
+        'electronic',
+        'house',
+        'greek_pop',
+        'alternative',
+        'latin',
+        'jazz',
+        'eclectic',
+        'atmospheric',
+        'disco',
+        'oldschool',
+        'live',
+        'karaoke',
+        'goth',
+        'metal',
+        'heavy_greek',
+        'rebetika',
+        'funk_soul',
+        'loud',
+        'soft',
+        'radio',
+        'no_music',
+        'dj_based'
+    }
 
-    # Music
-    mainstream = BooleanField()
-    rock = BooleanField()
-    hip_hop = BooleanField()
-    electronic = BooleanField()
-    house = BooleanField()
-    greek_pop = BooleanField()
-    alternative = BooleanField()
-    latin = BooleanField()
-    jazz = BooleanField()
-    eclectic = BooleanField()
-    atmospheric = BooleanField()
-    disco = BooleanField()
-    oldschool = BooleanField()
-    live = BooleanField()
-    karaoke = BooleanField()
-    goth = BooleanField()
-    metal = BooleanField()
-    heavy_greek = BooleanField()
-    rebetika = BooleanField()
-    funk_soul = BooleanField()
-    loud = BooleanField()
-    soft = BooleanField()
-    radio = BooleanField()
-    no_music = BooleanField()
-    dj_based = BooleanField()
+non_service_traits = hood_traits | space_traits | crowd_traits | ambience_traits | music_traits
+
+
+def get_service_traits(service_type):
+    return {
+        'Food': food_traits,
+        'Bar': bar_traits,
+        'Coffee': coffee_traits    
+        }.get(service_type, set())
+
+def get_non_service_traits():
+    return non_service_traits
+    
+
+
+    
+    
+
+    
+
+    
+
+    

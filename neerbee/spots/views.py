@@ -1,3 +1,5 @@
+from operator import itemgetter
+
 from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse, Http404
@@ -11,7 +13,7 @@ from users.views import IsStaffMixin
 from users.models import Like, Dislike, Trait
 from .models import *
 from .forms import SpotForm
-from .traits import traits
+from .traits import get_service_traits, get_non_service_traits
 
 
 class SpotListView(LoginRequiredMixin, TemplateView):
@@ -76,7 +78,16 @@ class SpotTraitView(LoginRequiredMixin, JSONResponseMixin, View):
 
     def get(self, request, *args, **kwargs):
         #return self.render_json_response({trait:1 for trait in traits})
-        return self.render_json_response([{"name":trait, "importance":1} for trait in traits])
+        spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
+        traits = set()
+        for service in spot.get_services():
+            traits = traits | get_service_traits(service)
+
+        traits = traits | get_non_service_traits()
+        trait_list = sorted([{"name":trait, "importance":1} for trait in traits], key=itemgetter('importance'))
+        if request.GET.get('number'):
+            trait_list = trait_list[:int(request.GET.get('number'))]
+        return self.render_json_response(trait_list)
 
     def post(self, request, *args, **kwargs):
         spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
