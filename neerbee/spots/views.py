@@ -85,6 +85,8 @@ class SpotTraitView(LoginRequiredMixin, JSONResponseMixin, View):
             traits = traits | get_service_traits(service)
 
         traits = traits | get_non_service_traits()
+        # remove traits that user has voted for
+        traits = traits - set(request.user.get_spot_traits(spot))
         trait_list = sorted([{"text":trait, "weight":randint(1,10)} for trait in traits], key=itemgetter('weight'), reverse=True)
         if request.GET.get('number'):
             trait_list = trait_list[:int(request.GET.get('number'))]
