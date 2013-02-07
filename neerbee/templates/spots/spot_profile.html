@@ -4,11 +4,13 @@
 {% block html_head %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}css/neerbee.map.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.cloud.css" />
 <!--[if lte IE 8]>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.ie.css" />
 <![endif]-->
 <script src="{{ STATIC_URL }}js/leaflet.js"></script>
 <script src="{{ STATIC_URL }}js/jquery.cookie.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.cloud.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -26,6 +28,9 @@
     </div>
 
     <div id="spot-profile-map"></div>
+
+    <div style="width: 500px; height: 300px;" id="spot-traits" class="jqcloud"></div>
+
         {{ spot.services|join:", " }} | {{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}<br />
         {# service details #}
         {% for service in spot.services %}
@@ -168,13 +173,31 @@ $(document).ready(function(){
         },
         success: function (response) {
             showLike(response.action);
-        },  
-        error: function(){  
-            alert("fail");  
-        }  
+        }
     });
 
   });
+
+    var traitCloud = new Array();
+    
+
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "/api/v1/spot/{{ spot.slug }}/trait/",
+        success: function (response) {
+            for (var i=0; i<response.length; i++) {
+                var thisTrait = new Object();
+                thisTrait.weight = 6;
+                thisTrait.text = response[i].name;
+                console.log(thisTrait);
+                traitCloud[i] = thisTrait;
+            }
+            $("#spot-traits").jQCloud(traitCloud);
+        }
+    });
+
+    
 
 });
 </script>
