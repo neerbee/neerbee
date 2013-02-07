@@ -6,52 +6,69 @@ from .tools import unique_slugify
 from .el_en_transliterate import only_latin_chars, transliterate_text
 
 
-#class OpeningHours(EmbeddedDocument):
-#    day = CharField(max_length=20, required=True)
-#    opening = IntField()
-#    closing = IntField()
+class ServiceHours(EmbeddedDocument):
+    # 0-6 where 0 is Monday
+    weekday = IntField(required=True)
+    starting = IntField()
+    ending = IntField()
 
-#    def __unicode__(self):
-#        return self.day
+    def __unicode__(self):
+        return self.day + " " + str(self.starting) + "-" + str(self.ending)
 
 
 class Service(EmbeddedDocument):
     service_type = StringField(max_length=50, required=True)
+    offered_days = ListField(
+                        EmbeddedDocumentField(ServiceHours)
+                    )
 
     def __unicode__(self):
         return self.service_type
+
+    def is_offered_on_day(self, day):
+        for offered_day in self.offered_days:
+            if offered_day.weekday == day:
+                return True
+        return False
+
+    def is_offered_on_daytime(self, day, hour, minute):
+        time_check = hour * 100 + minute
+        for offered_day in self.offered_days:
+            if offered_day.weekday == day and offered_day.starting <= time_check <= offered_day.ending:
+                return True
+        return False
+
 
 class ServiceFood(Service):
     service_type = "Food"
     category = StringField(max_length=100, required=True)
     delivery = BooleanField()
     take_out = BooleanField()
-    # hours
 
     def __unicode__(self):
         return "Food"
 
+
 class ServiceBar(Service):
     service_type = "Bar"
     category = StringField(max_length=100, required=True)
-    # hours
     
     def __unicode__(self):
         return "Bar"
 
+
 class ServiceCoffee(Service):
     service_type = "Coffee"
     board_games = BooleanField()   
-    # hours
 
     def __unicode__(self):
         return "Coffee"
+
 
 class ServiceClub(Service):
     service_type = "Club"
     coat_check = BooleanField()
     face_control = BooleanField()
-    # hours
 
     def __unicode__(self):
         return "Club"
