@@ -92,6 +92,11 @@ class SpotTraitView(LoginRequiredMixin, JSONResponseMixin, View):
 
     def post(self, request, *args, **kwargs):
         spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
+        traits = set()
+        for service in spot.get_services():
+            traits = traits | get_service_traits(service)
+
+        traits = traits | get_non_service_traits()
         trait = request.POST.get('trait')
         if trait in traits:
             Trait(user=request.user, spot=spot, trait=trait).save()
