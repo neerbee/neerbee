@@ -29,7 +29,7 @@
 
     <div id="spot-profile-map"></div>
 
-    <div style="width: 500px; height: 300px;" id="spot-traits" class="jqcloud"></div>
+    <div id="spot-traits" class="jqcloud"></div>
 
         {{ spot.services|join:", " }} | {{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}<br />
         {# service details #}
@@ -186,14 +186,7 @@ $(document).ready(function(){
         dataType: "json",
         url: "/api/v1/spot/{{ spot.slug }}/trait/",
         success: function (response) {
-            for (var i=0; i<response.length; i++) {
-                var thisTrait = new Object();
-                thisTrait.weight = 6;
-                thisTrait.text = response[i].name;
-                console.log(thisTrait);
-                traitCloud[i] = thisTrait;
-            }
-            $("#spot-traits").jQCloud(traitCloud);
+            $("#spot-traits").jQCloud(response);
         }
     });
 
