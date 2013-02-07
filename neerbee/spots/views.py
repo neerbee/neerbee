@@ -1,4 +1,5 @@
 from operator import itemgetter
+from random import randint
 
 from django.contrib import messages
 from django.shortcuts import render
@@ -84,7 +85,7 @@ class SpotTraitView(LoginRequiredMixin, JSONResponseMixin, View):
             traits = traits | get_service_traits(service)
 
         traits = traits | get_non_service_traits()
-        trait_list = sorted([{"name":trait, "importance":1} for trait in traits], key=itemgetter('importance'))
+        trait_list = sorted([{"text":trait, "weight":randint(1,10)} for trait in traits], key=itemgetter('weight'), reverse=True)
         if request.GET.get('number'):
             trait_list = trait_list[:int(request.GET.get('number'))]
         return self.render_json_response(trait_list)

@@ -5,6 +5,16 @@ from mongoengine import *
 from .tools import unique_slugify
 from .el_en_transliterate import only_latin_chars, transliterate_text
 
+
+#class OpeningHours(EmbeddedDocument):
+#    day = CharField(max_length=20, required=True)
+#    opening = IntField()
+#    closing = IntField()
+
+#    def __unicode__(self):
+#        return self.day
+
+
 class Service(EmbeddedDocument):
     service_type = StringField(max_length=50, required=True)
 
