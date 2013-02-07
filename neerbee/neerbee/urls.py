@@ -5,7 +5,7 @@ from tastypie.api import Api
 
 from neerbee.api import *
 from users.views import UserHomeView, UserSettingsView
-from spots.views import SpotLikenessView
+from spots.views import SpotLikenessView, SpotTraitView
 
 v1_api = Api(api_name='v1')
 v1_api.register(SpotResource())
@@ -28,6 +28,11 @@ urlpatterns = patterns('',
         regex=r'^api/v1/spot/(?P<spot_slug>\S+)/likeness/',
         view=SpotLikenessView.as_view(),
         name="spot_likeness"
+    ),
+    url(
+        regex=r'^api/v1/spot/(?P<spot_slug>\S+)/trait/',
+        view=SpotTraitView.as_view(),
+        name="spot_trait"
     ),
     url(r'^api/', include(v1_api.urls)),
     url(

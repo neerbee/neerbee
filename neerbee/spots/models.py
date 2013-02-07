@@ -56,12 +56,6 @@ class Spot(Document):
     phone = StringField(max_length=20)
     website = StringField(max_length=200)
     location = GeoPointField()
-    SERVICE_CHOICES = (
-            ServiceFood,
-            ServiceBar,
-            ServiceCoffee,
-            ServiceClub,
-    )
     services = ListField(
                     EmbeddedDocumentField(Service)
                )
