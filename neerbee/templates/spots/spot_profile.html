@@ -154,12 +154,7 @@ function traitButton (traitId) {
             trait: traitId
         },
         success: function (response) {
-            console.log(response);
-            alert('success');
-        },
-        error: function (response) {
-            console.log(response);
-            alert('fail');
+            $('#btn-trait-' + traitId).remove();
         }
     });
 }

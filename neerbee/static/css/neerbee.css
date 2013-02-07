@@ -37,6 +37,7 @@ div#nb-logo {
 	margin-bottom: 15px;
 	padding: 7px 9px;
 }
+
 .spot-trait-container {
 	width: 500px;
 	height: 250px;
@@ -44,7 +45,7 @@ div#nb-logo {
 }
 #spot-traits {
 	width: 500px;
-	height: 250px;
+	height: 230px;
 	border: none;
 }
 #spot-traits-accordion {
