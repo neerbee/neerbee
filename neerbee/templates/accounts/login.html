@@ -12,7 +12,7 @@
 		<form class="form-signin well" method="post" action="{% url 'django.contrib.auth.views.login' %}">
 			{% csrf_token %}
 			<h2 class="form-signin-heading">{% trans "Please sign in" %}</h2>
-			<input type="text" name="username" class="input-block-level" placeholder="{% trans "Email address" %}">
+			<input type="text" name="username" class="input-block-level" placeholder="{% trans "Username" %}">
 			<input type="password" name="password" class="input-block-level" placeholder="{% trans "Password" %}">
 			<button class="btn btn-large btn-primary" type="submit">{% trans "Sign in" %}</button>
 			<input type="hidden" name="next" value="{{ next }}" />
