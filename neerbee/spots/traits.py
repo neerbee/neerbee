@@ -4,53 +4,68 @@ traits = {
     # Restaurant
     'italian',
     'taverna',
-    'mexican'
+    'mexican',
+    'burgers',
+    'thai',
+    'chinese',
+    'french',
+    'sushi',
+    'asian',
+    'tapas',
+    'english',
+    'modern_greek',
+    'chef',
+    'traditional_greek',
+    'mezedes',
+    'cretan',
+    'grill_souvlaki',
+    'fish',
+    'homemade',
+    'exotic',
+    'vegetarian',
+    'beerfood',
+    'indian',
+    'turkish',
+    'molecular',
+    'crepes',
+    'healthy',
+    'big_portions',
+    'minimal_food',
+    'dirty',
+    'sharing',
+    'buffet',
+    'food_on_the_go',
+    'after_hours',
+    'brunch',
+    'latin',
+    'spicy',
+    'comforting',
+    'steakhouse',
+    'breakfast',
+    # Bar
+    'dance',
+    'shots',
+    'cocktails',
+    'wine',
+    'pub',
+    'big_club',
+    'small',
+    'sitting',
+    'gigs',
+    'clean_drinks',
+    'face_control',
+    'sit_at_the_bar',
+    'hotel_bar',
+    'kername',
+    'shisha',
+    'raki_tsipouro',
+    'sports',
+    'gay_bar'
+
     }
 
 
 class OldTraits(EmbeddedDocument):
-    # Restaurant
-    italian = BooleanField()
-    taverna = BooleanField()
-    mexican = BooleanField()
-    burngers = BooleanField()
-    thai = BooleanField()
-    chinese = BooleanField()
-    french = BooleanField()
-    sushi = BooleanField()
-    asian = BooleanField()
-    tapas = BooleanField()
-    english = BooleanField()
-    modern_greek = BooleanField()
-    chef = BooleanField()
-    traditional_greek = BooleanField()
-    mezedes = BooleanField()
-    cretan = BooleanField()
-    grill_souvlaki = BooleanField()
-    fish = BooleanField()
-    homemade = BooleanField()
-    exotic = BooleanField()
-    vegetarian = BooleanField()
-    beerfood = BooleanField()
-    indian = BooleanField()
-    turkish = BooleanField()
-    molecular = BooleanField()
-    crepes = BooleanField()
-    healthy = BooleanField()
-    big_portions = BooleanField()
-    minimal_food = BooleanField()
-    dirty = BooleanField()
-    sharing = BooleanField()
-    buffet = BooleanField()
-    food_on_the_go = BooleanField()
-    after_hours = BooleanField()
-    brunch = BooleanField()
-    latin = BooleanField()
-    spicy = BooleanField()
-    comforting = BooleanField()
-    steakhouse = BooleanField()
-    breakfast = BooleanField()
-
     # Bar
     dance = BooleanField()
     shots = BooleanField()

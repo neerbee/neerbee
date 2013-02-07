@@ -73,6 +73,11 @@ class SpotLikenessView(LoginRequiredMixin, JSONResponseMixin, View):
 
 
 class SpotTraitView(LoginRequiredMixin, JSONResponseMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        #return self.render_json_response({trait:1 for trait in traits})
+        return self.render_json_response([{"name":trait, "importance":1} for trait in traits])
+
     def post(self, request, *args, **kwargs):
         spot = get_document_or_404(Spot, slug=kwargs['spot_slug'])
         trait = request.POST.get('trait')
