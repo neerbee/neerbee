@@ -58,7 +58,7 @@ class Bee(User):
         for spot_trait in self.spot_traits:
             if spot_trait.spot == spot:
                 return spot_trait.traits
-        return None
+        return list()
 
     def add_trait_to_spot(self, spot, trait):
         traits = self.get_spot_traits(spot)
