@@ -15,105 +15,162 @@
 
 {% block content %}
 <div class="row">
+
     <div class="span12">
-    {% if user.is_staff %}    
-	<a class="btn" href="{% url 'admin:edit_spot' spot.slug %}">edit</a>
+        <div class="spot-details">
+            <h1>{{ spot.name }} <small>{{ spot.services|join:", " }}</small></h1>
+            <small>{{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}</small>
+        </div>
+        <div class="spot-image span12" style="background-image: url('{{ STATIC_URL }}img/empty.spot1800.jpg')">
+        </div>
+        <div id="spot-profile-map" style="height: 300px;"></div>
+    </div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+    <div class="span6 pull-left">
+        <div class="block-center">
+            <h3>Been there? <small>Rate it!</small></h3>
+            <div class="spot-rate-container">
+                <div class="btn-group">
+                    <button id="spot-like" class="spot-likeness btn {% if likes %}btn-success{% endif %}"><i class="icon-thumbs-up"></i></button>
+                    <button id="spot-dislike" class="spot-likeness btn {% if dislikes %}btn-danger{% endif %}"><i class="icon-thumbs-down"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="span6 pull-right">
+        <div class="block-center"><h3>Tips  <small>from our bees.</small></h3></div>
+        <div class="spot-tips-container">
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="user-comment-image media-object img-circle" src="{{ STATIC_URL }}img/empty.user32.jpg">
+                </a>
+                <div class="media-body">
+                    <h5 class="media-heading">CaptHook1989 says:</h5>
+                    Yarr, don't forget to taste the pirate food!
+                </div>
+            </div>
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="user-comment-image media-object img-circle" src="{{ STATIC_URL }}img/empty.user32.jpg">
+                </a>
+                <div class="media-body">
+                    <h5 class="media-heading">peterPen says:</h5>
+                    plesae..
+                </div>
+            </div>
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="user-comment-image media-object img-circle" src="{{ STATIC_URL }}img/empty.user32.jpg">
+                </a>
+                <div class="media-body">
+                    <h5 class="media-heading">peterPen says:</h5>
+                    help!
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="block-center">
+            <button class="btn"><i class="icon-pencil"></i> Write a tip</button>
+        </div>
+    </div>
+
+
+    <div class="span6 pull-left">
+        <div class="block-center">
+            <h3>People think it's</h3>
+            <div id="spot-traits" class="span5 jqcloud" style="height: 150px;"></div>
+            <br>
+            <a href="#traitModal" role="button" class="btn" data-toggle="modal"><i class="icon-tags"></i> What do you think?</a>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="span12">
+        <div class="block-center">
+        <h3>Other details</h3>
+    {# service details #}
+    {% for service in spot.services %}
+        {% if "category" in service %}
+            <b>{{ service }} Category:</b> {{ service.category }}<br />
+        {% endif %}
+        {% if "delivery" in service %}
+            <b>Has delivery:</b> {{ service.delivery|yesno }}<br />
+        {% endif %}
+        {% if "take_out" in service %}
+            <b>Has take out:</b> {{ service.take_out|yesno }}<br />
+        {% endif %}
+        {% if "board_games" in service %}
+            <b>Has board games:</b> {{ service.board_games|yesno }}<br />
+        {% endif %}
+        {% if "coat_check" in service %}
+            <b>Has coat check:</b> {{ service.coat_check|yesno }}<br />
+        {% endif %}
+        {% if "face_control" in service %}
+            <b>Has face control:</b> {{ service.face_control|yesno }}<br />
+        {% endif %}
+    {% endfor %}
+    {% if "phone" in spot %}
+    <b>Phone:</b> {{ spot.phone }}<br />
     {% endif %}
-    
-	<h3><small><i class="icon-info-sign"></i></small> {{ spot.name }}</h3>
-
-    <div class="btn-group">
-        <button id="spot-like" class="spot-likeness btn {% if likes %}btn-success{% endif %}"><i class="icon-thumbs-up"></i></button>
-        <button id="spot-dislike" class="spot-likeness btn {% if dislikes %}btn-danger{% endif %}"><i class="icon-thumbs-down"></i></button>
+    {% if "website" in spot %}
+    <b>Website:</b> {{ spot.website|urlize }}<br />
+    {% endif %}
+    {% if "price" in spot %}
+    <b>Price:</b> {{ spot.price }}<br />
+    {% endif %}
+    {% if "wi_fi" in spot %}
+    <b>Wi-Fi:</b> {{ spot.wi_fi|yesno }}<br />
+    {% endif %}
+    {% if "credit_card" in spot %}
+    <b>Accepts Credit Cards:</b> {{ spot.credit_card|yesno }}<br />
+    {% endif %}
+    {% if "wheelchair" in spot %}
+    <b>Wheelchair Accessible:</b> {{ spot.wheelchair|yesno }}<br />
+    {% endif %}
+    {% if "tv" in spot %}
+    <b>Has TV:</b> {{ spot.tv|yesno }}<br />
+    {% endif %}
+    {% if "smoking" in spot %}
+    <b>Smoking Allowed:</b> {{ spot.smoking|yesno }}<br />
+    {% endif %}
+    {% if "self_service" in spot %}
+    <b>Is self-service</b><br />
+    {% endif %}
+    {% if "reservations" in spot %}
+    <b>Takes Reservations:</b> {{ spot.reservations|yesno }}<br />
+    {% endif %}
+    {% if "snacks" in spot %}
+<b>Has Snacks</b> {{ spot.snacks|yesno }}<br />
+    {% endif %}
+    {% if "outdoor_seating" in spot %}
+<b>Has outdoor seating:</b> {{ spot.outdoor_seating|yesno }}<br />
+    {% endif %}
+    {% if "parking" in spot %}
+<b>Has parking</b> {{ spot.parking|yesno }}<br />
+    {% endif %}
     </div>
-
-    <div id="spot-profile-map"></div>
-
-    <div class="spot-trait-container accordion" id="spot-traits-accordion">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#spot-traits-accordion" href="#peopleThink">People think about this spot</a>
-            </div>
-            <div id="peopleThink" class="accordion-body collapse in">
-                <div class="accordion-inner">
-                    <div id="spot-traits" class="jqcloud"></div>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#spot-traits-accordion" href="#youThink">What do you think about this spot?</a>
-            </div>
-            <div id="youThink" class="accordion-body collapse">
-                <div class="accordion-inner">
-                    <ul id="spot-all-traits" class="nav nav-pills">
-                    </ul>
-                </div>
-            </div>
-        </div>
     </div>
+</div>
 
-        {{ spot.services|join:", " }} | {{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}<br />
-        {# service details #}
-        {% for service in spot.services %}
-            {% if "category" in service %}
-                <b>{{ service }} Category:</b> {{ service.category }}<br />
-            {% endif %}
-            {% if "delivery" in service %}
-                <b>Has delivery:</b> {{ service.delivery|yesno }}<br />
-            {% endif %}
-            {% if "take_out" in service %}
-                <b>Has take out:</b> {{ service.take_out|yesno }}<br />
-            {% endif %}
-            {% if "board_games" in service %}
-                <b>Has board games:</b> {{ service.board_games|yesno }}<br />
-            {% endif %}
-            {% if "coat_check" in service %}
-                <b>Has coat check:</b> {{ service.coat_check|yesno }}<br />
-            {% endif %}
-            {% if "face_control" in service %}
-                <b>Has face control:</b> {{ service.face_control|yesno }}<br />
-            {% endif %}
-        {% endfor %}
-        {% if "phone" in spot %}
-        <b>Phone:</b> {{ spot.phone }}<br />
-        {% endif %}
-        {% if "website" in spot %}
-        <b>Website:</b> {{ spot.website|urlize }}<br />
-        {% endif %}
-        {% if "price" in spot %}
-        <b>Price:</b> {{ spot.price }}<br />
-        {% endif %}
-        {% if "wi_fi" in spot %}
-        <b>Wi-Fi:</b> {{ spot.wi_fi|yesno }}<br />
-        {% endif %}
-        {% if "credit_card" in spot %}
-        <b>Accepts Credit Cards:</b> {{ spot.credit_card|yesno }}<br />
-        {% endif %}
-        {% if "wheelchair" in spot %}
-        <b>Wheelchair Accessible:</b> {{ spot.wheelchair|yesno }}<br />
-        {% endif %}
-        {% if "tv" in spot %}
-        <b>Has TV:</b> {{ spot.tv|yesno }}<br />
-        {% endif %}
-        {% if "smoking" in spot %}
-        <b>Smoking Allowed:</b> {{ spot.smoking|yesno }}<br />
-        {% endif %}
-        {% if "self_service" in spot %}
-        <b>Is self-service</b><br />
-        {% endif %}
-        {% if "reservations" in spot %}
-        <b>Takes Reservations:</b> {{ spot.reservations|yesno }}<br />
-        {% endif %}
-        {% if "snacks" in spot %}
-	<b>Has Snacks</b> {{ spot.snacks|yesno }}<br />
-        {% endif %}
-        {% if "outdoor_seating" in spot %}
-	<b>Has outdoor seating:</b> {{ spot.outdoor_seating|yesno }}<br />
-        {% endif %}
-        {% if "parking" in spot %}
-	<b>Has parking</b> {{ spot.parking|yesno }}<br />
-        {% endif %}
+
+<div id="traitModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">What do you think? <small>Choose this spot's most descriptive traits.</small></h3>
+    </div>
+    <div class="modal-body">
+        <p><ul id="spot-all-traits" class="nav nav-pills"></ul></p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Done</button>
     </div>
 </div>
 
@@ -180,6 +237,8 @@ $(document).ready(function(){
       subdomains: ['otile1','otile2','otile3','otile4']
   }).addTo(map);
 
+  map.panTo([spotLoc0-0.0004, spotLoc1-0.0006]);
+
   $('button.spot-likeness').click(function(){
 
     var currentAction;
@@ -219,7 +278,7 @@ $(document).ready(function(){
         type: "GET",
         dataType: "json",
         url: "/api/v1/spot/{{ spot.slug }}/trait/",
-        data: { number: 5 },
+        data: { number: 3 },
         success: function (response) {
             $("#spot-traits").jQCloud(response);
         }

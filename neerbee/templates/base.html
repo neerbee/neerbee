@@ -42,7 +42,7 @@
           <i class="icon-user"></i>
           <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" style="left: auto; right: 0px;">
             <li><a href="{% url 'user_settings' %}"><i class="icon-cog"></i> User settings</a></li>
             {% if user.is_staff %}
             <li><a href="{% url 'admin:admin_panel' %}"><i class="icon-cogs"></i> Admin settings</a></li>
