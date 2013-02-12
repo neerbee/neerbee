@@ -9,4 +9,5 @@
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	z-index: 0;
+	cursor: pointer;
 }

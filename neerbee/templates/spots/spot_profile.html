@@ -300,6 +300,26 @@ $(document).ready(function(){
         }
     });
 
+    var photoView = true;
+
+    $('img.leaflet-tile').click(function(){
+        if (photoView == true) {
+            $('div.spot-image').animate({ height: '30px', marginTop: '255px' }, 600);
+            $('#spot-profile-map').css({ cursor: 'auto' });
+            $('div.spot-image').css({ cursor: 'pointer' });
+            photoView = false;
+        }
+    });
+
+    $('div.spot-image').click(function(){
+        if (photoView == false) {
+            $('div.spot-image').animate({ height: '152px', marginTop: '150px' }, 600);
+            $('div.spot-image').css({ cursor: 'auto' });
+            $('#spot-profile-map').css({ cursor: 'pointer' });
+            photoView = true;
+        }
+    });
+
 });
 </script>
 {% endblock %}
