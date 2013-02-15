@@ -20,6 +20,9 @@
         <div class="spot-details">
             <h1>{{ spot.name }} <small>{{ spot.services|join:", " }}</small></h1>
             <small>{{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}</small>
+            {% if "phone" in spot %}
+            <i class="icon-phone"></i> {{ spot.phone }}
+            {% endif %}
         </div>
         <div class="spot-image span12" style="background-image: url('{{ STATIC_URL }}img/empty.spot1800.jpg')">
         </div>
@@ -83,7 +86,7 @@
 
     <div class="span6">
         <div class="block-center">
-            <h3>People think it's</h3>
+            <h3>People say it's</h3>
             <div id="spot-traits" class="span5 jqcloud" style="height: 150px;"></div>
             <br>
             <a href="#traitModal" role="button" class="btn" data-toggle="modal"><i class="icon-tags"></i> What do you think?</a>
@@ -107,6 +110,13 @@
             {% endif %}
             {{ spot.price }}
             {% endif %}
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="block-center">
+            <h3>Information</h3>
+sadsa
         </div>
     </div>
 
@@ -136,14 +146,9 @@
             <b>Has face control:</b> {{ service.face_control|yesno }}<br />
         {% endif %}
     {% endfor %}
-    {% if "phone" in spot %}
-    <b>Phone:</b> {{ spot.phone }}<br />
-    {% endif %}
+
     {% if "website" in spot %}
     <b>Website:</b> {{ spot.website|urlize }}<br />
-    {% endif %}
-    {% if "price" in spot %}
-    <b>Price:</b> {{ spot.price }}<br />
     {% endif %}
     {% if "wi_fi" in spot %}
     <b>Wi-Fi:</b> {{ spot.wi_fi|yesno }}<br />
