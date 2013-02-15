@@ -95,11 +95,15 @@
             <h3>Price</h3>
             {% if "price" in spot %}
             {% if spot.price == 1 %}
-            <i class="icon-circle"></i><i class="icon-circle-blank"></i><i class="icon-circle-blank"></i>
+            <i class="icon-circle"></i><i class="icon-circle-blank"></i><i class="icon-circle-blank"></i><i class="icon-circle-blank"></i><i class="icon-circle-blank"></i>
             {% elif spot.price == 2 %}
-            <i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle-blank"></i>
+            <i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle-blank"></i><i class="icon-circle-blank"></i><i class="icon-circle-blank"></i>
+            {% elif spot.price == 3 %}
+            <i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle-blank"></i><i class="icon-circle-blank"></i>
+            {% elif spot.price == 4 %}
+            <i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle-blank"></i>
             {% else %}
-            <i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle"></i>
+            <i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle"></i>
             {% endif %}
             {{ spot.price }}
             {% endif %}
