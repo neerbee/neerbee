@@ -94,9 +94,9 @@
         <div class="block-center">
             <h3>Price</h3>
             {% if "price" in spot %}
-            {% if spot.price == "1" %}
+            {% if spot.price == 1 %}
             <i class="icon-circle"></i><i class="icon-circle-blank"></i><i class="icon-circle-blank"></i>
-            {% elif spot.price == "2" %}
+            {% elif spot.price == 2 %}
             <i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle-blank"></i>
             {% else %}
             <i class="icon-circle"></i><i class="icon-circle"></i><i class="icon-circle"></i>
@@ -254,6 +254,17 @@ $(document).ready(function(){
 
   map.panTo([spotLoc0-0.0004, spotLoc1-0.0006]);
 
+    map.on('moveend', function(e) {
+        $('img.leaflet-tile').click(function(){
+            if (photoView == true) {
+                $('div.spot-image').animate({ height: '30px', marginTop: '255px' }, 600);
+                $('#spot-profile-map').css({ cursor: 'auto' });
+                $('div.spot-image').css({ cursor: 'pointer' });
+                photoView = false;
+            }
+        });
+    });
+
   $('button.spot-likeness').click(function(){
 
     var currentAction;
@@ -316,15 +327,6 @@ $(document).ready(function(){
     });
 
     var photoView = true;
-
-    $('img.leaflet-tile').click(function(){
-        if (photoView == true) {
-            $('div.spot-image').animate({ height: '30px', marginTop: '255px' }, 600);
-            $('#spot-profile-map').css({ cursor: 'auto' });
-            $('div.spot-image').css({ cursor: 'pointer' });
-            photoView = false;
-        }
-    });
 
     $('div.spot-image').click(function(){
         if (photoView == false) {
