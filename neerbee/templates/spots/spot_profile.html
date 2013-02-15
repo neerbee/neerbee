@@ -20,9 +20,14 @@
         <div class="spot-details">
             <h1>{{ spot.name }} <small>{{ spot.services|join:", " }}</small></h1>
             <small>{{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}</small>
+            <br>
             {% if "phone" in spot %}
-            <i class="icon-phone"></i> {{ spot.phone }}
+            <button onClick="$('#contact-text').html('{{ spot.phone }}')" class="btn btn-mini"><i class="icon-phone"></i></button>
             {% endif %}
+            {% if "website" in spot %}
+            <button onClick="$('#contact-text').html('<a target=\'_new\' href=\'{{ spot.website|urlize }}\'>{{ spot.website|urlize }}</a>')"  class="btn btn-mini"><i class="icon-link"></i></button>
+            {% endif %}
+            <span id="contact-text"></span>
         </div>
         <div class="spot-image span12" style="background-image: url('{{ STATIC_URL }}img/empty.spot1800.jpg')">
         </div>
@@ -147,9 +152,7 @@ sadsa
         {% endif %}
     {% endfor %}
 
-    {% if "website" in spot %}
-    <b>Website:</b> {{ spot.website|urlize }}<br />
-    {% endif %}
+
     {% if "wi_fi" in spot %}
     <b>Wi-Fi:</b> {{ spot.wi_fi|yesno }}<br />
     {% endif %}
