@@ -22,12 +22,11 @@
             <small>{{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}</small>
             <br>
             {% if "phone" in spot %}
-            <button onClick="$('#contact-text').html('{{ spot.phone }}')" class="btn btn-mini"><i class="icon-phone"></i></button>
+            <small><i class="icon-phone"></i> {{ spot.phone }}</small>
             {% endif %}
             {% if "website" in spot %}
-            <button onClick="$('#contact-text').html('<a target=\'_new\' href=\'{{ spot.website|urlize }}\'>{{ spot.website|urlize }}</a>')"  class="btn btn-mini"><i class="icon-link"></i></button>
+            <small><i class="icon-external-link"></i> {{ spot.website|urlize }}</small>
             {% endif %}
-            <span id="contact-text"></span>
         </div>
         <div class="spot-image span12" style="background-image: url('{{ STATIC_URL }}img/empty.spot1800.jpg')">
         </div>
