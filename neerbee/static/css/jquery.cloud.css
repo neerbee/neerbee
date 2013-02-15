@@ -25,18 +25,17 @@ div.jqcloud span.w1 { font-size: 100%; }
 
 div.jqcloud { color: #09f; }
 div.jqcloud a { color: inherit; }
-div.jqcloud a:hover { color: #0df; }
-div.jqcloud a:hover { color: #0cf; }
-div.jqcloud span.w10 { color: #0cf; }
-div.jqcloud span.w9 { color: #0cf; }
-div.jqcloud span.w8 { color: #0cf; }
-div.jqcloud span.w7 { color: #39d; }
-div.jqcloud span.w6 { color: #90c5f0; }
-div.jqcloud span.w5 { color: #90a0dd; }
-div.jqcloud span.w4 { color: #90c5f0; }
-div.jqcloud span.w3 { color: #a0ddff; }
-div.jqcloud span.w2 { color: #99ccee; }
-div.jqcloud span.w1 { color: #aab5f0; }
+
+div.jqcloud span.w10 { color: #ef0e0e; background-color: #f0b4b4; } 
+div.jqcloud span.w9 { color: #ef330e; background-color: #e9b4aa; }	
+div.jqcloud span.w8 { color: #ef480e; background-color: #ebbeae; } 
+div.jqcloud span.w7 { color: #ef580e; background-color: #e7bfab; } 
+div.jqcloud span.w6 { color: #ef730e; background-color: #e1c7b2; } 
+div.jqcloud span.w5 { color: #ef820e; background-color: #e9ceb0; }
+div.jqcloud span.w4 { color: #efa20e; background-color: #e6d2ab; } 
+div.jqcloud span.w3 { color: #efb20e; background-color: #ebdbb1; } 
+div.jqcloud span.w2 { color: #efc20e; background-color: #e5d9ab; } 
+div.jqcloud span.w1 { color: #efec0e; background-color: #e9e8b1; } 
 
 /* layout */
 
@@ -45,4 +44,15 @@ div.jqcloud {
   position: relative;
 }
 
-div.jqcloud span { padding: 0; }
+.w10, .w9, .w8, .w7, .w6, .w5, .w4, .w3, .w2, .w1 {
+  display: inline-block;
+  padding: 4px;
+  font-weight: bold;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  vertical-align: baseline;
+  -webkit-border-radius: 15px;
+     -moz-border-radius: 15px;
+          border-radius: 15px;
+   border: 1px solid #f4ecd9;
+}
