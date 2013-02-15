@@ -18,7 +18,7 @@
 
     <div class="span12">
         <div class="spot-details">
-            <h1>{{ spot.name }} <small>{{ spot.services|join:", " }} {% if user.is_staff %}<a class="btn btn-danger" href="{% url 'spots:edit_spot' spot.slug %}">Edit spot</a>{% endif %}</small></h1>
+            <h1>{{ spot.name }} <small>{{ spot.services|join:", " }} {% if user.is_staff %}<a class="btn btn-danger" href="{% url 'admin:edit_spot' spot.slug %}">Edit spot</a>{% endif %}</small></h1>
             <small>{{ spot.address }}, {{ spot.neighbourhood }} {{ spot.pobox }}</small>
             <br>
             {% if "phone" in spot %}
