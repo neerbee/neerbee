@@ -1,2 +1,2 @@
 #web: django-admin.py runserver 0.0.0.0:$PORT --noreload
-web: gunicorn neerbee.wsgi
+web: python manage.py collectstatic --noinput; gunicorn neerbee.wsgi
