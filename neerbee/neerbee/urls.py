@@ -42,3 +42,7 @@ urlpatterns = patterns('',
     ),
     url(r'^spots/', include('spots.urls', namespace="spots")),
 )
+
+urlpatterns += patterns('',  
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),  
+)  
