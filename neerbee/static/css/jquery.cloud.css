@@ -26,7 +26,7 @@ div.jqcloud span.w1 { font-size: 200%; }
 div.jqcloud { color: #09f; }
 div.jqcloud a { color: inherit; }
 
-div.jqcloud span.w10 { color: #ef0e0e; background-color: #f0b4b4; } 
+/*div.jqcloud span.w10 { color: #ef0e0e; background-color: #f0b4b4; } 
 div.jqcloud span.w9 { color: #ef330e; background-color: #e9b4aa; }	
 div.jqcloud span.w8 { color: #ef480e; background-color: #ebbeae; } 
 div.jqcloud span.w7 { color: #ef580e; background-color: #e7bfab; } 
@@ -35,7 +35,17 @@ div.jqcloud span.w5 { color: #ef820e; background-color: #e9ceb0; }
 div.jqcloud span.w4 { color: #efa20e; background-color: #e6d2ab; } 
 div.jqcloud span.w3 { color: #efb20e; background-color: #ebdbb1; } 
 div.jqcloud span.w2 { color: #efc20e; background-color: #e5d9ab; } 
-div.jqcloud span.w1 { color: #e9d999; background-color: #f6eece; } 
+div.jqcloud span.w1 { color: #e9d999; background-color: #f6eece; }*/
+div.jqcloud span.w10 { opacity: 1; }  
+div.jqcloud span.w9 { opacity: .95; }  
+div.jqcloud span.w8 { opacity: .90; } 
+div.jqcloud span.w7 { opacity: .85; } 
+div.jqcloud span.w6 { opacity: .80; } 
+div.jqcloud span.w5 { opacity: .75; }
+div.jqcloud span.w4 { opacity: .70; } 
+div.jqcloud span.w3 { opacity: .65; } 
+div.jqcloud span.w2 { opacity: .60; } 
+div.jqcloud span.w1 { opacity: .55; }
 
 /* layout */
 
@@ -55,4 +65,5 @@ div.jqcloud {
      -moz-border-radius: 15px;
           border-radius: 15px;
    border: 1px solid #f4ecd9;
+   color: #0086f8; background-color: #8be8ff;
 }
