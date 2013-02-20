@@ -5,12 +5,14 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}css/neerbee.map.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.cloud.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.slimbox2.css" />
 <!--[if lte IE 8]>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.ie.css" />
 <![endif]-->
 <script src="{{ STATIC_URL }}js/leaflet.js"></script>
 <script src="{{ STATIC_URL }}js/jquery.cookie.js"></script>
 <script src="{{ STATIC_URL }}js/jquery.cloud.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.slimbox2.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -234,6 +236,10 @@ var spotLoc0 = 37.986828;
 var spotLoc1 = 23.730125;
 {% endif %}
 
+function viewImageGallery () {
+    jQuery.slimbox([["http://127.0.0.1:8000/static/img/empty.spot1800.jpg", "Nice cat"]], 0);
+}
+
 function showLike (action) {
     if (action == 'like') {
         $('#spot-like').addClass('btn-success');
@@ -370,6 +376,9 @@ $(document).ready(function(){
             $('div.spot-image').css({ cursor: 'auto' });
             $('#spot-profile-map').css({ cursor: 'pointer' });
             photoView = true;
+        }
+        else {
+            viewImageGallery();
         }
     });
 
