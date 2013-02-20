@@ -53,7 +53,7 @@
 
     <div class="span6">
         <div class="block-center"><h3>Tips  <small>from our bees.</small></h3></div>
-        <div class="spot-tips-container">
+        <div id="tips-scroll" class="spot-tips-container" style="max-height: 150px; overflow: hidden;">
             <div class="media">
                 <a class="pull-left" href="#">
                     <img class="user-comment-image media-object img-circle" src="{{ STATIC_URL }}img/empty.user32.jpg">
@@ -79,6 +79,33 @@
                 <div class="media-body">
                     <h5 class="media-heading">peterPen says:</h5>
                     help!
+                </div>
+            </div>
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="user-comment-image media-object img-circle" src="{{ STATIC_URL }}img/empty.user32.jpg">
+                </a>
+                <div class="media-body">
+                    <h5 class="media-heading">Spammer says:</h5>
+                    FREE VIAGRA
+                </div>
+            </div>
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="user-comment-image media-object img-circle" src="{{ STATIC_URL }}img/empty.user32.jpg">
+                </a>
+                <div class="media-body">
+                    <h5 class="media-heading">Spammer says:</h5>
+                    FREE VIAGRA
+                </div>
+            </div>
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="user-comment-image media-object img-circle" src="{{ STATIC_URL }}img/empty.user32.jpg">
+                </a>
+                <div class="media-body">
+                    <h5 class="media-heading">Spammer says:</h5>
+                    PENIS ENLARGEMENT
                 </div>
             </div>
         </div>
@@ -344,6 +371,12 @@ $(document).ready(function(){
             $('#spot-profile-map').css({ cursor: 'pointer' });
             photoView = true;
         }
+    });
+
+    $('#tips-scroll').mouseenter(function(){
+        $(this).css('overflow-y', 'scroll');
+    }).mouseleave(function(){
+        $(this).css('overflow-y', 'hidden');
     });
 
 });
