@@ -17,15 +17,4 @@
   <br />
 
 </div> <!-- /container -->
-
-<script type="text/x-mustache-template" id="result-template">
-<a href="{% templatetag openvariable %} spot_url {% templatetag closevariable %}"><strong>{% templatetag openbrace %}{% templatetag openvariable %} name {% templatetag closevariable %}{% templatetag closebrace %}</strong> <span class="muted">{% templatetag openvariable %} address {% templatetag closevariable %} {% templatetag openvariable %} neighbourhood {% templatetag closevariable %}</span></a>
-</script>
-
-<!-- Page Specific Javascript -->
-<script src="{{ STATIC_URL }}js/underscore.js"></script>
-<script src="{{ STATIC_URL }}js/backbone.js"></script>
-<script src="{{ STATIC_URL }}js/mustache.js"></script>
-<script src="{{ STATIC_URL }}js/neerbee-search.js"></script>
-<script>$(function() { Neerbee.boot($('#neerbee-search')); });</script>
 {% endblock %}

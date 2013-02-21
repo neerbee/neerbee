@@ -221,3 +221,6 @@ img.user-comment-image {
 #neerbee-search ul li {
 	background-color: #fff;
 }
+#neerbee-search ul {
+	border-radius: 4px;
+}

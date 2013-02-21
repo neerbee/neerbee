@@ -21,9 +21,14 @@
   <!-- Javascript -->
   <script src="{% static "js/jquery.js" %}"></script>
   <script src="{% static "js/bootstrap.min.js" %}"></script>
+  <script src="{% static "js/underscore.js" %}"></script>
+  <script src="{% static "js/backbone.js" %}"></script>
+  <script src="{% static "js/mustache.js" %}"></script>
+  <script src="{% static "js/neerbee-search.js" %}"></script>
   <script type="text/javascript">
     $(document).ready(function () {
       $("[rel=tooltip]").tooltip();
+      Neerbee.boot($('#neerbee-search'));
     });
   </script>
   {% block html_head %}{% endblock %}
@@ -96,5 +101,9 @@
   {% endif %}
   {% block content %}{% endblock %}
 </div>
+
+<script type="text/x-mustache-template" id="result-template">
+<a href="{% templatetag openvariable %} spot_url {% templatetag closevariable %}"><strong>{% templatetag openbrace %}{% templatetag openvariable %} name {% templatetag closevariable %}{% templatetag closebrace %}</strong> <span class="muted">{% templatetag openvariable %} address {% templatetag closevariable %} {% templatetag openvariable %} neighbourhood {% templatetag closevariable %}</span></a>
+</script>
 </body>
 </html>
