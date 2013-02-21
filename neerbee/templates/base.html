@@ -34,29 +34,31 @@
     <div class="container">
       <a class="brand" href="/"><div id="nb-logo"></div></a>
       <div class="pull-right">
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-search"></i></span><input autocomplete="off" id="input-search-query" type="text" placeholder="{% trans "Find a spot" %}"/>
-        </div>
-        {% if user.is_anonymous %}
-        <a class="btn btn-small btn-success" rel="tooltip" data-placement="bottom" title="{% trans "Login" %}" href="{% url 'django.contrib.auth.views.login' %}"><i class="icon-user icon-white"></i></a>
-        {% else %}
-        <div class="btn-group">
-          <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
-          <i class="icon-user"></i>
-          <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu" style="left: auto; right: 0px;">
-            <li><a href="{% url 'user_settings' %}"><i class="icon-cog"></i> User settings</a></li>
-            {% if user.is_staff %}
-            <li><a href="{% url 'admin:admin_panel' %}"><i class="icon-cogs"></i> Admin settings</a></li>
-            {% endif %}
-            <li class="divider"></li>
-            <li><a href="{% url 'django.contrib.auth.views.logout' %}"><i class="icon-off"></i> Logout</a></li>
-          </ul>
-        </div>
-        {% endif %}
-        <a class="btn btn-navbar btn-small" data-toggle="collapse" data-target=".nav-collapse"><i class="icon-minus"></i></a>
-      </div> 
+        <div class="navbar-form">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-search"></i></span><input autocomplete="off" class="span2" id="input-search-query" type="text" placeholder="{% trans "Find a spot" %}"/>
+          </div>
+          {% if user.is_anonymous %}
+          <a class="btn btn-small btn-success" rel="tooltip" data-placement="bottom" title="{% trans "Login" %}" href="{% url 'django.contrib.auth.views.login' %}"><i class="icon-user icon-white"></i></a>
+          {% else %}
+          <div class="btn-group">
+            <a class="btn btn-small btn-navbar-neerbee dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="icon-user"></i>
+            <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" style="left: auto; right: 0px;">
+              <li><a href="{% url 'user_settings' %}"><i class="icon-cog"></i> User settings</a></li>
+              {% if user.is_staff %}
+              <li><a href="{% url 'admin:admin_panel' %}"><i class="icon-cogs"></i> Admin settings</a></li>
+              {% endif %}
+              <li class="divider"></li>
+              <li><a href="{% url 'django.contrib.auth.views.logout' %}"><i class="icon-off"></i> Logout</a></li>
+            </ul>
+          </div>
+          {% endif %}
+          <a class="btn btn-navbar btn-small" data-toggle="collapse" data-target=".nav-collapse"><i class="icon-minus"></i></a>
+        </div> 
+      </div>
       <div class="nav-collapse collapse">
         <ul class="nav pull-left">
           {% block navbar %}
