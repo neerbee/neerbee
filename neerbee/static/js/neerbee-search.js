@@ -34,7 +34,7 @@ $(function() {
 		url: "/api/v1/spot/search/"
 	});
 
-	Neerbee.Search = Backbone.View.extend({ //
+	Neerbee.Search = Backbone.View.extend({
 		initialize: function() {
 			this.results = new Neerbee.Results();
 			this.results.on('all', this.showResults, this);
