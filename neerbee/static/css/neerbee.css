@@ -194,3 +194,30 @@ img.user-comment-image {
 		-o-transition: width ease 1s;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.neerbee-search-container {
+	position: absolute;
+	z-index: 200;
+	float: right;
+}
+#neerbee-search {
+	display: inline-block;
+	float: right;
+	margin-top: -20px;
+}
+#neerbee-search ul li {
+	background-color: #fff;
+}
